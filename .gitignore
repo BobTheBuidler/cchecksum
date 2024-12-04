@@ -1,0 +1,8 @@
+.hypothesis/
+.pytest_cache/
+build/
+cchecksum.egg-info/
+dist/
+env/
+*.c
+*.so
