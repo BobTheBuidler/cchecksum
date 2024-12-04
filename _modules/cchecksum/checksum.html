@@ -1,0 +1,218 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cchecksum.checksum &mdash; cchecksum  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cchecksum
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cchecksum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cchecksum.checksum</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cchecksum.checksum</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">binascii</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">eth_typing</span> <span class="kn">import</span> <span class="n">AnyAddress</span><span class="p">,</span> <span class="n">ChecksumAddress</span><span class="p">,</span> <span class="n">HexAddress</span>
+<span class="kn">from</span> <span class="nn">eth_utils</span> <span class="kn">import</span> <span class="n">hexstr_if_str</span><span class="p">,</span> <span class="n">keccak</span><span class="p">,</span> <span class="n">to_hex</span>
+<span class="kn">from</span> <span class="nn">eth_utils.address</span> <span class="kn">import</span> <span class="n">_HEX_ADDRESS_REGEXP</span>
+
+<span class="kn">from</span> <span class="nn">cchecksum._checksum</span> <span class="kn">import</span> <span class="n">cchecksum</span>
+
+
+<span class="c1"># this was ripped out of eth_utils and optimized a little bit</span>
+
+
+<div class="viewcode-block" id="to_checksum_address">
+<a class="viewcode-back" href="../../source/cchecksum.html#cchecksum.to_checksum_address">[docs]</a>
+<span class="k">def</span> <span class="nf">to_checksum_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyAddress</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ChecksumAddress</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an address to its EIP-55 checksum format.</span>
+
+<span class="sd">    This function takes an address in any supported format and returns it in the</span>
+<span class="sd">    checksummed format as defined by EIP-55. It uses a custom Cython implementation</span>
+<span class="sd">    for the checksum conversion to optimize performance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value: The address to be converted. It can be in any format supported by</span>
+<span class="sd">            :func:`eth_utils.to_normalized_address`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the input address is not in a recognized format.</span>
+<span class="sd">        TypeError: If the input is not a string, bytes, or any address type.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; to_checksum_address(&quot;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&quot;)</span>
+<span class="sd">        &#39;0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; to_checksum_address(b&#39;\xb4~&lt;\xd87\xdd\xf8\xe4\xc5\x7f\x05\xd7\n\xb8e\xden\x19;\xbb&#39;)</span>
+<span class="sd">        &#39;0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB&#39;</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        - :func:`eth_utils.to_checksum_address` for the standard implementation.</span>
+<span class="sd">        - :func:`to_normalized_address` for converting to a normalized address before checksumming.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">norm_address_no_0x</span> <span class="o">=</span> <span class="n">to_normalized_address</span><span class="p">(</span><span class="n">value</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="n">address_hash</span> <span class="o">=</span> <span class="n">keccak</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">norm_address_no_0x</span><span class="p">)</span>
+    <span class="n">address_hash_hex_no_0x</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">address_hash</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cchecksum</span><span class="p">(</span><span class="n">norm_address_no_0x</span><span class="p">,</span> <span class="n">address_hash_hex_no_0x</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="to_normalized_address">
+<a class="viewcode-back" href="../../source/cchecksum.html#cchecksum.to_normalized_address">[docs]</a>
+<span class="k">def</span> <span class="nf">to_normalized_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyAddress</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">HexAddress</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts an address to its normalized hexadecimal representation.</span>
+
+<span class="sd">    This function ensures that the address is in a consistent lowercase hexadecimal</span>
+<span class="sd">    format, which is useful for further processing or validation. It uses</span>
+<span class="sd">    :func:`eth_utils.hexstr_if_str` and :func:`eth_utils.to_hex` to convert the input</span>
+<span class="sd">    to a hexadecimal string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value: The address to be normalized. It can be in any format supported by</span>
+<span class="sd">            :func:`eth_utils.to_hex`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the input address is not in a recognized format.</span>
+<span class="sd">        TypeError: If the input is not a string, bytes, or any address type.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; to_normalized_address(&quot;0xB47E3CD837DDF8E4C57F05D70AB865DE6E193BBB&quot;)</span>
+<span class="sd">        &#39;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; to_normalized_address(b&#39;\xb4~&lt;\xd87\xdd\xf8\xe4\xc5\x7f\x05\xd7\n\xb8e\xden\x19;\xbb&#39;)</span>
+<span class="sd">        &#39;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&#39;</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        - :func:`eth_utils.to_normalized_address` for the standard implementation.</span>
+<span class="sd">        - :func:`is_address` for checking if a string is a valid address.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">hex_address</span> <span class="o">=</span> <span class="n">hexstr_if_str</span><span class="p">(</span><span class="n">to_hex</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Value must be any string, instead got type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_address</span><span class="p">(</span><span class="n">hex_address</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unknown format </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">, attempted to normalize to </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">hex_address</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">hex_address</span>  <span class="c1"># type: ignore [return-value]</span></div>
+
+
+
+<div class="viewcode-block" id="is_address">
+<a class="viewcode-back" href="../../source/cchecksum.html#cchecksum.is_address">[docs]</a>
+<span class="k">def</span> <span class="nf">is_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if the given string is a valid address in any known format.</span>
+
+<span class="sd">    This function uses a regular expression to determine if the input string</span>
+<span class="sd">    matches the expected pattern for a hexadecimal address.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value: The string to be checked.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the string is a valid address, False otherwise.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; is_address(&quot;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&quot;)</span>
+<span class="sd">        True</span>
+
+<span class="sd">        &gt;&gt;&gt; is_address(&quot;not-an-address&quot;)</span>
+<span class="sd">        False</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        - :func:`eth_utils.is_address` for the standard implementation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_HEX_ADDRESS_REGEXP</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, BobTheBuidler.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
