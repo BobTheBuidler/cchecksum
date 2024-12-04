@@ -11,4 +11,4 @@ requires = ["setuptools","wheel","Cython"]
 line-length = 100
 
 [tool.mypy]
-exclude = [".eggs/",".github/",".hypothesis/",".mypy_cache/",".pytest_cache/","build/","cache/","checksum_dict.egg-info/","dist/","env/"]
+exclude = [".eggs/",".github/",".hypothesis/",".mypy_cache/",".pytest_cache/","build/","cache/","cchecksum.egg-info/","dist/","env/"]
