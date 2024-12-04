@@ -20,7 +20,7 @@ setup(
     license="MIT",
     install_requires=requirements,
     setup_requires=["setuptools_scm", "cython"],
-    python_requires=">=3.8,<3.13",
+    python_requires=">=3.8,<4",
     package_data={
         "cchecksum": ["py.typed", "*.pxd", "**/*.pxd"],
     },
