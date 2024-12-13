@@ -109,3 +109,4 @@ def is_address(value: str) -> bool:
         - :func:`eth_utils.is_address` for the standard implementation.
     """
     return _HEX_ADDRESS_REGEXP.fullmatch(value) is not None
+
