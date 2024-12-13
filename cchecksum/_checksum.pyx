@@ -1,3 +1,5 @@
+# cython: boundscheck=False
+
 def cchecksum(str norm_address_no_0x, str address_hash_hex_no_0x) -> str:
     """
     Computes the checksummed version of an Ethereum address.
