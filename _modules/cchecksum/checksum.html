@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>cchecksum.checksum &mdash; cchecksum  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -66,14 +66,15 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cchecksum.checksum</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">binascii</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">binascii</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">eth_typing</span> <span class="kn">import</span> <span class="n">AnyAddress</span><span class="p">,</span> <span class="n">ChecksumAddress</span><span class="p">,</span> <span class="n">HexAddress</span>
-<span class="kn">from</span> <span class="nn">eth_utils</span> <span class="kn">import</span> <span class="n">hexstr_if_str</span><span class="p">,</span> <span class="n">keccak</span><span class="p">,</span> <span class="n">to_hex</span>
-<span class="kn">from</span> <span class="nn">eth_utils.address</span> <span class="kn">import</span> <span class="n">_HEX_ADDRESS_REGEXP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eth_hash.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">keccak</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eth_typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyAddress</span><span class="p">,</span> <span class="n">ChecksumAddress</span><span class="p">,</span> <span class="n">HexAddress</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eth_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">hexstr_if_str</span><span class="p">,</span> <span class="n">to_hex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eth_utils.address</span><span class="w"> </span><span class="kn">import</span> <span class="n">_HEX_ADDRESS_REGEXP</span>
 
-<span class="kn">from</span> <span class="nn">cchecksum._checksum</span> <span class="kn">import</span> <span class="n">cchecksum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cchecksum._checksum</span><span class="w"> </span><span class="kn">import</span> <span class="n">cchecksum</span>
 
 
 <span class="c1"># this was ripped out of eth_utils and optimized a little bit</span>
@@ -81,7 +82,7 @@
 
 <div class="viewcode-block" id="to_checksum_address">
 <a class="viewcode-back" href="../../source/cchecksum.html#cchecksum.to_checksum_address">[docs]</a>
-<span class="k">def</span> <span class="nf">to_checksum_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyAddress</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ChecksumAddress</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_checksum_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyAddress</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ChecksumAddress</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert an address to its EIP-55 checksum format.</span>
 
@@ -109,7 +110,7 @@
 <span class="sd">        - :func:`to_normalized_address` for converting to a normalized address before checksumming.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">norm_address_no_0x</span> <span class="o">=</span> <span class="n">to_normalized_address</span><span class="p">(</span><span class="n">value</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="n">address_hash</span> <span class="o">=</span> <span class="n">keccak</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">norm_address_no_0x</span><span class="p">)</span>
+    <span class="n">address_hash</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">keccak</span><span class="p">(</span><span class="n">norm_address_no_0x</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)))</span>
     <span class="n">address_hash_hex_no_0x</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">address_hash</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cchecksum</span><span class="p">(</span><span class="n">norm_address_no_0x</span><span class="p">,</span> <span class="n">address_hash_hex_no_0x</span><span class="p">)</span></div>
 
@@ -117,7 +118,7 @@
 
 <div class="viewcode-block" id="to_normalized_address">
 <a class="viewcode-back" href="../../source/cchecksum.html#cchecksum.to_normalized_address">[docs]</a>
-<span class="k">def</span> <span class="nf">to_normalized_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyAddress</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">HexAddress</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_normalized_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyAddress</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">HexAddress</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts an address to its normalized hexadecimal representation.</span>
 
@@ -161,7 +162,7 @@
 
 <div class="viewcode-block" id="is_address">
 <a class="viewcode-back" href="../../source/cchecksum.html#cchecksum.is_address">[docs]</a>
-<span class="k">def</span> <span class="nf">is_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_address</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if the given string is a valid address in any known format.</span>
 
