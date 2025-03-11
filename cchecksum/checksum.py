@@ -1,8 +1,9 @@
 import binascii
 from typing import Union
 
+from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress
-from eth_utils import hexstr_if_str, keccak, to_hex
+from eth_utils import hexstr_if_str, to_hex
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 
 from cchecksum._checksum import cchecksum
@@ -39,7 +40,7 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     norm_address_no_0x = to_normalized_address(value)[2:]
-    address_hash = keccak(text=norm_address_no_0x)
+    address_hash = bytes(keccak(norm_address_no_0x.encode("utf-8")))
     address_hash_hex_no_0x = binascii.hexlify(address_hash).decode("ascii")
     return cchecksum(norm_address_no_0x, address_hash_hex_no_0x)
 
