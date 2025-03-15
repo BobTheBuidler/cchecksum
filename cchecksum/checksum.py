@@ -3,7 +3,7 @@ from typing import Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
-from eth_utils import encode_hex, hexstr_if_str, to_hex
+from eth_utils import encode_hex, hexstr_if_str
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 
 from cchecksum._checksum import cchecksum
