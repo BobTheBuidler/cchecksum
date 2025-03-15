@@ -114,6 +114,7 @@ def is_address(value: str) -> bool:
 
 BytesLike = Union[Primitives, bytearray, memoryview]
 
+
 def to_hex(
     address_bytes: Optional[BytesLike] = None,
     *,
