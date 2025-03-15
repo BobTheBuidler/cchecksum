@@ -2,8 +2,8 @@ import binascii
 from typing import Union
 
 from eth_hash.auto import keccak
-from eth_typing import AnyAddress, ChecksumAddress, HexAddress
-from eth_utils import hexstr_if_str, to_hex
+from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
+from eth_utils import encode_hex, hexstr_if_str, to_hex
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 
 from cchecksum._checksum import cchecksum
@@ -51,12 +51,12 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
 
     This function ensures that the address is in a consistent lowercase hexadecimal
     format, which is useful for further processing or validation. It uses
-    :func:`eth_utils.hexstr_if_str` and :func:`eth_utils.to_hex` to convert the input
+    :func:`eth_utils.hexstr_if_str` and :func:`to_hex` to convert the input
     to a hexadecimal string.
 
     Args:
         value: The address to be normalized. It can be in any format supported by
-            :func:`eth_utils.to_hex`.
+            :func:`to_hex`.
 
     Raises:
         ValueError: If the input address is not in a recognized format.
@@ -110,3 +110,29 @@ def is_address(value: str) -> bool:
         - :func:`eth_utils.is_address` for the standard implementation.
     """
     return _HEX_ADDRESS_REGEXP.fullmatch(value) is not None
+
+
+BytesLike = Union[Primitives, bytearray, memoryview]
+
+def to_hex(
+    address_bytes: Optional[BytesLike] = None,
+    *,
+    hexstr: Optional[HexStr] = None,
+) -> HexStr:
+    """
+    Auto converts any supported value into its hex representation.
+    Trims leading zeros, as defined in:
+    https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding
+    """
+    if hexstr is not None:
+        return add_0x_prefix(hexstr.lower())
+
+    if isinstance(address_bytes, (bytes, bytearray)):
+        return encode_hex(address_bytes)
+
+    if isinstance(address_bytes, memoryview):
+        return encode_hex(bytes(address_bytes))
+
+    raise TypeError(
+        f"Unsupported type: '{repr(type(address_bytes))}'. Must be one of: bytes or bytearray."
+    )
