@@ -47,6 +47,7 @@
 <li><a class="reference internal" href="#module-cchecksum.checksum">cchecksum.checksum module</a><ul>
 <li><a class="reference internal" href="#cchecksum.checksum.is_address"><code class="docutils literal notranslate"><span class="pre">is_address()</span></code></a></li>
 <li><a class="reference internal" href="#cchecksum.checksum.to_checksum_address"><code class="docutils literal notranslate"><span class="pre">to_checksum_address()</span></code></a></li>
+<li><a class="reference internal" href="#cchecksum.checksum.to_hex"><code class="docutils literal notranslate"><span class="pre">to_hex()</span></code></a></li>
 <li><a class="reference internal" href="#cchecksum.checksum.to_normalized_address"><code class="docutils literal notranslate"><span class="pre">to_normalized_address()</span></code></a></li>
 </ul>
 </li>
@@ -174,17 +175,36 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="cchecksum.checksum.to_hex">
+<span class="sig-prename descclassname"><span class="pre">cchecksum.checksum.</span></span><span class="sig-name descname"><span class="pre">to_hex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hexstr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cchecksum/checksum.html#to_hex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cchecksum.checksum.to_hex" title="Link to this definition"></a></dt>
+<dd><p>Auto converts any supported value into its hex representation.
+Trims leading zeros, as defined in:
+<a class="reference external" href="https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding">https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address_bytes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><em>bytes</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytearray" title="(in Python v3.13)"><em>bytearray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#memoryview" title="(in Python v3.13)"><em>memoryview</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>hexstr</strong> (<a class="reference external" href="https://eth-typing.readthedocs.io/en/stable/eth_typing.html#eth_typing.encoding.HexStr" title="(in eth-typing v5.2)"><em>HexStr</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://eth-typing.readthedocs.io/en/stable/eth_typing.html#eth_typing.encoding.HexStr" title="(in eth-typing v5.2)"><em>HexStr</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="cchecksum.checksum.to_normalized_address">
 <span class="sig-prename descclassname"><span class="pre">cchecksum.checksum.</span></span><span class="sig-name descname"><span class="pre">to_normalized_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cchecksum/checksum.html#to_normalized_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cchecksum.checksum.to_normalized_address" title="Link to this definition"></a></dt>
 <dd><blockquote>
 <div><p>Converts an address to its normalized hexadecimal representation.</p>
 <p>This function ensures that the address is in a consistent lowercase hexadecimal
 format, which is useful for further processing or validation. It uses
-<code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.hexstr_if_str()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.to_hex()</span></code> to convert the input
+<code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.hexstr_if_str()</span></code> and <a class="reference internal" href="#cchecksum.checksum.to_hex" title="cchecksum.checksum.to_hex"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_hex()</span></code></a> to convert the input
 to a hexadecimal string.</p>
 <dl>
 <dt>Args:</dt><dd><dl class="simple">
-<dt>value: The address to be normalized. It can be in any format supported by</dt><dd><p><code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.to_hex()</span></code>.</p>
+<dt>value: The address to be normalized. It can be in any format supported by</dt><dd><p><a class="reference internal" href="#cchecksum.checksum.to_hex" title="cchecksum.checksum.to_hex"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_hex()</span></code></a>.</p>
 </dd>
 </dl>
 </dd>
