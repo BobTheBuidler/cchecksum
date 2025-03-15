@@ -81,8 +81,7 @@ def to_int(
         return int(primitive)
     else:
         raise TypeError(
-            "Invalid type. Expected one of int/bool/str/bytes/bytearray. Got "
-            f"{type(primitive)}"
+            "Invalid type. Expected one of int/bool/str/bytes/bytearray. Got " f"{type(primitive)}"
         )
 
 
@@ -106,8 +105,7 @@ def to_bytes(
     elif text is not None:
         return text.encode("utf-8")
     raise TypeError(
-        "expected a bool, int, byte or bytearray in first arg, "
-        "or keyword of hexstr or text"
+        "expected a bool, int, byte or bytearray in first arg, " "or keyword of hexstr or text"
     )
 
 
@@ -133,5 +131,6 @@ def to_text(
 
 
 def patch_eth_utils():
-  import eth_utils.crypto
-  eth_utils.crypto.to_bytes = to_bytes
+    import eth_utils.crypto
+
+    eth_utils.crypto.to_bytes = to_bytes
