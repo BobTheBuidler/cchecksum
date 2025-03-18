@@ -140,5 +140,5 @@ def to_hex(
 
 
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
-keccak(b'')
+keccak(b"")
 keccak = keccak.hasher
