@@ -126,7 +126,7 @@ def to_hex(
     https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding
     """
     if hexstr is not None:
-        return add_0x_prefix(hexstr.lower())
+        return hexstr if hexstr.startswith(("0x", "0X")) else f"0x{hexstr}"
 
     if isinstance(address_bytes, (bytes, bytearray)):
         return encode_hex(address_bytes)
@@ -137,3 +137,8 @@ def to_hex(
     raise TypeError(
         f"Unsupported type: '{repr(type(address_bytes))}'. Must be one of: bytes or bytearray."
     )
+
+
+# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
+keccak(b'')
+keccak = keccak.hasher
