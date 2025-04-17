@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
-from eth_utils import encode_hex, hexstr_if_str
+from eth_utils import encode_hex, is_hexstr, remove_0x_prefix
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.toolz import compose
 
@@ -84,7 +84,7 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
         - :func:`is_address` for checking if a string is a valid address.
     """
     try:
-        hex_address = hexstr_if_str(to_hex, value).lower()
+        hex_address = hexstr_if_str(value).lower()
     except AttributeError as e:
         raise TypeError(
             f"Value must be any string, instead got type {type(value)}"
@@ -102,23 +102,31 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
 encode_memoryview = compose(encode_hex, bytes)
 
 
-def to_hex(
-    address_bytes: Optional[BytesLike] = None,
-    *,
-    hexstr: Optional[HexStr] = None,
-) -> HexStr:
+def hexstr_if_str(hexstr_or_primitive: Union[bytes, int, str]) -> HexStr:
     """
-    Auto converts any supported value into its hex representation.
-    Trims leading zeros, as defined in:
-    https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding
-    """
-    if hexstr is not None:
-        return hexstr if hexstr.startswith(("0x", "0X")) else f"0x{hexstr}"
+    Convert to a type, assuming that strings can be only hexstr (not unicode text).
 
-    if isinstance(address_bytes, (bytes, bytearray)):
+    :param hexstr_or_primitive bytes, str, int: value to convert
+    """
+    if isinstance(hexstr_or_primitive, str):
+        if remove_0x_prefix(hexstr_or_primitive) and not is_hexstr(
+            hexstr_or_primitive
+        ):
+            raise ValueError(
+                "when sending a str, it must be a hex string. "
+                f"Got: {repr(hexstr_or_primitive)}"
+            )
+            
+        return (
+            hexstr_or_primitive 
+            if hexstr_or_primitive.startswith(("0x", "0X")) 
+            else f"0x{hexstr_or_primitive}"
+        )
+        
+    elif isinstance(address_bytes, (bytes, bytearray)):
         return encode_hex(address_bytes)
 
-    if isinstance(address_bytes, memoryview):
+    elif isinstance(address_bytes, memoryview):
         return encode_memoryview(address_bytes)
 
     raise TypeError(
