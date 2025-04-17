@@ -4,7 +4,7 @@ from eth_typing import HexStr, Primitives
 
 from eth_utils.encoding import big_endian_to_int, int_to_big_endian
 from eth_utils.hexadecimal import add_0x_prefix, decode_hex, encode_hex, remove_0x_prefix
-from eth_utils.types import is_boolean, is_integer, is_string
+from eth_utils.types import is_integer, is_string
 
 
 BytesLike = Union[Primitives, bytearray, memoryview]
@@ -26,7 +26,7 @@ def to_hex(
     if text is not None:
         return encode_hex(text.encode("utf-8"))
 
-    if is_boolean(primitive):
+    if isinstance(primitive, bool):
         return "0x1" if primitive else "0x0"
 
     if isinstance(primitive, (bytes, bytearray)):
@@ -90,7 +90,7 @@ def to_bytes(
     hexstr: Optional[HexStr] = None,
     text: Optional[str] = None,
 ) -> bytes:
-    if is_boolean(primitive):
+    if isinstance(primitive, bool):
         return b"\x01" if primitive else b"\x00"
     elif isinstance(primitive, (bytearray, memoryview)):
         return bytes(primitive)
