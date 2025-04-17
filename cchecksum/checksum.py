@@ -56,7 +56,7 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
 def encode_hex(value: AnyStr) -> HexStr:
     if not isinstance(value, (bytes, bytearray)):
         value = value.encode("ascii")
-    return f"0x{hexlify(value).decode('ascii'))}"
+    return f"0x{hexlify(value).decode('ascii')}"
 
 
 encode_memoryview = compose(encode_hex, bytes)
