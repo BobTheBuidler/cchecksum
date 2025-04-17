@@ -173,7 +173,7 @@
         <span class="p">)</span>
 
     <span class="c1"># if `hex_address_no_0x` is not a valid address</span>
-    <span class="k">if</span> <span class="n">hex_address_fullmatch</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;0x</span><span class="si">{</span><span class="n">hex_address_no_0x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">hex_address_fullmatch</span><span class="p">(</span><span class="n">hex_address_no_0x</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">hex_address</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;0x</span><span class="si">{</span><span class="n">hex_address_no_0x</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Unknown format </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">, attempted to normalize to </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">hex_address</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
