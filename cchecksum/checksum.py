@@ -109,20 +109,17 @@ def hexstr_if_str(hexstr_or_primitive: Union[bytes, int, str]) -> HexStr:
     :param hexstr_or_primitive bytes, str, int: value to convert
     """
     if isinstance(hexstr_or_primitive, str):
-        if remove_0x_prefix(hexstr_or_primitive) and not is_hexstr(
-            hexstr_or_primitive
-        ):
+        if remove_0x_prefix(hexstr_or_primitive) and not is_hexstr(hexstr_or_primitive):
             raise ValueError(
-                "when sending a str, it must be a hex string. "
-                f"Got: {repr(hexstr_or_primitive)}"
+                "when sending a str, it must be a hex string. " f"Got: {repr(hexstr_or_primitive)}"
             )
-            
+
         return (
-            hexstr_or_primitive 
-            if hexstr_or_primitive.startswith(("0x", "0X")) 
+            hexstr_or_primitive
+            if hexstr_or_primitive.startswith(("0x", "0X"))
             else f"0x{hexstr_or_primitive}"
         )
-        
+
     elif isinstance(address_bytes, (bytes, bytearray)):
         return encode_hex(address_bytes)
 
