@@ -119,7 +119,6 @@ def is_address(value: str) -> bool:
     return hex_address_fullmatch(value) is not None
 
 
-startswith = str.startswith
 encode_memoryview = compose(encode_hex, bytes)
 
 
@@ -134,7 +133,7 @@ def to_hex(
     https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding
     """
     if hexstr is not None:
-        return hexstr if startswith(hexstr, ("0x", "0X")) else f"0x{hexstr}"
+        return hexstr if hexstr.startswith(("0x", "0X")) else f"0x{hexstr}"
 
     if isinstance(address_bytes, (bytes, bytearray)):
         return encode_hex(address_bytes)
