@@ -56,7 +56,7 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
 def encode_hex(value: AnyStr) -> HexStr:
     if not isinstance(value, (bytes, bytearray)):
         value = value.encode("ascii")
-    return f"0x{hexlify(value).decode("ascii"))}"
+    return f"0x{hexlify(value).decode('ascii'))}"
 
 
 encode_memoryview = compose(encode_hex, bytes)
@@ -117,7 +117,6 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     return hex_address  # type: ignore [return-value]
 
 
-del hexlify
 del Optional, Union
 del AnyAddress, AnyStr, ChecksumAddress, HexAddress, HexStr
 del _HEX_ADDRESS_REGEXP, _HEX_REGEXP, compose, keccak
