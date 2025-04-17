@@ -1,8 +1,8 @@
 from binascii import hexlify
-from typing import Optional, Union
+from typing import AnyStr, Optional, Union
 
 from eth_hash.auto import keccak
-from eth_typing import AnyAddress, AnyStr, ChecksumAddress, HexAddress, HexStr
+from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.hexadecimal import _HEX_REGEXP
 from eth_utils.toolz import compose
@@ -117,6 +117,6 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     return hex_address  # type: ignore [return-value]
 
 
-del Optional, Union
-del AnyAddress, AnyStr, ChecksumAddress, HexAddress, HexStr
+del AnyStr, Optional, Union
+del AnyAddress, ChecksumAddress, HexAddress, HexStr
 del _HEX_ADDRESS_REGEXP, _HEX_REGEXP, compose, keccak
