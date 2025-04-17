@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
-from eth_utils import encode_hex, is_hexstr
-from eth_utils.address import _HEX_ADDRESS_REGEXP
+from eth_utils import encode_hex
+from eth_utils.address import _HEX_ADDRESS_REGEXP, _HEX_REGEXP
 from eth_utils.toolz import compose
 
 from cchecksum._checksum import cchecksum
@@ -16,6 +16,7 @@ keccak(b"")
 hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
 
 hex_address_fullmatch = _HEX_ADDRESS_REGEXP.fullmatch
+hex_fullmatch = _HEX_REGEXP.fullmatch
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -81,7 +82,12 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
         - :func:`is_address` for checking if a string is a valid address.
     """
     if isinstance(value, str):
-        if remove_0x_prefix(value) and not is_hexstr(value):
+        if (
+            # if string has content
+            (value[2:] if if value.startswith(("0x", "0X")) else value)
+            # and is not a hexstring
+            and hex_fullmatch(value) is None
+        ):
             raise ValueError(
                 "when sending a str, it must be a hex string. " f"Got: {repr(value)}"
             )
@@ -112,14 +118,10 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     return hex_address  # type: ignore [return-value]
 
 
-def remove_0x_prefix(value: HexStr) -> HexStr:
-    return value[2:] if if value.startswith(("0x", "0X")) else value
-
-
 encode_memoryview = compose(encode_hex, bytes)
 
 
 del hexlify
 del Optional, Union
 del AnyAddress, ChecksumAddress, HexAddress, HexStr
-del _HEX_ADDRESS_REGEXP, compose, keccak
+del _HEX_ADDRESS_REGEXP, _HEX_REGEXP, compose, keccak
