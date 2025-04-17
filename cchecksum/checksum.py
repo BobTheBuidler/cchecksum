@@ -52,6 +52,7 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
 
 lower = str.lower
 
+
 def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     """
     Converts an address to its normalized hexadecimal representation.
@@ -121,6 +122,7 @@ def is_address(value: str) -> bool:
 
 startswith = str.startswith
 encode_memoryview = compose(encode_hex, bytes)
+
 
 def to_hex(
     address_bytes: Optional[BytesLike] = None,
