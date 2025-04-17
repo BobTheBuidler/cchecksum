@@ -91,7 +91,7 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
             f"Value must be any string, instead got type {type(value)}"
         ) from e.__cause__
 
-    # if `value` is not a valid address
+    # if `hex_address` is not a valid address
     if hex_address_fullmatch(hex_address) is None:
         raise ValueError(
             f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
