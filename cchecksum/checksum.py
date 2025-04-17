@@ -1,9 +1,8 @@
 from binascii import hexlify
-from typing import Optional, Union
+from typing import AnyStr, Optional, Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
-from eth_utils import encode_hex
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.hexadecimal import _HEX_REGEXP
 from eth_utils.toolz import compose
@@ -90,10 +89,10 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
             raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address = encode_hex(value).lower()
+        hex_address = f"0x{hexlify(value).decode('ascii')}".lower()
 
     elif isinstance(value, memoryview):
-        hex_address = encode_memoryview(value).lower()
+        hex_address = f"0x{hexlify(bytes(value)).decode('ascii')}".lower()
 
     else:
         raise TypeError(
@@ -109,10 +108,6 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     return hex_address  # type: ignore [return-value]
 
 
-encode_memoryview = compose(encode_hex, bytes)
-
-
-del hexlify
-del Optional, Union
+del AnyStr, Optional, Union
 del AnyAddress, ChecksumAddress, HexAddress, HexStr
 del _HEX_ADDRESS_REGEXP, _HEX_REGEXP, compose, keccak
