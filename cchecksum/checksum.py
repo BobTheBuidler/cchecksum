@@ -53,15 +53,6 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
     return cchecksum(norm_address_no_0x, hash_address(norm_address_no_0x))
 
 
-def encode_hex(value: AnyStr) -> HexStr:
-    if not isinstance(value, (bytes, bytearray)):
-        value = value.encode("ascii")
-    return f"0x{hexlify(value).decode('ascii')}"
-
-
-encode_memoryview = compose(encode_hex, bytes)
-
-
 def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     """
     Converts an address to its normalized hexadecimal representation.
@@ -98,10 +89,10 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
             raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address = encode_hex(value).lower()
+        hex_address = f"0x{hexlify(value).decode('ascii')}".lower()
 
     elif isinstance(value, memoryview):
-        hex_address = encode_memoryview(value).lower()
+        hex_address = f"0x{hexlify(bytes(value)).decode('ascii')}".lower()
 
     else:
         raise TypeError(
