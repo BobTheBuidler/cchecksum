@@ -30,4 +30,3 @@ def test_benchmark():
     assert checksummed == python
     assert cython_duration < python_duration
     print(f"took {cython_duration/python_duration}% of the time")
-    
