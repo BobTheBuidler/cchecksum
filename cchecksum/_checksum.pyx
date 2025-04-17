@@ -51,6 +51,5 @@ def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_
             # the character is capitalized.
             buffer[i + 2] = address_char - 32 if 97 <= address_char <= 102 else address_char
 
-    # NOTE: For some reason on some systems the buffer length is longer than 42 here, even though that should not be possible.
-    #       Lucky for us, the first 42 characters are always correct. One day maybe I'll debug this.
+    # It is faster to decode a buffer with a known size ie buffer[:42]
     return buffer[:42].decode('ascii')
