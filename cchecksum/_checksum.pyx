@@ -10,8 +10,8 @@ def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_
     Improvement Proposal 55 (EIP-55).
 
     Args:
-        norm_address_no_0x (str): The normalized Ethereum address without the '0x' prefix.
-        address_hash_hex_no_0x (bytes): The hash of the address, also without the '0x' prefix.
+        norm_address_no_0x: The normalized Ethereum address without the '0x' prefix.
+        address_hash_hex_no_0x: The hash of the address, also without the '0x' prefix.
 
     Returns:
         The checksummed Ethereum address with the '0x' prefix.
