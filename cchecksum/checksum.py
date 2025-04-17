@@ -105,7 +105,7 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
             f"Unknown format {repr(value)}, attempted to normalize to {repr(f"0x{hex_address_no_0x}")}"
         )
 
-    return hex_address  # type: ignore [return-value]
+    return hex_address_no_0x  # type: ignore [return-value]
 
 
 del AnyStr, Optional, Union
