@@ -48,7 +48,7 @@
 <li><a class="reference internal" href="#cchecksum.checksum.hex_address_fullmatch"><code class="docutils literal notranslate"><span class="pre">hex_address_fullmatch()</span></code></a></li>
 <li><a class="reference internal" href="#cchecksum.checksum.hex_fullmatch"><code class="docutils literal notranslate"><span class="pre">hex_fullmatch()</span></code></a></li>
 <li><a class="reference internal" href="#cchecksum.checksum.to_checksum_address"><code class="docutils literal notranslate"><span class="pre">to_checksum_address()</span></code></a></li>
-<li><a class="reference internal" href="#cchecksum.checksum.to_normalized_address"><code class="docutils literal notranslate"><span class="pre">to_normalized_address()</span></code></a></li>
+<li><a class="reference internal" href="#cchecksum.checksum.to_normalized_address_no_0x"><code class="docutils literal notranslate"><span class="pre">to_normalized_address_no_0x()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-cchecksum">Module contents</a><ul>
@@ -136,7 +136,7 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 <dl class="simple">
 <dt>See Also:</dt><dd><ul class="simple">
 <li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.to_checksum_address()</span></code> for the standard implementation.</p></li>
-<li><p><a class="reference internal" href="#cchecksum.checksum.to_normalized_address" title="cchecksum.checksum.to_normalized_address"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_normalized_address()</span></code></a> for converting to a normalized address before checksumming.</p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">to_normalized_address()</span></code> for converting to a normalized address before checksumming.</p></li>
 </ul>
 </dd>
 </dl>
@@ -153,10 +153,10 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="cchecksum.checksum.to_normalized_address">
-<span class="sig-prename descclassname"><span class="pre">cchecksum.checksum.</span></span><span class="sig-name descname"><span class="pre">to_normalized_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cchecksum/checksum.html#to_normalized_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cchecksum.checksum.to_normalized_address" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="cchecksum.checksum.to_normalized_address_no_0x">
+<span class="sig-prename descclassname"><span class="pre">cchecksum.checksum.</span></span><span class="sig-name descname"><span class="pre">to_normalized_address_no_0x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cchecksum/checksum.html#to_normalized_address_no_0x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cchecksum.checksum.to_normalized_address_no_0x" title="Link to this definition"></a></dt>
 <dd><blockquote>
-<div><p>Converts an address to its normalized hexadecimal representation.</p>
+<div><p>Converts an address to its normalized hexadecimal representation without the ‘0x’ prefix.</p>
 <p>This function ensures that the address is in a consistent lowercase hexadecimal
 format, which is useful for further processing or validation. It uses
 <code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.hexstr_if_str()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">to_hex()</span></code> to convert the input
