@@ -82,17 +82,17 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         - :func:`is_address` for checking if a string is a valid address.
     """
     if isinstance(value, str):
-        hex_address_no_0x = (value[2:] if value.startswith(("0x", "0X")) else value).lower()
+        hex_address_no_0x = (value[2:] if value.startswith(("0x", "0X")) else value)
 
         # if `value` has content and is not a hexstring
         if hex_address_no_0x and hex_fullmatch(value) is None:
             raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_no_0x = hexlify(value).decode('ascii')}.lower()
+        hex_address_no_0x = hexlify(value).decode('ascii')
 
     elif isinstance(value, memoryview):
-        hex_address_no_0x = hexlify(bytes(value)).decode('ascii')}.lower()
+        hex_address_no_0x = hexlify(bytes(value)).decode('ascii')
 
     else:
         raise TypeError(
