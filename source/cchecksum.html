@@ -45,7 +45,7 @@
 <li><a class="reference internal" href="#">cchecksum package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-cchecksum.checksum">cchecksum.checksum module</a><ul>
-<li><a class="reference internal" href="#cchecksum.checksum.is_address"><code class="docutils literal notranslate"><span class="pre">is_address()</span></code></a></li>
+<li><a class="reference internal" href="#cchecksum.checksum.hex_address_fullmatch"><code class="docutils literal notranslate"><span class="pre">hex_address_fullmatch()</span></code></a></li>
 <li><a class="reference internal" href="#cchecksum.checksum.to_checksum_address"><code class="docutils literal notranslate"><span class="pre">to_checksum_address()</span></code></a></li>
 <li><a class="reference internal" href="#cchecksum.checksum.to_hex"><code class="docutils literal notranslate"><span class="pre">to_hex()</span></code></a></li>
 <li><a class="reference internal" href="#cchecksum.checksum.to_normalized_address"><code class="docutils literal notranslate"><span class="pre">to_normalized_address()</span></code></a></li>
@@ -91,37 +91,9 @@
 <section id="module-cchecksum.checksum">
 <span id="cchecksum-checksum-module"></span><h2>cchecksum.checksum module<a class="headerlink" href="#module-cchecksum.checksum" title="Link to this heading"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="cchecksum.checksum.is_address">
-<span class="sig-prename descclassname"><span class="pre">cchecksum.checksum.</span></span><span class="sig-name descname"><span class="pre">is_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cchecksum/checksum.html#is_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cchecksum.checksum.is_address" title="Link to this definition"></a></dt>
-<dd><p>Check if the given string is a valid address in any known format.</p>
-<p>This function uses a regular expression to determine if the input string
-matches the expected pattern for a hexadecimal address.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The string to be checked.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if the string is a valid address, False otherwise.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_address</span><span class="p">(</span><span class="s2">&quot;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&quot;</span><span class="p">)</span>
-<span class="go">True</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_address</span><span class="p">(</span><span class="s2">&quot;not-an-address&quot;</span><span class="p">)</span>
-<span class="go">False</span>
-</pre></div>
-</div>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul class="simple">
-<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.is_address()</span></code> for the standard implementation.</p></li>
-</ul>
-</div>
+<dt class="sig sig-object py" id="cchecksum.checksum.hex_address_fullmatch">
+<span class="sig-prename descclassname"><span class="pre">cchecksum.checksum.</span></span><span class="sig-name descname"><span class="pre">hex_address_fullmatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cchecksum.checksum.hex_address_fullmatch" title="Link to this definition"></a></dt>
+<dd><p>Matches against all of the string.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -228,7 +200,7 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 <dl class="simple">
 <dt>See Also:</dt><dd><ul class="simple">
 <li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.to_normalized_address()</span></code> for the standard implementation.</p></li>
-<li><p><a class="reference internal" href="#cchecksum.checksum.is_address" title="cchecksum.checksum.is_address"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_address()</span></code></a> for checking if a string is a valid address.</p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">is_address()</span></code> for checking if a string is a valid address.</p></li>
 </ul>
 </dd>
 </dl>
