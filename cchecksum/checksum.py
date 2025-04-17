@@ -139,7 +139,7 @@ def to_hex(
         return encode_hex(address_bytes)
 
     if isinstance(address_bytes, memoryview):
-        return encode_memoryview(address_bytes))
+        return encode_memoryview(address_bytes)
 
     raise TypeError(
         f"Unsupported type: '{repr(type(address_bytes))}'. Must be one of: bytes or bytearray."
