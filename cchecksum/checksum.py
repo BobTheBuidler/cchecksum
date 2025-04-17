@@ -5,8 +5,14 @@ from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
 from eth_utils import add_0x_prefix, encode_hex, hexstr_if_str
 from eth_utils.address import _HEX_ADDRESS_REGEXP
+from eth_utils.toolz import compose
 
 from cchecksum._checksum import cchecksum
+
+
+BytesLike = Union[Primitives, bytearray, memoryview]
+
+hex_address_fullmatch = _HEX_ADDRESS_REGEXP.fullmatch
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -40,10 +46,11 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     norm_address_no_0x = to_normalized_address(value)[2:]
-    address_hash = bytes(keccak(norm_address_no_0x.encode("utf-8")))
-    address_hash_hex_no_0x = hexlify(address_hash).decode("ascii")
+    address_hash_hex_no_0x = hash_address(norm_address_no_0x).decode("ascii")
     return cchecksum(norm_address_no_0x, address_hash_hex_no_0x)
 
+
+lower = str.lower
 
 def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     """
@@ -74,7 +81,7 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
         - :func:`is_address` for checking if a string is a valid address.
     """
     try:
-        hex_address = hexstr_if_str(to_hex, value).lower()
+        hex_address = lower(hexstr_if_str(to_hex, value))
     except AttributeError:
         raise TypeError(f"Value must be any string, instead got type {type(value)}")
 
@@ -109,11 +116,11 @@ def is_address(value: str) -> bool:
     See Also:
         - :func:`eth_utils.is_address` for the standard implementation.
     """
-    return _HEX_ADDRESS_REGEXP.fullmatch(value) is not None
+    return hex_address_fullmatch(value) is not None
 
 
-BytesLike = Union[Primitives, bytearray, memoryview]
-
+startswith = str.startswith
+encode_memoryview = compose(encode_hex, bytes)
 
 def to_hex(
     address_bytes: Optional[BytesLike] = None,
@@ -126,13 +133,13 @@ def to_hex(
     https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding
     """
     if hexstr is not None:
-        return hexstr if hexstr.startswith(("0x", "0X")) else f"0x{hexstr}"
+        return hexstr if startswith(hexstr, ("0x", "0X")) else f"0x{hexstr}"
 
     if isinstance(address_bytes, (bytes, bytearray)):
         return encode_hex(address_bytes)
 
     if isinstance(address_bytes, memoryview):
-        return encode_hex(bytes(address_bytes))
+        return encode_memoryview(address_bytes))
 
     raise TypeError(
         f"Unsupported type: '{repr(type(address_bytes))}'. Must be one of: bytes or bytearray."
@@ -141,4 +148,5 @@ def to_hex(
 
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
 keccak(b"")
-keccak = keccak.hasher
+
+hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
