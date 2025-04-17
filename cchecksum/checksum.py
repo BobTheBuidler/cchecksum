@@ -100,7 +100,6 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         )
 
     # if `hex_address_no_0x` is not a valid address
-    '
     if hex_address_fullmatch(f"0x{hex_address_no_0x}") is None:
         hex_address = f"0x{hex_address_no_0x}"
         raise ValueError(
