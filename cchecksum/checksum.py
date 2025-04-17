@@ -130,5 +130,5 @@ def to_hex(
 del hexlify
 del Optional, Union
 del AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
-del _HEX_ADDRESS_REGEXP, keccak
-raise Exception(globals())
+del _HEX_ADDRESS_REGEXP, compose, keccak
+del BytesLike
