@@ -16,7 +16,7 @@ BytesLike = Union[Primitives, bytearray, memoryview]
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
 keccak(b"")
 
-hash_address = compose(bytearray, hexlify, bytes, keccak.hasher, str.encode)
+hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
 
 hex_address_fullmatch = _HEX_ADDRESS_REGEXP.fullmatch
 
