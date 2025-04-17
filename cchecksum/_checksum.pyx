@@ -52,4 +52,4 @@ def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_
 
     # NOTE: For some reason on some systems the buffer length is longer than 42 here, even though that should not be possible.
     #       Lucky for us, the first 42 characters are always correct. One day maybe I'll debug this.
-    return bytes(buffer[:42]).decode('ascii')
+    return buffer[:42].decode('ascii')
