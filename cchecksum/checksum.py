@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
-from eth_utils import encode_hex, is_hexstr, remove_0x_prefix
+from eth_utils import encode_hex, is_hexstr
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.toolz import compose
 
@@ -80,13 +80,29 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
         - :func:`eth_utils.to_normalized_address` for the standard implementation.
         - :func:`is_address` for checking if a string is a valid address.
     """
-    try:
-        hex_address = hexstr_if_str(value).lower()
-    except AttributeError as e:
-        raise TypeError(
-            f"Value must be any string, instead got type {type(value)}"
-        ) from e.__cause__
+    if isinstance(value, str):
+        if remove_0x_prefix(value) and not is_hexstr(value):
+            raise ValueError(
+                "when sending a str, it must be a hex string. " f"Got: {repr(value)}"
+            )
 
+        hex_address = (
+            value.lower()
+            if value.startswith(("0x", "0X"))
+            else f"0x{value}".lower()
+        )
+
+    elif isinstance(value, (bytes, bytearray)):
+        hex_address = encode_hex(value).lower()
+
+    elif isinstance(value, memoryview):
+        hex_address = encode_memoryview(value).lower()
+
+    else:
+        raise TypeError(
+            f"Unsupported type: '{repr(type(value))}'. Must be one of: bytes or bytearray."
+        )
+    
     # if `hex_address` is not a valid address
     if hex_address_fullmatch(hex_address) is None:
         raise ValueError(
@@ -96,36 +112,11 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     return hex_address  # type: ignore [return-value]
 
 
+def remove_0x_prefix(value: HexStr) -> HexStr:
+    return value[2:] if if value.startswith(("0x", "0X")) else value
+
+
 encode_memoryview = compose(encode_hex, bytes)
-
-
-def hexstr_if_str(hexstr_or_primitive: Union[bytes, int, str]) -> HexStr:
-    """
-    Convert to a type, assuming that strings can be only hexstr (not unicode text).
-
-    :param hexstr_or_primitive bytes, str, int: value to convert
-    """
-    if isinstance(hexstr_or_primitive, str):
-        if remove_0x_prefix(hexstr_or_primitive) and not is_hexstr(hexstr_or_primitive):
-            raise ValueError(
-                "when sending a str, it must be a hex string. " f"Got: {repr(hexstr_or_primitive)}"
-            )
-
-        return (
-            hexstr_or_primitive
-            if hexstr_or_primitive.startswith(("0x", "0X"))
-            else f"0x{hexstr_or_primitive}"
-        )
-
-    elif isinstance(address_bytes, (bytes, bytearray)):
-        return encode_hex(address_bytes)
-
-    elif isinstance(address_bytes, memoryview):
-        return encode_memoryview(address_bytes)
-
-    raise TypeError(
-        f"Unsupported type: '{repr(type(address_bytes))}'. Must be one of: bytes or bytearray."
-    )
 
 
 del hexlify
