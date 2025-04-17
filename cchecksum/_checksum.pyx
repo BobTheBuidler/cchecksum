@@ -1,6 +1,6 @@
 # cython: boundscheck=False
 
-def cchecksum(str norm_address_no_0x, bytes address_hash_hex_no_0x) -> str:
+def cchecksum(str norm_address_no_0x, unsigned char[::1] address_hash_hex_no_0x) -> str:
     """
     Computes the checksummed version of an Ethereum address.
 
@@ -28,7 +28,6 @@ def cchecksum(str norm_address_no_0x, bytes address_hash_hex_no_0x) -> str:
     
     # Declare memoryviews for fixed-length data
     cdef unsigned char[::1] norm_address_mv = bytearray(norm_address_no_0x.encode('ascii'))
-    cdef unsigned char[::1] hash_bytes_mv = bytearray(address_hash_hex_no_0x)
     
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
@@ -40,7 +39,7 @@ def cchecksum(str norm_address_no_0x, bytes address_hash_hex_no_0x) -> str:
     
     for i in range(40):
         
-        if hash_bytes_mv[i] < 56:
+        if address_hash_hex_no_0x[i] < 56:
             # '0' to '7' have ASCII values 48 to 55
             buffer[i + 2] = norm_address_mv[i]
             
