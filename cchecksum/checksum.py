@@ -50,9 +50,6 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
     return cchecksum(norm_address_no_0x, address_hash_hex_no_0x)
 
 
-lower = str.lower
-
-
 def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     """
     Converts an address to its normalized hexadecimal representation.
@@ -82,7 +79,7 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
         - :func:`is_address` for checking if a string is a valid address.
     """
     try:
-        hex_address = lower(hexstr_if_str(to_hex, value))
+        hex_address = hexstr_if_str(to_hex, value).lower()
     except AttributeError:
         raise TypeError(f"Value must be any string, instead got type {type(value)}")
 
