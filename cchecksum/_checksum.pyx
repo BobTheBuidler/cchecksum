@@ -1,4 +1,5 @@
 # cython: boundscheck=False
+# cython: initializedcheck=False
 # cython: wraparound=False
 
 def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_no_0x) -> str:
