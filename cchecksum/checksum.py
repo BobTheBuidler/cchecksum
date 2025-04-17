@@ -2,15 +2,12 @@ from binascii import hexlify
 from typing import Optional, Union
 
 from eth_hash.auto import keccak
-from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
+from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
 from eth_utils import encode_hex, is_hexstr, remove_0x_prefix
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.toolz import compose
 
 from cchecksum._checksum import cchecksum
-
-
-BytesLike = Union[Primitives, bytearray, memoryview]
 
 
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
@@ -133,6 +130,5 @@ def hexstr_if_str(hexstr_or_primitive: Union[bytes, int, str]) -> HexStr:
 
 del hexlify
 del Optional, Union
-del AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
+del AnyAddress, ChecksumAddress, HexAddress, HexStr
 del _HEX_ADDRESS_REGEXP, compose, keccak
-del BytesLike
