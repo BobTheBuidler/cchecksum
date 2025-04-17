@@ -36,6 +36,7 @@ exclude_patterns = [
 # Looks for objects in documentation of external libraries
 intersphinx_mapping = {
     "eth_typing": ("https://eth-typing.readthedocs.io/en/stable/", None),
+    "eth_utils": ("https://eth-utils.readthedocs.io/en/stable/", None),
     "python": ("https://docs.python.org/3", None),
 }
 
