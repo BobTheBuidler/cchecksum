@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
-from eth_utils import add_0x_prefix, encode_hex, hexstr_if_str
+from eth_utils import encode_hex, hexstr_if_str
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.toolz import compose
 
@@ -91,38 +91,13 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
             f"Value must be any string, instead got type {type(value)}"
         ) from e.__cause__
 
-    if not is_address(hex_address):
+    # if `value` is not a valid address
+    if hex_address_fullmatch(hex_address) is None:
         raise ValueError(
             f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
         )
 
     return hex_address  # type: ignore [return-value]
-
-
-def is_address(value: str) -> bool:
-    """
-    Check if the given string is a valid address in any known format.
-
-    This function uses a regular expression to determine if the input string
-    matches the expected pattern for a hexadecimal address.
-
-    Args:
-        value: The string to be checked.
-
-    Returns:
-        True if the string is a valid address, False otherwise.
-
-    Examples:
-        >>> is_address("0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb")
-        True
-
-        >>> is_address("not-an-address")
-        False
-
-    See Also:
-        - :func:`eth_utils.is_address` for the standard implementation.
-    """
-    return hex_address_fullmatch(value) is not None
 
 
 encode_memoryview = compose(encode_hex, bytes)
@@ -152,4 +127,8 @@ def to_hex(
     )
 
 
+del hexlify
+del Optional, Union
+del AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
 del _HEX_ADDRESS_REGEXP, keccak
+raise Exception(globals())
