@@ -88,17 +88,17 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
                 raise ValueError(
                     "when sending a str, it must be a hex string. " f"Got: {repr(value)}"
                 )
-    
+
             hex_address = value.lower()
 
         else:
-            
+
             # if string has content and is not a hexstring
             if value and hex_fullmatch(value) is None:
                 raise ValueError(
                     "when sending a str, it must be a hex string. " f"Got: {repr(value)}"
                 )
-    
+
             hex_address = f"0x{value}".lower()
 
     elif isinstance(value, (bytes, bytearray)):
@@ -111,7 +111,7 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
         raise TypeError(
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bytes or bytearray."
         )
-    
+
     # if `hex_address` is not a valid address
     if hex_address_fullmatch(hex_address) is None:
         raise ValueError(
