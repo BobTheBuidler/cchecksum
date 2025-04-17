@@ -2,8 +2,7 @@ from binascii import hexlify
 from typing import Optional, Union
 
 from eth_hash.auto import keccak
-from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
-from eth_utils import encode_hex
+from eth_typing import AnyAddress, AnyStr, ChecksumAddress, HexAddress, HexStr
 from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.hexadecimal import _HEX_REGEXP
 from eth_utils.toolz import compose
@@ -52,6 +51,15 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
     """
     norm_address_no_0x = to_normalized_address(value)[2:]
     return cchecksum(norm_address_no_0x, hash_address(norm_address_no_0x))
+
+
+def encode_hex(value: AnyStr) -> HexStr:
+    if not isinstance(value, (bytes, bytearray)):
+        value = value.encode("ascii")
+    return f"0x{hexlify(value).decode("ascii"))}"
+
+
+encode_memoryview = compose(encode_hex, bytes)
 
 
 def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
@@ -109,10 +117,7 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     return hex_address  # type: ignore [return-value]
 
 
-encode_memoryview = compose(encode_hex, bytes)
-
-
 del hexlify
 del Optional, Union
-del AnyAddress, ChecksumAddress, HexAddress, HexStr
+del AnyAddress, AnyStr, ChecksumAddress, HexAddress, HexStr
 del _HEX_ADDRESS_REGEXP, _HEX_REGEXP, compose, keccak
