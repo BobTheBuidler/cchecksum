@@ -12,7 +12,14 @@ from cchecksum._checksum import cchecksum
 
 BytesLike = Union[Primitives, bytearray, memoryview]
 
+
+# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
+keccak(b"")
+
+hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
+
 hex_address_fullmatch = _HEX_ADDRESS_REGEXP.fullmatch
+
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -146,7 +153,4 @@ def to_hex(
     )
 
 
-# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
-keccak(b"")
-
-hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
+del _HEX_ADDRESS_REGEXP, keccak
