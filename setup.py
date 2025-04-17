@@ -13,7 +13,7 @@ setup(
         "local_scheme": "no-local-version",
         "version_scheme": "python-simplified-semver",
     },
-    description="A ~2x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.",
+    description="A ~4.5x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.",
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
     url="https://github.com/BobTheBuidler/cchecksum",
