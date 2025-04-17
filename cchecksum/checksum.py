@@ -52,8 +52,7 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     norm_address_no_0x = to_normalized_address(value)[2:]
-    address_hash_hex_no_0x = hash_address(norm_address_no_0x).decode("ascii")
-    return cchecksum(norm_address_no_0x, address_hash_hex_no_0x)
+    return cchecksum(norm_address_no_0x, hash_address(norm_address_no_0x))
 
 
 def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
