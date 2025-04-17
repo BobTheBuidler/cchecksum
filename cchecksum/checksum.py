@@ -4,7 +4,8 @@ from typing import Optional, Union
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
 from eth_utils import encode_hex
-from eth_utils.address import _HEX_ADDRESS_REGEXP, _HEX_REGEXP
+from eth_utils.address import _HEX_ADDRESS_REGEXP
+from eth_utils.hexadecimal import _HEX_REGEXP
 from eth_utils.toolz import compose
 
 from cchecksum._checksum import cchecksum
