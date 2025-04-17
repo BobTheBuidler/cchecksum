@@ -49,13 +49,13 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    norm_address_no_0x = to_normalized_address(value)[2:]
+    norm_address_no_0x = to_normalized_address(value)
     return cchecksum(norm_address_no_0x, hash_address(norm_address_no_0x))
 
 
-def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
+def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     """
-    Converts an address to its normalized hexadecimal representation.
+    Converts an address to its normalized hexadecimal representation without the '0x' prefix.
 
     This function ensures that the address is in a consistent lowercase hexadecimal
     format, which is useful for further processing or validation. It uses
@@ -82,27 +82,27 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
         - :func:`is_address` for checking if a string is a valid address.
     """
     if isinstance(value, str):
-        hex_address = (value if value.startswith(("0x", "0X")) else f"0x{value}").lower()
+        hex_address_no_0x = (value[2:] if value.startswith(("0x", "0X")) else value).lower()
 
         # if `value` has content and is not a hexstring
-        if hex_address[2:] and hex_fullmatch(hex_address) is None:
+        if hex_address_no_0x and hex_fullmatch(value) is None:
             raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address = f"0x{hexlify(value).decode('ascii')}".lower()
+        hex_address_no_0x = hexlify(value).decode('ascii')}.lower()
 
     elif isinstance(value, memoryview):
-        hex_address = f"0x{hexlify(bytes(value)).decode('ascii')}".lower()
+        hex_address_no_0x = hexlify(bytes(value)).decode('ascii')}.lower()
 
     else:
         raise TypeError(
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bytes or bytearray."
         )
 
-    # if `hex_address` is not a valid address
-    if hex_address_fullmatch(hex_address) is None:
+    # if `hex_address_no_0x` is not a valid address
+    if hex_address_fullmatch(f"0x{hex_address}") is None:
         raise ValueError(
-            f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
+            f"Unknown format {repr(value)}, attempted to normalize to {repr(f"0x{hex_address}")}"
         )
 
     return hex_address  # type: ignore [return-value]
