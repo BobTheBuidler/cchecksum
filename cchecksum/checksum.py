@@ -3,10 +3,22 @@ from typing import Optional, Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
-from eth_utils import add_0x_prefix, encode_hex, hexstr_if_str
+from eth_utils import encode_hex, hexstr_if_str
 from eth_utils.address import _HEX_ADDRESS_REGEXP
+from eth_utils.toolz import compose
 
 from cchecksum._checksum import cchecksum
+
+
+BytesLike = Union[Primitives, bytearray, memoryview]
+
+
+# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
+keccak(b"")
+
+hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
+
+hex_address_fullmatch = _HEX_ADDRESS_REGEXP.fullmatch
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -40,8 +52,7 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     norm_address_no_0x = to_normalized_address(value)[2:]
-    address_hash = bytes(keccak(norm_address_no_0x.encode("utf-8")))
-    address_hash_hex_no_0x = hexlify(address_hash).decode("ascii")
+    address_hash_hex_no_0x = hash_address(norm_address_no_0x).decode("ascii")
     return cchecksum(norm_address_no_0x, address_hash_hex_no_0x)
 
 
@@ -75,10 +86,13 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     """
     try:
         hex_address = hexstr_if_str(to_hex, value).lower()
-    except AttributeError:
-        raise TypeError(f"Value must be any string, instead got type {type(value)}")
+    except AttributeError as e:
+        raise TypeError(
+            f"Value must be any string, instead got type {type(value)}"
+        ) from e.__cause__
 
-    if not is_address(hex_address):
+    # if `hex_address` is not a valid address
+    if hex_address_fullmatch(hex_address) is None:
         raise ValueError(
             f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
         )
@@ -86,33 +100,7 @@ def to_normalized_address(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     return hex_address  # type: ignore [return-value]
 
 
-def is_address(value: str) -> bool:
-    """
-    Check if the given string is a valid address in any known format.
-
-    This function uses a regular expression to determine if the input string
-    matches the expected pattern for a hexadecimal address.
-
-    Args:
-        value: The string to be checked.
-
-    Returns:
-        True if the string is a valid address, False otherwise.
-
-    Examples:
-        >>> is_address("0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb")
-        True
-
-        >>> is_address("not-an-address")
-        False
-
-    See Also:
-        - :func:`eth_utils.is_address` for the standard implementation.
-    """
-    return _HEX_ADDRESS_REGEXP.fullmatch(value) is not None
-
-
-BytesLike = Union[Primitives, bytearray, memoryview]
+encode_memoryview = compose(encode_hex, bytes)
 
 
 def to_hex(
@@ -132,13 +120,15 @@ def to_hex(
         return encode_hex(address_bytes)
 
     if isinstance(address_bytes, memoryview):
-        return encode_hex(bytes(address_bytes))
+        return encode_memoryview(address_bytes)
 
     raise TypeError(
         f"Unsupported type: '{repr(type(address_bytes))}'. Must be one of: bytes or bytearray."
     )
 
 
-# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
-keccak(b"")
-keccak = keccak.hasher
+del hexlify
+del Optional, Union
+del AnyAddress, ChecksumAddress, HexAddress, HexStr, Primitives
+del _HEX_ADDRESS_REGEXP, compose, keccak
+del BytesLike
