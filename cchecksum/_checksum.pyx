@@ -34,8 +34,8 @@ def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_
     cdef unsigned char[42] buffer = b'0x' + bytearray(40)
 
     # Handle character casing based on the hash value
-    cdef int i
-    cdef int address_char
+    cdef uint i
+    cdef uint address_char
     
     for i in range(40):
         
