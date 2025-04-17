@@ -21,7 +21,6 @@ hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
 hex_address_fullmatch = _HEX_ADDRESS_REGEXP.fullmatch
 
 
-
 # this was ripped out of eth_utils and optimized a little bit
 
 
