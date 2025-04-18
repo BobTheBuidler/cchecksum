@@ -96,7 +96,7 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         # if `hex_address_no_0x` has content, validate all characters are valid hex chars:
         if hex_address_no_0x:
             try:
-                validate_hex_chars(hex_address_no_0x)
+                validate_hex_chars(hex_address_no_0x, value)
             except ValueError as e:
                 raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}") from e.__cause__
 
@@ -114,9 +114,11 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
 
 
 cdef inline void validate_hex_address(unicode hex_address_no_0x, object original_value):
-    if len(hex_address_no_0x) != 40:
-        raise_value_error(original_value, f"0x{hex_address_no_0x}")
     validate_hex_chars(hex_address_no_0x, original_value)
+    if len(hex_address_no_0x) != 40:
+        raise ValueError(
+            f"Unknown format {repr(original_value)}, attempted to normalize to 0x{hex_address_no_0x}"
+        )
 
     
 cdef inline void validate_hex_chars(unicode string, object original_value):
@@ -159,10 +161,6 @@ cdef inline void validate_hex_char(char c):
     elif c == 102:  # f
         pass
     else:
-        raise_value_error(original_value, f"0x{string}")
-
-
-cdef inline void raise_value_error(original_value, normalized_to):
-    raise ValueError(
-        f"Unknown format {repr(original_value)}, attempted to normalize to {repr(normalized_to)}"
-    )
+        raise ValueError(
+            f"Unknown format {repr(original_value)}, attempted to normalize to "0x{string}"
+        )
