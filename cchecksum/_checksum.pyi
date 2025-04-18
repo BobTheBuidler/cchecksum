@@ -1,7 +1,6 @@
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress
 
 def cchecksum(norm_address_no_0x: str, address_hash_hex_no_0x: bytes) -> ChecksumAddress: ...
-
 def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddress:
     """
     Converts an address to its normalized hexadecimal representation without the '0x' prefix.
