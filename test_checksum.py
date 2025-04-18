@@ -1,7 +1,8 @@
 import time
 from binascii import unhexlify
 
-from eth_utils import to_checksum_address as to_checksum_address_py
+import eth_utils
+import pytest
 
 from cchecksum import to_checksum_address
 
@@ -37,11 +38,11 @@ for i in range(range_start, range_start + 500000):
 
 def test_benchmark():
     start = time.time()
-    checksummed = [to_checksum_address(address) for address in benchmark_addresses]
+    checksummed = list(map(to_checksum_address, benchmark_addresses))
     cython_duration = time.time() - start
     print(f"cython took {cython_duration}s")
     start = time.time()
-    python = [to_checksum_address_py(address) for address in benchmark_addresses]
+    python = list(map(eth_utils.to_checksum_address, benchmark_addresses))
     python_duration = time.time() - start
     print(f"python took {python_duration}s")
     assert checksummed == python
