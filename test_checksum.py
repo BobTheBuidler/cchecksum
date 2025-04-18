@@ -16,12 +16,7 @@ def test_checksum_str_no_0x_prefix():
 
 
 def test_checksum_bytes():
-    bytes = b"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".lower()
-    assert to_checksum_address(bytes) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
-
-
-def test_checksum_bytes_no_0x_prefix():
-    bytes = b"C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".lower()
+    bytes = unhexlify("C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
     assert to_checksum_address(bytes) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
 
