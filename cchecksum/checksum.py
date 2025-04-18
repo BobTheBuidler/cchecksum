@@ -96,7 +96,7 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
 
     else:
         raise TypeError(
-            f"Unsupported type: '{repr(type(value))}'. Must be one of: bytes or bytearray."
+            f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
     # if `hex_address_no_0x` is not a valid address
