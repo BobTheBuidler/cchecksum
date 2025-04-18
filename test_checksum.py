@@ -33,7 +33,7 @@ def test_type_error():
         raise RuntimeError("this should not happen")
 
 
-def test_int_type_error()::
+def test_int_type_error():
     # this gives a ValueError in eth_utils but that's weird
     with pytest.raises(TypeError, match="Unsupported type: '<class 'int'>'. Must be one of: bool, str, bytes, bytearray or int."):
         to_checksum_address(0)
