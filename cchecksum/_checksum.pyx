@@ -61,7 +61,7 @@ def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_
     return buffer[:42].decode('ascii')
 
 
-def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddress:
+cpdef unicode to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
     """
     Converts an address to its normalized hexadecimal representation without the '0x' prefix.
 
