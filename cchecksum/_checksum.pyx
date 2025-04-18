@@ -122,8 +122,44 @@ cdef inline void validate_hex_address(unicode hex_address_no_0x, object original
 cdef inline void validate_hex_chars(unicode string, object original_value):
     cdef char c
     for c in string:
-        if not (48 <= c <= 57 or 97 <= c <= 102):
-            raise_value_error(original_value, f"0x{string}")
+        validate_hex_char(c)
+
+        
+cdef inline void validate_hex_char(char c):
+    if c == 48:  # 0
+        pass
+    elif c == 49:  # 1
+        pass
+    elif c == 50:  # 2
+        pass
+    elif c == 51:  # 3
+        pass
+    elif c == 52:  # 4
+        pass
+    elif c == 53:  # 5
+        pass
+    elif c == 54:  # 6
+        pass
+    elif c == 55:  # 7
+        pass
+    elif c == 56:  # 8
+        pass
+    elif c == 57:  # 9
+        pass
+    elif c == 97:  # a
+        pass
+    elif c == 98:  # b
+        pass
+    elif c == 99:  # c
+        pass
+    elif c == 100:  # d
+        pass
+    elif c == 101:  # e
+        pass
+    elif c == 102:  # f
+        pass
+    else:
+        raise_value_error(original_value, f"0x{string}")
 
 
 cdef inline void raise_value_error(original_value, normalized_to):
