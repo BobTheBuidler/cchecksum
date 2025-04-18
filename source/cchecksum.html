@@ -206,6 +206,9 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 </section>
 <section id="module-cchecksum">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cchecksum" title="Link to this heading"></a></h2>
+<p>CChecksum is a ~5x faster drop-in replacement for eth_utils.to_checksum_address,
+with the most cpu-intensive part implemented in c.</p>
+<p>It keeps the exact same API as the existing implementation, exceptions and all.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cchecksum.to_checksum_address">
 <span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cchecksum/checksum.html#to_checksum_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cchecksum.to_checksum_address" title="Link to this definition"></a></dt>
