@@ -35,7 +35,7 @@ cpdef unicode cchecksum(
     See Also:
         - :func:`eth_utils.to_checksum_address`: A utility function for converting addresses to their checksummed form.
     """
-    cdef int i, address_char
+    cdef int i
         
     # Declare memoryviews for fixed-length data
     cdef const unsigned char[::1] norm_address_mv = norm_address_no_0x.encode('ascii')
@@ -46,21 +46,60 @@ cpdef unicode cchecksum(
     
     with nogil:
         # Handle character casing based on the hash value
-        for i in range(40):
-            
-            if address_hash_hex_no_0x[i] < 56:
-                # '0' to '7' have ASCII values 48 to 55
-                buffer[i + 2] = norm_address_no_0x[i]
-                
-            else:
-                address_char = norm_address_no_0x[i]
-                # This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
-                # characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
-                # the character is capitalized.
-                buffer[i + 2] = address_char - 32 if 97 <= address_char <= 102 else address_char
+        # `if address_hash_hex_no_0x[x] < 56`
+        # '0' to '7' have ASCII values 48 to 55
+        
+        buffer[2] = norm_address_no_0x[0] if address_hash_hex_no_0x[0] < 56 else get_char(norm_address_no_0x[0])
+        buffer[3] = norm_address_no_0x[1] if address_hash_hex_no_0x[1] < 56 else get_char(norm_address_no_0x[1])
+        buffer[4] = norm_address_no_0x[2] if address_hash_hex_no_0x[2] < 56 else get_char(norm_address_no_0x[2])
+        buffer[5] = norm_address_no_0x[3] if address_hash_hex_no_0x[3] < 56 else get_char(norm_address_no_0x[3])
+        buffer[6] = norm_address_no_0x[4] if address_hash_hex_no_0x[4] < 56 else get_char(norm_address_no_0x[4])
+        buffer[7] = norm_address_no_0x[5] if address_hash_hex_no_0x[5] < 56 else get_char(norm_address_no_0x[5])
+        buffer[8] = norm_address_no_0x[6] if address_hash_hex_no_0x[6] < 56 else get_char(norm_address_no_0x[6])
+        buffer[9] = norm_address_no_0x[7] if address_hash_hex_no_0x[7] < 56 else get_char(norm_address_no_0x[7])
+        buffer[10] = norm_address_no_0x[8] if address_hash_hex_no_0x[8] < 56 else get_char(norm_address_no_0x[8])
+        buffer[11] = norm_address_no_0x[9] if address_hash_hex_no_0x[9] < 56 else get_char(norm_address_no_0x[9])
+        buffer[12] = norm_address_no_0x[10] if address_hash_hex_no_0x[10] < 56 else get_char(norm_address_no_0x[10])
+        buffer[13] = norm_address_no_0x[11] if address_hash_hex_no_0x[11] < 56 else get_char(norm_address_no_0x[11])
+        buffer[14] = norm_address_no_0x[12] if address_hash_hex_no_0x[12] < 56 else get_char(norm_address_no_0x[12])
+        buffer[15] = norm_address_no_0x[13] if address_hash_hex_no_0x[13] < 56 else get_char(norm_address_no_0x[13])
+        buffer[16] = norm_address_no_0x[14] if address_hash_hex_no_0x[14] < 56 else get_char(norm_address_no_0x[14])
+        buffer[17] = norm_address_no_0x[15] if address_hash_hex_no_0x[15] < 56 else get_char(norm_address_no_0x[15])
+        buffer[18] = norm_address_no_0x[16] if address_hash_hex_no_0x[16] < 56 else get_char(norm_address_no_0x[16])
+        buffer[19] = norm_address_no_0x[17] if address_hash_hex_no_0x[17] < 56 else get_char(norm_address_no_0x[17])
+        buffer[20] = norm_address_no_0x[18] if address_hash_hex_no_0x[18] < 56 else get_char(norm_address_no_0x[18])
+        buffer[21] = norm_address_no_0x[19] if address_hash_hex_no_0x[19] < 56 else get_char(norm_address_no_0x[19])
+        buffer[22] = norm_address_no_0x[20] if address_hash_hex_no_0x[20] < 56 else get_char(norm_address_no_0x[20])
+        buffer[23] = norm_address_no_0x[21] if address_hash_hex_no_0x[21] < 56 else get_char(norm_address_no_0x[21])
+        buffer[24] = norm_address_no_0x[22] if address_hash_hex_no_0x[22] < 56 else get_char(norm_address_no_0x[22])
+        buffer[25] = norm_address_no_0x[23] if address_hash_hex_no_0x[23] < 56 else get_char(norm_address_no_0x[23])
+        buffer[26] = norm_address_no_0x[24] if address_hash_hex_no_0x[24] < 56 else get_char(norm_address_no_0x[24])
+        buffer[27] = norm_address_no_0x[25] if address_hash_hex_no_0x[25] < 56 else get_char(norm_address_no_0x[25])
+        buffer[28] = norm_address_no_0x[26] if address_hash_hex_no_0x[26] < 56 else get_char(norm_address_no_0x[26])
+        buffer[29] = norm_address_no_0x[27] if address_hash_hex_no_0x[27] < 56 else get_char(norm_address_no_0x[27])
+        buffer[30] = norm_address_no_0x[28] if address_hash_hex_no_0x[28] < 56 else get_char(norm_address_no_0x[28])
+        buffer[31] = norm_address_no_0x[29] if address_hash_hex_no_0x[29] < 56 else get_char(norm_address_no_0x[29])
+        buffer[32] = norm_address_no_0x[30] if address_hash_hex_no_0x[30] < 56 else get_char(norm_address_no_0x[30])
+        buffer[33] = norm_address_no_0x[31] if address_hash_hex_no_0x[31] < 56 else get_char(norm_address_no_0x[31])
+        buffer[34] = norm_address_no_0x[32] if address_hash_hex_no_0x[32] < 56 else get_char(norm_address_no_0x[32])
+        buffer[35] = norm_address_no_0x[33] if address_hash_hex_no_0x[33] < 56 else get_char(norm_address_no_0x[33])
+        buffer[36] = norm_address_no_0x[34] if address_hash_hex_no_0x[34] < 56 else get_char(norm_address_no_0x[34])
+        buffer[37] = norm_address_no_0x[35] if address_hash_hex_no_0x[35] < 56 else get_char(norm_address_no_0x[35])
+        buffer[38] = norm_address_no_0x[36] if address_hash_hex_no_0x[36] < 56 else get_char(norm_address_no_0x[36])
+        buffer[39] = norm_address_no_0x[37] if address_hash_hex_no_0x[37] < 56 else get_char(norm_address_no_0x[37])
+        buffer[40] = norm_address_no_0x[38] if address_hash_hex_no_0x[38] < 56 else get_char(norm_address_no_0x[38])
+        buffer[41] = norm_address_no_0x[39] if address_hash_hex_no_0x[39] < 56 else get_char(norm_address_no_0x[39])
 
     # It is faster to decode a buffer with a known size ie buffer[:42]
     return buffer[:42].decode('ascii')
+
+
+cdef inline char get_char(char c):
+    """This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
+    characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
+    the character is capitalized.
+    """
+    return c - 32 if 97 <= c <= 102 else c
 
 
 cpdef unicode to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
