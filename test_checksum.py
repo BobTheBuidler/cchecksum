@@ -1,4 +1,5 @@
 import time
+from binascii import unhexlify
 
 from eth_utils import to_checksum_address as to_checksum_address_py
 
