@@ -39,15 +39,7 @@ jobs:
         with:
           python-version: ${{ matrix.pyversion }}
 
-      - name: Load cached Pytest installation
-        id: cached-pytest
-        uses: actions/cache@v4
-        with:
-          path: ~/.local  # the path depends on the OS
-          key: pytest-${{ runner.os }}-${{ matrix.pyversion }}-0  # increment to reset cache
-
       - name: Install pytest
-        if: steps.cached-pytest.outputs.cache-hit != 'true'
         run: pip install pytest
 
       - name: Install cchecksum
