@@ -96,7 +96,7 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         # if `hex_address_no_0x` has content, validate all characters are valid hex chars:
         if hex_address_no_0x:
             try:
-                validate_hex_chars(hex_address_no_0x)
+                validate_hex_chars(hex_address_no_0x, value)
             except ValueError as e:
                 raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}") from e.__cause__
 
