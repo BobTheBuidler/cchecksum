@@ -87,9 +87,6 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
     elif isinstance(value, (bytes, bytearray)):
         hex_address_no_0x = hexlify(value).decode("ascii")
 
-    elif isinstance(value, memoryview):
-        hex_address_no_0x = hexlify(bytes(value)).decode("ascii")
-
     else:
         raise TypeError(
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
