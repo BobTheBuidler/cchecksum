@@ -35,8 +35,6 @@ cpdef unicode cchecksum(
     See Also:
         - :func:`eth_utils.to_checksum_address`: A utility function for converting addresses to their checksummed form.
     """
-    cdef int i
-        
     # Declare memoryviews for fixed-length data
     cdef const unsigned char[::1] norm_address_mv = norm_address_no_0x.encode('ascii')
     
