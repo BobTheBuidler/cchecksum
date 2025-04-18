@@ -21,6 +21,11 @@ def test_checksum_bytes():
     assert to_checksum_address(bytes) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
 
+def test_type_error():
+    with pytest.raises(TypeError, match="up yours"):
+        to_checksum_address(None)
+
+
 # Benchmark
 benchmark_addresses = []
 range_start = 100000000000000000000000000000000000000000
