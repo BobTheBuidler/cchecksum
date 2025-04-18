@@ -44,7 +44,7 @@ def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_
     cdef int i
     cdef int address_char
     
-    for i in range(40):
+    for i in prange(40, nogil=True):
         
         if address_hash_hex_no_0x[i] < 56:
             # '0' to '7' have ASCII values 48 to 55
