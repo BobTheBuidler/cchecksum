@@ -104,4 +104,4 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
 
 del AnyStr, Optional, Union
 del AnyAddress, ChecksumAddress, HexAddress, HexStr
-del _HEX_ADDRESS_REGEXP, _HEX_REGEXP, compose, keccak
+del _HEX_REGEXP, compose, keccak
