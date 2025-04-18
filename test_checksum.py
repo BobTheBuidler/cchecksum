@@ -33,6 +33,24 @@ def test_type_error():
         raise RuntimeError("this should not happen")
 
 
+def test_int_type_error():
+    # this gives a ValueError in eth_utils but that's weird
+    with pytest.raises(
+        TypeError,
+        match="Unsupported type: '<class 'int'>'. Must be one of: bool, str, bytes, bytearray or int.",
+    ):
+        to_checksum_address(0)
+
+
+def test_none_type_error():
+    # this gives a ValueError in eth_utils but that's due to an implementation detail of hexstr_to_str
+    with pytest.raises(
+        TypeError,
+        match="Unsupported type: '<class 'NoneType'>'. Must be one of: bool, str, bytes, bytearray or int.",
+    ):
+        to_checksum_address(None)
+
+
 def test_value_error():
     input = "i am a bad string"
     try:
