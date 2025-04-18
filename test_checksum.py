@@ -15,6 +15,17 @@ def test_checksum_str_no_0x_prefix():
     assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
 
+def test_checksum_bytes():
+    bytes = b"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".lower()
+    assert to_checksum_address(bytes) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+
+
+def test_checksum_bytes_no_0x_prefix():
+    bytes = b"C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".lower()
+    assert to_checksum_address(bytes) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+
+
+# Benchmark
 benchmark_addresses = []
 range_start = 100000000000000000000000000000000000000000
 for i in range(range_start, range_start + 500000):
