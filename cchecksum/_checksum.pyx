@@ -1,16 +1,20 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
+import binascii
 import re
 
-from eth_utils.hexadecimal import _HEX_REGEXP
+from eth_utils import hexadecimal
 
+
+cdef object hexlify = binascii.hexlify
+del binascii
 
 cdef object hex_address_fullmatch = re.compile("[0-9a-f]{40}", re.ASCII).fullmatch
 del re
 
-cdef object hex_fullmatch = _HEX_REGEXP.fullmatch
-del _HEX_REGEXP
+cdef object hex_fullmatch = hexadecimal._HEX_REGEXP.fullmatch
+del hexadecimal
 
 
 def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_no_0x) -> str:
