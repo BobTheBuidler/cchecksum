@@ -158,14 +158,9 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 <dd><blockquote>
 <div><p>Converts an address to its normalized hexadecimal representation without the ‘0x’ prefix.</p>
 <p>This function ensures that the address is in a consistent lowercase hexadecimal
-format, which is useful for further processing or validation. It uses
-<code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.hexstr_if_str()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">to_hex()</span></code> to convert the input
-to a hexadecimal string.</p>
+format, which is useful for further processing or validation.</p>
 <dl>
-<dt>Args:</dt><dd><dl class="simple">
-<dt>value: The address to be normalized. It can be in any format supported by</dt><dd><p><code class="xref py py-func docutils literal notranslate"><span class="pre">to_hex()</span></code>.</p>
-</dd>
-</dl>
+<dt>Args:</dt><dd><p>value: The address to be normalized.</p>
 </dd>
 <dt>Raises:</dt><dd><p>ValueError: If the input address is not in a recognized format.
 TypeError: If the input is not a string, bytes, or any address type.</p>
@@ -187,7 +182,6 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 <dl class="simple">
 <dt>See Also:</dt><dd><ul class="simple">
 <li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">eth_utils.to_normalized_address()</span></code> for the standard implementation.</p></li>
-<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">is_address()</span></code> for checking if a string is a valid address.</p></li>
 </ul>
 </dd>
 </dl>

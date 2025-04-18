@@ -131,13 +131,10 @@
 <span class="sd">    Converts an address to its normalized hexadecimal representation without the &#39;0x&#39; prefix.</span>
 
 <span class="sd">    This function ensures that the address is in a consistent lowercase hexadecimal</span>
-<span class="sd">    format, which is useful for further processing or validation. It uses</span>
-<span class="sd">    :func:`eth_utils.hexstr_if_str` and :func:`to_hex` to convert the input</span>
-<span class="sd">    to a hexadecimal string.</span>
+<span class="sd">    format, which is useful for further processing or validation.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        value: The address to be normalized. It can be in any format supported by</span>
-<span class="sd">            :func:`to_hex`.</span>
+<span class="sd">        value: The address to be normalized.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the input address is not in a recognized format.</span>
@@ -152,7 +149,6 @@
 
 <span class="sd">    See Also:</span>
 <span class="sd">        - :func:`eth_utils.to_normalized_address` for the standard implementation.</span>
-<span class="sd">        - :func:`is_address` for checking if a string is a valid address.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">hex_address_no_0x</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;0x&quot;</span><span class="p">,</span> <span class="s2">&quot;0X&quot;</span><span class="p">))</span> <span class="k">else</span> <span class="n">value</span>
@@ -163,9 +159,6 @@
 
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">)):</span>
         <span class="n">hex_address_no_0x</span> <span class="o">=</span> <span class="n">hexlify</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
-
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">memoryview</span><span class="p">):</span>
-        <span class="n">hex_address_no_0x</span> <span class="o">=</span> <span class="n">hexlify</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">value</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
