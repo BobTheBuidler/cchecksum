@@ -99,14 +99,18 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
     cdef char c
     
     if isinstance(value, str):
-        hex_address_no_0x = (value[2:] if value.startswith(("0x", "0X")) else value).lower()
+        hex_address_no_0x = value
+        hex_address_no_0x = hex_address_no_0x.lower()
+        if hex_address_no_0x.startswith("0x"):
+            hex_address_no_0x = hex_address_no_0x[2:]
 
         # if `value` has content and is not a hexstring
         if hex_address_no_0x and hex_fullmatch(value) is None:
             raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_no_0x = hexlify(value).decode("ascii").lower()
+        hex_address_no_0x = hexlify(value).decode("ascii")
+        hex_address_no_0x = hex_address_no_0x.lower()
 
     else:
         raise TypeError(
