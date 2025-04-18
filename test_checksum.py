@@ -33,6 +33,17 @@ def test_type_error():
         raise RuntimeError("this should not happen")
 
 
+def test_value_error():
+    input = "i am a bad string"
+    try:
+        eth_utils.to_checksum_address(input)
+    except ValueError as e:
+        with pytest.raises(ValueError, match=str(e)):
+            to_checksum_address(input)
+    else:
+        raise RuntimeError("this should not happen")
+
+
 # Benchmark
 benchmark_addresses = []
 range_start = 100000000000000000000000000000000000000000
