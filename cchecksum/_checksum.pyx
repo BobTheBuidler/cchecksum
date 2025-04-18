@@ -2,6 +2,7 @@
 # cython: wraparound=False
 
 import binascii
+from cython.parallel import prange
 
 cdef object hexlify = binascii.hexlify
 del binascii
