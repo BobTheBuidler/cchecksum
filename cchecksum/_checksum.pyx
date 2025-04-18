@@ -113,8 +113,8 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
-    validate_hex_address(hex_address_no_0x)
-    return hex_address_no_0x  # type: ignore [return-value]
+    validate_hex_address(hex_address_no_0x, value)
+    return hex_address_no_0x
 
 
 cdef inline void validate_hex_address(unicode hex_address_no_0x, object original_value):
