@@ -58,13 +58,10 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
     Converts an address to its normalized hexadecimal representation without the '0x' prefix.
 
     This function ensures that the address is in a consistent lowercase hexadecimal
-    format, which is useful for further processing or validation. It uses
-    :func:`eth_utils.hexstr_if_str` and :func:`to_hex` to convert the input
-    to a hexadecimal string.
+    format, which is useful for further processing or validation.
 
     Args:
-        value: The address to be normalized. It can be in any format supported by
-            :func:`to_hex`.
+        value: The address to be normalized.
 
     Raises:
         ValueError: If the input address is not in a recognized format.
@@ -79,7 +76,6 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
 
     See Also:
         - :func:`eth_utils.to_normalized_address` for the standard implementation.
-        - :func:`is_address` for checking if a string is a valid address.
     """
     if isinstance(value, str):
         hex_address_no_0x = value[2:] if value.startswith(("0x", "0X")) else value
