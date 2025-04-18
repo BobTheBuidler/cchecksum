@@ -3,14 +3,8 @@
 
 import binascii
 
-from eth_utils import hexadecimal
-
-
 cdef object hexlify = binascii.hexlify
 del binascii
-
-cdef object hex_fullmatch = hexadecimal._HEX_REGEXP.fullmatch
-del hexadecimal
 
 
 def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_no_0x) -> str:
@@ -92,7 +86,6 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         - :func:`eth_utils.to_normalized_address` for the standard implementation.
     """
     cdef unicode hex_address_no_0x
-    cdef char c
     
     if isinstance(value, str):
         hex_address_no_0x = value
@@ -100,12 +93,15 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         if hex_address_no_0x.startswith("0x"):
             hex_address_no_0x = hex_address_no_0x[2:]
 
-        # if `value` has content and is not a hexstring
-        if hex_address_no_0x and hex_fullmatch(value) is None:
-            raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
+        # if `hex_address_no_0x` has content, validate all characters are valid hex chars:
+        if hex_address_no_0x:
+            try:
+                validate_hex_chars(hex_address_no_0x)
+            except ValueError as e:
+                raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}") from e.__cause__
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_no_0x = hexlify(value).decode("ascii")
+        hex_address_no_0x = (<bytes>hexlify(value)).decode("ascii")
         hex_address_no_0x = hex_address_no_0x.lower()
 
     else:
@@ -119,14 +115,18 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
 
 cdef inline void validate_hex_address(unicode hex_address_no_0x, object original_value):
     if len(hex_address_no_0x) != 40:
-        hex_address = f"0x{hex_address_no_0x}"
-        raise ValueError(
-            f"Unknown format {repr(original_value)}, attempted to normalize to {repr(hex_address)}"
-        )
-    else:
-        for c in hex_address_no_0x:
-            if not (48 <= c <= 57 or 97 <= c <= 102):
-                hex_address = f"0x{hex_address_no_0x}"
-                raise ValueError(
-                    f"Unknown format {repr(original_value)}, attempted to normalize to {repr(hex_address)}"
-                )
+        raise_value_error(original_value, f"0x{hex_address_no_0x}")
+    validate_hex_chars(hex_address_no_0x, original_value)
+
+    
+cdef inline void validate_hex_chars(unicode string, object original_value):
+    cdef char c
+    for c in string:
+        if not (48 <= c <= 57 or 97 <= c <= 102):
+            raise_value_error(original_value, f"0x{string}")
+
+
+cdef inline void raise_value_error(original_value, normalized_to):
+    raise ValueError(
+        f"Unknown format {repr(original_value)}, attempted to normalize to {repr(normalized_to)}"
+    )
