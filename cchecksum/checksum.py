@@ -1,9 +1,9 @@
+import re
 from binascii import hexlify
 from typing import AnyStr, Optional, Union
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress, HexStr
-from eth_utils.address import _HEX_ADDRESS_REGEXP
 from eth_utils.hexadecimal import _HEX_REGEXP
 from eth_utils.toolz import compose
 
@@ -15,7 +15,7 @@ keccak(b"")
 
 hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
 
-hex_address_fullmatch = _HEX_ADDRESS_REGEXP.fullmatch
+hex_address_fullmatch = re.compile("[0-9a-f]{40}", re.ASCII).fullmatch
 hex_fullmatch = _HEX_REGEXP.fullmatch
 
 
@@ -78,14 +78,14 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         - :func:`eth_utils.to_normalized_address` for the standard implementation.
     """
     if isinstance(value, str):
-        hex_address_no_0x = value[2:] if value.startswith(("0x", "0X")) else value
+        hex_address_no_0x = (value[2:] if value.startswith(("0x", "0X")) else value).lower()
 
         # if `value` has content and is not a hexstring
         if hex_address_no_0x and hex_fullmatch(value) is None:
             raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_no_0x = hexlify(value).decode("ascii")
+        hex_address_no_0x = hexlify(value).decode("ascii").lower()
 
     else:
         raise TypeError(
@@ -94,14 +94,14 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
 
     # if `hex_address_no_0x` is not a valid address
     if hex_address_fullmatch(hex_address_no_0x) is None:
-        hex_address = f"0x{hex_address_no_0x}".lower()
+        hex_address = f"0x{hex_address_no_0x}"
         raise ValueError(
             f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
         )
 
-    return hex_address_no_0x.lower()  # type: ignore [return-value]
+    return hex_address_no_0x  # type: ignore [return-value]
 
 
 del AnyStr, Optional, Union
 del AnyAddress, ChecksumAddress, HexAddress, HexStr
-del _HEX_ADDRESS_REGEXP, _HEX_REGEXP, compose, keccak
+del _HEX_REGEXP, compose, keccak
