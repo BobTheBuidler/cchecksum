@@ -26,8 +26,19 @@ def test_type_error():
     input = object()
     try:
         eth_utils.to_checksum_address(input)
-    except TypeError as e:
-        with pytest.raises(TypeError, match=str(e)):
+    except Exception as e:
+        with pytest.raises(type(e), match=str(e)):
+            to_checksum_address(input)
+    else:
+        raise RuntimeError("this should not happen")
+
+
+def test_value_error():
+    input = "i am a bad string"
+    try:
+        eth_utils.to_checksum_address(input)
+    except Exception as e:
+        with pytest.raises(type(e), match=str(e)):
             to_checksum_address(input)
     else:
         raise RuntimeError("this should not happen")
