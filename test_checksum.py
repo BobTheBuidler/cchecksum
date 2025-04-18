@@ -23,8 +23,13 @@ def test_checksum_bytes():
 
 
 def test_type_error():
-    with pytest.raises(TypeError, match="up yours"):
-        to_checksum_address(None)
+    try:
+        eth_utils.to_checksum_address(None)
+    except TypeError as e:
+        with pytest.raises(TypeError, match=str(e)):
+            to_checksum_address(None)
+    else:
+        raise RuntimeError("this should not happen")
 
 
 # Benchmark
