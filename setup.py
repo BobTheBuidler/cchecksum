@@ -30,7 +30,7 @@ setup(
         compiler_directives={
             "language_level": 3,
             "embedsignature": True,
-            "linetrace": True,
+            "linetrace": False,
         },
     ),
     zip_safe=False,
