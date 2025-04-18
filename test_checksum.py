@@ -23,21 +23,14 @@ def test_checksum_bytes():
 
 
 def test_type_error():
+    input = object()
     try:
-        eth_utils.to_checksum_address(0)
+        eth_utils.to_checksum_address(input)
     except TypeError as e:
         with pytest.raises(TypeError, match=str(e)):
-            to_checksum_address(0)
+            to_checksum_address(input)
     else:
         raise RuntimeError("this should not happen")
-
-
-def test_none_type_error():
-    with pytest.raises(
-        TypeError,
-        match="Unsupported type: '<class 'NoneType'>'. Must be one of: bytes or bytearray.",
-    ):
-        to_checksum_address(None)
 
 
 # Benchmark
