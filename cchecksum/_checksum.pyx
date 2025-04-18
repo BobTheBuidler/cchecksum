@@ -7,7 +7,10 @@ cdef object hexlify = binascii.hexlify
 del binascii
 
 
-def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_no_0x) -> str:
+cpdef unicode cchecksum(
+    str norm_address_no_0x, 
+    const unsigned char[::1] address_hash_hex_no_0x,
+):
     """
     Computes the checksummed version of an Ethereum address.
 
@@ -32,30 +35,29 @@ def cchecksum(str norm_address_no_0x, const unsigned char[::1] address_hash_hex_
     See Also:
         - :func:`eth_utils.to_checksum_address`: A utility function for converting addresses to their checksummed form.
     """
-    
+    cdef int i, address_char
+        
     # Declare memoryviews for fixed-length data
     cdef const unsigned char[::1] norm_address_mv = norm_address_no_0x.encode('ascii')
     
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
     cdef unsigned char[42] buffer = b'0x' + bytearray(40)
-
-    # Handle character casing based on the hash value
-    cdef int i
-    cdef int address_char
     
-    for i in range(40):
-        
-        if address_hash_hex_no_0x[i] < 56:
-            # '0' to '7' have ASCII values 48 to 55
-            buffer[i + 2] = norm_address_mv[i]
+    with nogil:
+        # Handle character casing based on the hash value
+        for i in range(40):
             
-        else:
-            address_char = norm_address_mv[i]
-            # This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
-            # characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
-            # the character is capitalized.
-            buffer[i + 2] = address_char - 32 if 97 <= address_char <= 102 else address_char
+            if address_hash_hex_no_0x[i] < 56:
+                # '0' to '7' have ASCII values 48 to 55
+                buffer[i + 2] = norm_address_no_0x[i]
+                
+            else:
+                address_char = norm_address_no_0x[i]
+                # This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
+                # characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
+                # the character is capitalized.
+                buffer[i + 2] = address_char - 32 if 97 <= address_char <= 102 else address_char
 
     # It is faster to decode a buffer with a known size ie buffer[:42]
     return buffer[:42].decode('ascii')
