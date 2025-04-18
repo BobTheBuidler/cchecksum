@@ -34,7 +34,7 @@ def test_type_error():
 
 def test_none_type_error():
     with pytest.raises(
-        TypeError, 
+        TypeError,
         match="Unsupported type: '<class 'NoneType'>'. Must be one of: bytes or bytearray.",
     ):
         to_checksum_address(None)
