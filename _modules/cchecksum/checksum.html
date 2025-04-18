@@ -66,25 +66,20 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cchecksum.checksum</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">binascii</span><span class="w"> </span><span class="kn">import</span> <span class="n">hexlify</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">binascii</span><span class="w"> </span><span class="kn">import</span> <span class="n">hexlify</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">eth_hash.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">keccak</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eth_typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyAddress</span><span class="p">,</span> <span class="n">ChecksumAddress</span><span class="p">,</span> <span class="n">HexAddress</span><span class="p">,</span> <span class="n">HexStr</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">eth_utils.hexadecimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">_HEX_REGEXP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eth_typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnyAddress</span><span class="p">,</span> <span class="n">ChecksumAddress</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">eth_utils.toolz</span><span class="w"> </span><span class="kn">import</span> <span class="n">compose</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">cchecksum._checksum</span><span class="w"> </span><span class="kn">import</span> <span class="n">cchecksum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cchecksum._checksum</span><span class="w"> </span><span class="kn">import</span> <span class="n">cchecksum</span><span class="p">,</span> <span class="n">to_normalized_address_no_0x</span>
 
 
 <span class="c1"># force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher</span>
 <span class="n">keccak</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
 <span class="n">hash_address</span> <span class="o">=</span> <span class="n">compose</span><span class="p">(</span><span class="n">hexlify</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">keccak</span><span class="o">.</span><span class="n">hasher</span><span class="p">,</span> <span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">)</span>
-
-<span class="n">hex_address_fullmatch</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[0-9a-f]</span><span class="si">{40}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">ASCII</span><span class="p">)</span><span class="o">.</span><span class="n">fullmatch</span>
-<span class="n">hex_fullmatch</span> <span class="o">=</span> <span class="n">_HEX_REGEXP</span><span class="o">.</span><span class="n">fullmatch</span>
 
 
 <span class="c1"># this was ripped out of eth_utils and optimized a little bit</span>
@@ -124,61 +119,9 @@
 
 
 
-<div class="viewcode-block" id="to_normalized_address_no_0x">
-<a class="viewcode-back" href="../../source/cchecksum.html#cchecksum.to_normalized_address_no_0x">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">to_normalized_address_no_0x</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyAddress</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">HexAddress</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Converts an address to its normalized hexadecimal representation without the &#39;0x&#39; prefix.</span>
-
-<span class="sd">    This function ensures that the address is in a consistent lowercase hexadecimal</span>
-<span class="sd">    format, which is useful for further processing or validation.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        value: The address to be normalized.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If the input address is not in a recognized format.</span>
-<span class="sd">        TypeError: If the input is not a string, bytes, or any address type.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; to_normalized_address(&quot;0xB47E3CD837DDF8E4C57F05D70AB865DE6E193BBB&quot;)</span>
-<span class="sd">        &#39;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&#39;</span>
-
-<span class="sd">        &gt;&gt;&gt; to_normalized_address(b&#39;\xb4~&lt;\xd87\xdd\xf8\xe4\xc5\x7f\x05\xd7\n\xb8e\xden\x19;\xbb&#39;)</span>
-<span class="sd">        &#39;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&#39;</span>
-
-<span class="sd">    See Also:</span>
-<span class="sd">        - :func:`eth_utils.to_normalized_address` for the standard implementation.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">hex_address_no_0x</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;0x&quot;</span><span class="p">,</span> <span class="s2">&quot;0X&quot;</span><span class="p">))</span> <span class="k">else</span> <span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-        <span class="c1"># if `value` has content and is not a hexstring</span>
-        <span class="k">if</span> <span class="n">hex_address_no_0x</span> <span class="ow">and</span> <span class="n">hex_fullmatch</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;when sending a str, it must be a hex string. &quot;</span> <span class="sa">f</span><span class="s2">&quot;Got: </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">)):</span>
-        <span class="n">hex_address_no_0x</span> <span class="o">=</span> <span class="n">hexlify</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Unsupported type: &#39;</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span><span class="si">}</span><span class="s2">&#39;. Must be one of: bool, str, bytes, bytearray or int.&quot;</span>
-        <span class="p">)</span>
-
-    <span class="c1"># if `hex_address_no_0x` is not a valid address</span>
-    <span class="k">if</span> <span class="n">hex_address_fullmatch</span><span class="p">(</span><span class="n">hex_address_no_0x</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">hex_address</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;0x</span><span class="si">{</span><span class="n">hex_address_no_0x</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Unknown format </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">, attempted to normalize to </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">hex_address</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">hex_address_no_0x</span>  <span class="c1"># type: ignore [return-value]</span></div>
-
-
-
-<span class="k">del</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
-<span class="k">del</span> <span class="n">AnyAddress</span><span class="p">,</span> <span class="n">ChecksumAddress</span><span class="p">,</span> <span class="n">HexAddress</span><span class="p">,</span> <span class="n">HexStr</span>
-<span class="k">del</span> <span class="n">_HEX_REGEXP</span><span class="p">,</span> <span class="n">compose</span><span class="p">,</span> <span class="n">keccak</span>
+<span class="k">del</span> <span class="n">Union</span>
+<span class="k">del</span> <span class="n">AnyAddress</span><span class="p">,</span> <span class="n">ChecksumAddress</span>
+<span class="k">del</span> <span class="n">compose</span><span class="p">,</span> <span class="n">keccak</span>
 </pre></div>
 
            </div>
