@@ -121,7 +121,7 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
         )
     else:
         for c in hex_address_no_0x:
-            if c not in "0123456789abcdef":
+            if not (48 <= c <= 57 or 97 <= c <= 102):
                 hex_address = f"0x{hex_address_no_0x}"
                 raise ValueError(
                     f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
