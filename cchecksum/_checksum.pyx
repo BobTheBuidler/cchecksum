@@ -2,16 +2,12 @@
 # cython: wraparound=False
 
 import binascii
-import re
 
 from eth_utils import hexadecimal
 
 
 cdef object hexlify = binascii.hexlify
 del binascii
-
-cdef object hex_address_fullmatch = re.compile("[0-9a-f]{40}", re.ASCII).fullmatch
-del re
 
 cdef object hex_fullmatch = hexadecimal._HEX_REGEXP.fullmatch
 del hexadecimal
