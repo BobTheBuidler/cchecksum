@@ -117,16 +117,16 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> HexAddr
     return hex_address_no_0x  # type: ignore [return-value]
 
 
-cdef inline void validate_hex_address(unicode hex_address_no_0x):
+cdef inline void validate_hex_address(unicode hex_address_no_0x, object original_value):
     if len(hex_address_no_0x) != 40:
         hex_address = f"0x{hex_address_no_0x}"
         raise ValueError(
-            f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
+            f"Unknown format {repr(original_value)}, attempted to normalize to {repr(hex_address)}"
         )
     else:
         for c in hex_address_no_0x:
             if not (48 <= c <= 57 or 97 <= c <= 102):
                 hex_address = f"0x{hex_address_no_0x}"
                 raise ValueError(
-                    f"Unknown format {repr(value)}, attempted to normalize to {repr(hex_address)}"
+                    f"Unknown format {repr(original_value)}, attempted to normalize to {repr(hex_address)}"
                 )
