@@ -97,7 +97,20 @@ cdef inline char get_char(char c) noexcept nogil:
     characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
     the character is capitalized.
     """
-    return c - 32 if 97 <= c <= 102 else c
+    if c == 97:     # a
+        return 65   # A
+    elif c == 98:   # b
+        return 66   # B
+    elif c == 99:   # c
+        return 67   # C
+    elif c == 100:  # d
+        return 68   # D
+    elif c == 101:  # e
+        return 69   # E
+    elif c == 102:  # f
+        return 70   # F
+    else:
+        return c
 
 
 cpdef unicode to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
