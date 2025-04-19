@@ -153,7 +153,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_no_0x.decode()}'"
         )
 
-    return cchecksum(hex_address_mv, hash_address(norm_address_no_0x))
+    return cchecksum(hex_address_mv, hash_address(hex_address_no_0x))
 
 
 cdef unicode cchecksum(
