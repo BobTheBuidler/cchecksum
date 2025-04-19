@@ -354,8 +354,8 @@ cdef unicode cchecksum(
         else:
             buffer[41] = get_char(norm_address_no_0x[39])
 
-    # It is faster to decode a buffer with a known size ie buffer[:42]
-    return buffer[:42].decode('ascii')
+        # It is faster to decode a buffer with a known size ie buffer[:42]
+        return buffer[:42]
 
 
 cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
