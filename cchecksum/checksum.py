@@ -11,7 +11,7 @@ from cchecksum._checksum import cchecksum, to_normalized_address_no_0x
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
 keccak(b"")
 
-hash_address = compose(hexlify, bytes, keccak.hasher, str.encode)
+hash_address = compose(hexlify, bytes, keccak.hasher)
 
 
 # this was ripped out of eth_utils and optimized a little bit
