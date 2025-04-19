@@ -49,8 +49,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     cdef bytes hex_address_no_0x
-    cdef const unsigned char [::1] hex_address_mv
-    cdef unsigned char c
+    cdef const char[::1] hex_address_mv
+    cdef char c
     
     if isinstance(value, str):
         hex_address_no_0x = value.encode()
@@ -157,8 +157,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
 
 cdef unicode cchecksum(
-    const unsigned char[::1] norm_address_no_0x, 
-    const unsigned char[::1] address_hash_hex_no_0x,
+    const char[::1] norm_address_no_0x, 
+    const char[::1] address_hash_hex_no_0x,
 ):
     """
     Computes the checksummed version of an Ethereum address.
@@ -358,7 +358,7 @@ cdef unicode cchecksum(
     return buffer[:42].decode('ascii')
 
 
-cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
+cdef inline char get_char(unsigned char c) noexcept nogil:
     """This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
     characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
     the character is capitalized.
