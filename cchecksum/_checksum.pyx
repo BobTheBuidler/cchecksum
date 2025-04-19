@@ -8,7 +8,7 @@ del binascii
 
 
 cpdef unicode cchecksum(
-    str norm_address_no_0x, 
+    const unsigned char[::1] norm_address_no_0x, 
     const unsigned char[::1] address_hash_hex_no_0x,
 ):
     """
@@ -35,9 +35,6 @@ cpdef unicode cchecksum(
     See Also:
         - :func:`eth_utils.to_checksum_address`: A utility function for converting addresses to their checksummed form.
     """
-    # Declare memoryviews for fixed-length data
-    cdef const unsigned char[::1] norm_address_mv = norm_address_no_0x.encode('ascii')
-    
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
     cdef unsigned char[42] buffer = b'0x' + bytearray(40)
@@ -233,7 +230,7 @@ cdef inline char get_char(char c) noexcept nogil:
         return c
 
 
-cpdef unicode to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
+cpdef bytes to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
     """
     Converts an address to its normalized hexadecimal representation without the '0x' prefix.
 
@@ -257,79 +254,102 @@ cpdef unicode to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
     See Also:
         - :func:`eth_utils.to_normalized_address` for the standard implementation.
     """
-    cdef unicode hex_address_no_0x
+    cdef bytes hex_address_no_0x
+    cdef char c
     
     if isinstance(value, str):
-        hex_address_no_0x = value
+        hex_address_no_0x = value.encode()
         hex_address_no_0x = hex_address_no_0x.lower()
-        if hex_address_no_0x.startswith("0x"):
+            
+        if hex_address_no_0x.startswith(b"0x"):
             hex_address_no_0x = hex_address_no_0x[2:]
-
-        # if `hex_address_no_0x` has content, validate all characters are valid hex chars:
-        if hex_address_no_0x:
-            try:
-                validate_hex_chars(hex_address_no_0x.encode(), value)
-            except ValueError as e:
-                raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}") from e.__cause__
+        
+        for c in hex_address_no_0x:
+            if c == 48:  # 0
+                pass
+            elif c == 49:  # 1
+                pass
+            elif c == 50:  # 2
+                pass
+            elif c == 51:  # 3
+                pass
+            elif c == 52:  # 4
+                pass
+            elif c == 53:  # 5
+                pass
+            elif c == 54:  # 6
+                pass
+            elif c == 55:  # 7
+                pass
+            elif c == 56:  # 8
+                pass
+            elif c == 57:  # 9
+                pass
+            elif c == 97:  # a
+                pass
+            elif c == 98:  # b
+                pass
+            elif c == 99:  # c
+                pass
+            elif c == 100:  # d
+                pass
+            elif c == 101:  # e
+                pass
+            elif c == 102:  # f
+                pass
+            else:
+                raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_no_0x = (<bytes>hexlify(value)).decode("ascii")
+        hex_address_no_0x = hexlify(value)
         hex_address_no_0x = hex_address_no_0x.lower()
-
+    
+        for c in hex_address_no_0x:
+            if c == 48:  # 0
+                pass
+            elif c == 49:  # 1
+                pass
+            elif c == 50:  # 2
+                pass
+            elif c == 51:  # 3
+                pass
+            elif c == 52:  # 4
+                pass
+            elif c == 53:  # 5
+                pass
+            elif c == 54:  # 6
+                pass
+            elif c == 55:  # 7
+                pass
+            elif c == 56:  # 8
+                pass
+            elif c == 57:  # 9
+                pass
+            elif c == 97:  # a
+                pass
+            elif c == 98:  # b
+                pass
+            elif c == 99:  # c
+                pass
+            elif c == 100:  # d
+                pass
+            elif c == 101:  # e
+                pass
+            elif c == 102:  # f
+                pass
+            else:
+                raise ValueError(
+                    f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_no_0x.decode()}'"
+                )
+        
     else:
         raise TypeError(
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
-    validate_hex_address(hex_address_no_0x, value)
-    return hex_address_no_0x
-
-
-cdef inline void validate_hex_address(unicode hex_address_no_0x, object original_value):
     if len(hex_address_no_0x) != 40:
         raise ValueError(
-            f"Unknown format {repr(original_value)}, attempted to normalize to '0x{hex_address_no_0x}'"
+            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_no_0x.decode()}'"
         )
-    validate_hex_chars(hex_address_no_0x.encode(), original_value)
 
-
-cdef inline int validate_hex_chars(const unsigned char[::1] string, object original_value) nogil:
-    # NOTE: `string` should already be lowercase when passed in
-    cdef char c
-    for c in string:
-        if c == 48:  # 0
-            pass
-        elif c == 49:  # 1
-            pass
-        elif c == 50:  # 2
-            pass
-        elif c == 51:  # 3
-            pass
-        elif c == 52:  # 4
-            pass
-        elif c == 53:  # 5
-            pass
-        elif c == 54:  # 6
-            pass
-        elif c == 55:  # 7
-            pass
-        elif c == 56:  # 8
-            pass
-        elif c == 57:  # 9
-            pass
-        elif c == 97:  # a
-            pass
-        elif c == 98:  # b
-            pass
-        elif c == 99:  # c
-            pass
-        elif c == 100:  # d
-            pass
-        elif c == 101:  # e
-            pass
-        elif c == 102:  # f
-            pass
-        else:
-            raise ValueError(
-                f"Unknown format {repr(original_value)}, attempted to normalize to '0x{string}'"
-            )
+    return hex_address_no_0x
