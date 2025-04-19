@@ -186,7 +186,7 @@ cdef unicode cchecksum(
     """
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
-    cdef unsigned char[42] buffer = b'0x' + bytearray(40)
+    cdef char[42] buffer = b'0x' + bytearray(40)
     
     with nogil:
         # Handle character casing based on the hash value
