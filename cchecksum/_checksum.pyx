@@ -21,7 +21,7 @@ cdef object hash_address = compose(binascii.hexlify, bytes, keccak.hasher)
 # this was ripped out of eth_utils and optimized a little bit
 
 
-cpdef to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress:
+cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     """
     Convert an address to its EIP-55 checksum format.
 
