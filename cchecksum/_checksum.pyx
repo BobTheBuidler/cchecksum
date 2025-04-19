@@ -148,7 +148,7 @@ cpdef unicode to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
         # if `hex_address_no_0x` has content, validate all characters are valid hex chars:
         if hex_address_no_0x:
             try:
-                validate_hex_chars(hex_address_no_0x, value)
+                validate_hex_chars(hex_address_no_0x.encode(), value)
             except ValueError as e:
                 raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}") from e.__cause__
 
@@ -170,10 +170,10 @@ cdef inline void validate_hex_address(unicode hex_address_no_0x, object original
         raise ValueError(
             f"Unknown format {repr(original_value)}, attempted to normalize to '0x{hex_address_no_0x}'"
         )
-    validate_hex_chars(hex_address_no_0x, original_value)
+    validate_hex_chars(hex_address_no_0x.encode(), original_value)
 
-    
-cdef inline void validate_hex_chars(unicode string, object original_value):
+
+cdef inline int validate_hex_chars(const unsigned char[::1] string, object original_value) nogil:
     # NOTE: `string` should already be lowercase when passed in
     cdef char c
     for c in string:
