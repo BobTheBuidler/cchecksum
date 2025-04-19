@@ -42,7 +42,6 @@ cpdef unicode cchecksum(
     # 2 for "0x" prefix and 40 for the address itself
     cdef unsigned char[42] buffer = b'0x' + bytearray(40)
     
-    cdef char c
     with nogil:
         # Handle character casing based on the hash value
         # `if address_hash_hex_no_0x[x] < 56`
@@ -51,22 +50,7 @@ cpdef unicode cchecksum(
         if address_hash_hex_no_0x[0] < 56:
             buffer[2] = norm_address_mv[0]
         else:
-            c = norm_address_mv[0]
-            if c == 97:     # a
-                buffer[2] = 65   # A
-            elif c == 98:   # b
-                buffer[2] = 66   # B
-            elif c == 99:   # c
-                buffer[2] = 67   # C
-            elif c == 100:  # d
-                buffer[2] = 68   # D
-            elif c == 101:  # e
-                buffer[2] = 69   # E
-            elif c == 102:  # f
-                buffer[2] = 70   # F
-            else:
-                buffer[2] = c
-
+            buffer[2] = get_char(norm_address_mv[0])
         if address_hash_hex_no_0x[1] < 56:
             buffer[3] = norm_address_mv[1]
         else:
