@@ -1,7 +1,6 @@
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress
 from typing import Union
 
-
 def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress:
     """
     Convert an address to its EIP-55 checksum format.
