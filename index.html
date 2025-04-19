@@ -80,7 +80,7 @@ with the most cpu-intensive part implemented in c.</p>
 <p>It keeps the exact same API as the existing implementation, exceptions and all.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cchecksum.to_checksum_address">
-<span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cchecksum/checksum.html#to_checksum_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cchecksum.to_checksum_address" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyAddress</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">unicode</span></span></span><a class="headerlink" href="#cchecksum.to_checksum_address" title="Link to this definition"></a></dt>
 <dd><blockquote>
 <div><p>Convert an address to its EIP-55 checksum format.</p>
 <p>This function takes an address in any supported format and returns it in the
@@ -120,10 +120,7 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://eth-typing.readthedocs.io/en/stable/eth_typing.html#eth_typing.evm.AnyAddress" title="(in eth-typing v5.2)"><em>AnyAddress</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><em>bytes</em></a>)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://eth-typing.readthedocs.io/en/stable/eth_typing.html#eth_typing.evm.ChecksumAddress" title="(in eth-typing v5.2)"><em>ChecksumAddress</em></a></p>
+<dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>AnyAddress</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><em>bytes</em></a><em>]</em>)</p>
 </dd>
 </dl>
 </dd></dl>
