@@ -3,8 +3,54 @@
 
 import binascii
 
+from eth_hash.auto import keccak
+from eth_typing import AnyAddress, ChecksumAddress
+from eth_utils.toolz import compose
+
+
 cdef object hexlify = binascii.hexlify
 del binascii
+
+
+# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
+keccak(b"")
+
+cdef object hash_address = compose(binascii.hexlify, bytes, keccak.hasher)
+
+
+# this was ripped out of eth_utils and optimized a little bit
+
+
+cpdef to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress:
+    """
+    Convert an address to its EIP-55 checksum format.
+
+    This function takes an address in any supported format and returns it in the
+    checksummed format as defined by EIP-55. It uses a custom Cython implementation
+    for the checksum conversion to optimize performance.
+
+    Args:
+        value: The address to be converted. It can be in any format supported by
+            :func:`eth_utils.to_normalized_address`.
+
+    Raises:
+        ValueError: If the input address is not in a recognized format.
+        TypeError: If the input is not a string, bytes, or any address type.
+
+    Examples:
+        >>> to_checksum_address("0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb")
+        '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
+
+        >>> to_checksum_address(b'\xb4~<\xd87\xdd\xf8\xe4\xc5\x7f\x05\xd7\n\xb8e\xden\x19;\xbb')
+        '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
+
+    See Also:
+        - :func:`eth_utils.to_checksum_address` for the standard implementation.
+        - :func:`to_normalized_address` for converting to a normalized address before checksumming.
+    """
+    cdef const unsigned char[::1] norm_address_no_0x
+    norm_address_no_0x = to_normalized_address_no_0x(value)
+    return cchecksum(norm_address_no_0x, hash_address(norm_address_no_0x))
 
 
 cpdef unicode cchecksum(
@@ -230,7 +276,7 @@ cdef inline char get_char(char c) noexcept nogil:
         return c
 
 
-cpdef bytes to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
+cpdef const unsigned char[::1] to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
     """
     Converts an address to its normalized hexadecimal representation without the '0x' prefix.
 
@@ -255,7 +301,8 @@ cpdef bytes to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_normalized_address` for the standard implementation.
     """
     cdef bytes hex_address_no_0x
-    cdef char c
+    cdef const unsigned char [::1] hex_address_mv
+    cdef const unsigned char c
     
     if isinstance(value, str):
         hex_address_no_0x = value.encode()
@@ -263,8 +310,10 @@ cpdef bytes to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
             
         if hex_address_no_0x.startswith(b"0x"):
             hex_address_no_0x = hex_address_no_0x[2:]
+
+        hex_address_mv = hex_address_no_0x
         
-        for c in hex_address_no_0x:
+        for c in hex_address_mv:
             if c == 48:  # 0
                 pass
             elif c == 49:  # 1
@@ -303,8 +352,10 @@ cpdef bytes to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
     elif isinstance(value, (bytes, bytearray)):
         hex_address_no_0x = hexlify(value)
         hex_address_no_0x = hex_address_no_0x.lower()
+        
+        hex_address_mv = hex_address_no_0x
     
-        for c in hex_address_no_0x:
+        for c in hex_address_mv:
             if c == 48:  # 0
                 pass
             elif c == 49:  # 1
@@ -347,9 +398,13 @@ cpdef bytes to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]):
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
-    if len(hex_address_no_0x) != 40:
+    if len(hex_address_mv) != 40:
         raise ValueError(
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_no_0x.decode()}'"
         )
 
-    return hex_address_no_0x
+    return hex_address_mv
+
+
+del AnyAddress, ChecksumAddress
+del compose, keccak
