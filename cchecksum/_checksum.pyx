@@ -15,7 +15,7 @@ del binascii
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
 keccak(b"")
 
-cdef object hash_address = compose(binascii.hexlify, bytes, keccak.hasher)
+cdef object hash_address = compose(hexlify, bytes, keccak.hasher)
 
 
 # this was ripped out of eth_utils and optimized a little bit
