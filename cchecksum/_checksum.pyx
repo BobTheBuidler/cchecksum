@@ -45,165 +45,165 @@ cpdef unicode cchecksum(
         # '0' to '7' have ASCII values 48 to 55
         
         if address_hash_hex_no_0x[0] < 56:
-            buffer[2] = norm_address_mv[0]
+            buffer[2] = norm_address_no_0x[0]
         else:
-            buffer[2] = get_char(norm_address_mv[0])
+            buffer[2] = get_char(norm_address_no_0x[0])
         if address_hash_hex_no_0x[1] < 56:
-            buffer[3] = norm_address_mv[1]
+            buffer[3] = norm_address_no_0x[1]
         else:
-            buffer[3] = get_char(norm_address_mv[1])
+            buffer[3] = get_char(norm_address_no_0x[1])
         if address_hash_hex_no_0x[2] < 56:
-            buffer[4] = norm_address_mv[2]
+            buffer[4] = norm_address_no_0x[2]
         else:
-            buffer[4] = get_char(norm_address_mv[2])
+            buffer[4] = get_char(norm_address_no_0x[2])
         if address_hash_hex_no_0x[3] < 56:
-            buffer[5] = norm_address_mv[3]
+            buffer[5] = norm_address_no_0x[3]
         else:
-            buffer[5] = get_char(norm_address_mv[3])
+            buffer[5] = get_char(norm_address_no_0x[3])
         if address_hash_hex_no_0x[4] < 56:
-            buffer[6] = norm_address_mv[4]
+            buffer[6] = norm_address_no_0x[4]
         else:
-            buffer[6] = get_char(norm_address_mv[4])
+            buffer[6] = get_char(norm_address_no_0x[4])
         if address_hash_hex_no_0x[5] < 56:
-            buffer[7] = norm_address_mv[5]
+            buffer[7] = norm_address_no_0x[5]
         else:
-            buffer[7] = get_char(norm_address_mv[5])
+            buffer[7] = get_char(norm_address_no_0x[5])
         if address_hash_hex_no_0x[6] < 56:
-            buffer[8] = norm_address_mv[6]
+            buffer[8] = norm_address_no_0x[6]
         else:
-            buffer[8] = get_char(norm_address_mv[6])
+            buffer[8] = get_char(norm_address_no_0x[6])
         if address_hash_hex_no_0x[7] < 56:
-            buffer[9] = norm_address_mv[7]
+            buffer[9] = norm_address_no_0x[7]
         else:
-            buffer[9] = get_char(norm_address_mv[7])
+            buffer[9] = get_char(norm_address_no_0x[7])
         if address_hash_hex_no_0x[8] < 56:
-            buffer[10] = norm_address_mv[8]
+            buffer[10] = norm_address_no_0x[8]
         else:
-            buffer[10] = get_char(norm_address_mv[8])
+            buffer[10] = get_char(norm_address_no_0x[8])
         if address_hash_hex_no_0x[9] < 56:
-            buffer[11] = norm_address_mv[9]
+            buffer[11] = norm_address_no_0x[9]
         else:
-            buffer[11] = get_char(norm_address_mv[9])
+            buffer[11] = get_char(norm_address_no_0x[9])
         if address_hash_hex_no_0x[10] < 56:
-            buffer[12] = norm_address_mv[10]
+            buffer[12] = norm_address_no_0x[10]
         else:
-            buffer[12] = get_char(norm_address_mv[10])
+            buffer[12] = get_char(norm_address_no_0x[10])
         if address_hash_hex_no_0x[11] < 56:
-            buffer[13] = norm_address_mv[11]
+            buffer[13] = norm_address_no_0x[11]
         else:
-            buffer[13] = get_char(norm_address_mv[11])
+            buffer[13] = get_char(norm_address_no_0x[11])
         if address_hash_hex_no_0x[12] < 56:
-            buffer[14] = norm_address_mv[12]
+            buffer[14] = norm_address_no_0x[12]
         else:
-            buffer[14] = get_char(norm_address_mv[12])
+            buffer[14] = get_char(norm_address_no_0x[12])
         if address_hash_hex_no_0x[13] < 56:
-            buffer[15] = norm_address_mv[13]
+            buffer[15] = norm_address_no_0x[13]
         else:
-            buffer[15] = get_char(norm_address_mv[13])
+            buffer[15] = get_char(norm_address_no_0x[13])
         if address_hash_hex_no_0x[14] < 56:
-            buffer[16] = norm_address_mv[14]
+            buffer[16] = norm_address_no_0x[14]
         else:
-            buffer[16] = get_char(norm_address_mv[14])
+            buffer[16] = get_char(norm_address_no_0x[14])
         if address_hash_hex_no_0x[15] < 56:
-            buffer[17] = norm_address_mv[15]
+            buffer[17] = norm_address_no_0x[15]
         else:
-            buffer[17] = get_char(norm_address_mv[15])
+            buffer[17] = get_char(norm_address_no_0x[15])
         if address_hash_hex_no_0x[16] < 56:
-            buffer[18] = norm_address_mv[16]
+            buffer[18] = norm_address_no_0x[16]
         else:
-            buffer[18] = get_char(norm_address_mv[16])
+            buffer[18] = get_char(norm_address_no_0x[16])
         if address_hash_hex_no_0x[17] < 56:
-            buffer[19] = norm_address_mv[17]
+            buffer[19] = norm_address_no_0x[17]
         else:
-            buffer[19] = get_char(norm_address_mv[17])
+            buffer[19] = get_char(norm_address_no_0x[17])
         if address_hash_hex_no_0x[18] < 56:
-            buffer[20] = norm_address_mv[18]
+            buffer[20] = norm_address_no_0x[18]
         else:
-            buffer[20] = get_char(norm_address_mv[18])
+            buffer[20] = get_char(norm_address_no_0x[18])
         if address_hash_hex_no_0x[19] < 56:
-            buffer[21] = norm_address_mv[19]
+            buffer[21] = norm_address_no_0x[19]
         else:
-            buffer[21] = get_char(norm_address_mv[19])
+            buffer[21] = get_char(norm_address_no_0x[19])
         if address_hash_hex_no_0x[20] < 56:
-            buffer[22] = norm_address_mv[20]
+            buffer[22] = norm_address_no_0x[20]
         else:
-            buffer[22] = get_char(norm_address_mv[20])
+            buffer[22] = get_char(norm_address_no_0x[20])
         if address_hash_hex_no_0x[21] < 56:
-            buffer[23] = norm_address_mv[21]
+            buffer[23] = norm_address_no_0x[21]
         else:
-            buffer[23] = get_char(norm_address_mv[21])
+            buffer[23] = get_char(norm_address_no_0x[21])
         if address_hash_hex_no_0x[22] < 56:
-            buffer[24] = norm_address_mv[22]
+            buffer[24] = norm_address_no_0x[22]
         else:
-            buffer[24] = get_char(norm_address_mv[22])
+            buffer[24] = get_char(norm_address_no_0x[22])
         if address_hash_hex_no_0x[23] < 56:
-            buffer[25] = norm_address_mv[23]
+            buffer[25] = norm_address_no_0x[23]
         else:
-            buffer[25] = get_char(norm_address_mv[23])
+            buffer[25] = get_char(norm_address_no_0x[23])
         if address_hash_hex_no_0x[24] < 56:
-            buffer[26] = norm_address_mv[24]
+            buffer[26] = norm_address_no_0x[24]
         else:
-            buffer[26] = get_char(norm_address_mv[24])
+            buffer[26] = get_char(norm_address_no_0x[24])
         if address_hash_hex_no_0x[25] < 56:
-            buffer[27] = norm_address_mv[25]
+            buffer[27] = norm_address_no_0x[25]
         else:
-            buffer[27] = get_char(norm_address_mv[25])
+            buffer[27] = get_char(norm_address_no_0x[25])
         if address_hash_hex_no_0x[26] < 56:
-            buffer[28] = norm_address_mv[26]
+            buffer[28] = norm_address_no_0x[26]
         else:
-            buffer[28] = get_char(norm_address_mv[26])
+            buffer[28] = get_char(norm_address_no_0x[26])
         if address_hash_hex_no_0x[27] < 56:
-            buffer[29] = norm_address_mv[27]
+            buffer[29] = norm_address_no_0x[27]
         else:
-            buffer[29] = get_char(norm_address_mv[27])
+            buffer[29] = get_char(norm_address_no_0x[27])
         if address_hash_hex_no_0x[28] < 56:
-            buffer[30] = norm_address_mv[28]
+            buffer[30] = norm_address_no_0x[28]
         else:
-            buffer[30] = get_char(norm_address_mv[28])
+            buffer[30] = get_char(norm_address_no_0x[28])
         if address_hash_hex_no_0x[29] < 56:
-            buffer[31] = norm_address_mv[29]
+            buffer[31] = norm_address_no_0x[29]
         else:
-            buffer[31] = get_char(norm_address_mv[29])
+            buffer[31] = get_char(norm_address_no_0x[29])
         if address_hash_hex_no_0x[30] < 56:
-            buffer[32] = norm_address_mv[30]
+            buffer[32] = norm_address_no_0x[30]
         else:
-            buffer[32] = get_char(norm_address_mv[30])
+            buffer[32] = get_char(norm_address_no_0x[30])
         if address_hash_hex_no_0x[31] < 56:
-            buffer[33] = norm_address_mv[31]
+            buffer[33] = norm_address_no_0x[31]
         else:
-            buffer[33] = get_char(norm_address_mv[31])
+            buffer[33] = get_char(norm_address_no_0x[31])
         if address_hash_hex_no_0x[32] < 56:
-            buffer[34] = norm_address_mv[32]
+            buffer[34] = norm_address_no_0x[32]
         else:
-            buffer[34] = get_char(norm_address_mv[32])
+            buffer[34] = get_char(norm_address_no_0x[32])
         if address_hash_hex_no_0x[33] < 56:
-            buffer[35] = norm_address_mv[33]
+            buffer[35] = norm_address_no_0x[33]
         else:
-            buffer[35] = get_char(norm_address_mv[33])
+            buffer[35] = get_char(norm_address_no_0x[33])
         if address_hash_hex_no_0x[34] < 56:
-            buffer[36] = norm_address_mv[34]
+            buffer[36] = norm_address_no_0x[34]
         else:
-            buffer[36] = get_char(norm_address_mv[34])
+            buffer[36] = get_char(norm_address_no_0x[34])
         if address_hash_hex_no_0x[35] < 56:
-            buffer[37] = norm_address_mv[35]
+            buffer[37] = norm_address_no_0x[35]
         else:
-            buffer[37] = get_char(norm_address_mv[35])
+            buffer[37] = get_char(norm_address_no_0x[35])
         if address_hash_hex_no_0x[36] < 56:
-            buffer[38] = norm_address_mv[36]
+            buffer[38] = norm_address_no_0x[36]
         else:
-            buffer[38] = get_char(norm_address_mv[36])
+            buffer[38] = get_char(norm_address_no_0x[36])
         if address_hash_hex_no_0x[37] < 56:
-            buffer[39] = norm_address_mv[37]
+            buffer[39] = norm_address_no_0x[37]
         else:
-            buffer[39] = get_char(norm_address_mv[37])
+            buffer[39] = get_char(norm_address_no_0x[37])
         if address_hash_hex_no_0x[38] < 56:
-            buffer[40] = norm_address_mv[38]
+            buffer[40] = norm_address_no_0x[38]
         else:
-            buffer[40] = get_char(norm_address_mv[38])
+            buffer[40] = get_char(norm_address_no_0x[38])
         if address_hash_hex_no_0x[39] < 56:
-            buffer[41] = norm_address_mv[39]
+            buffer[41] = norm_address_no_0x[39]
         else:
-            buffer[41] = get_char(norm_address_mv[39])
+            buffer[41] = get_char(norm_address_no_0x[39])
 
     # It is faster to decode a buffer with a known size ie buffer[:42]
     return buffer[:42].decode('ascii')
