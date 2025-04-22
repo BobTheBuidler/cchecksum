@@ -1,14 +1,12 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
-import binascii
-
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
 
 
-cdef object hexlify = binascii.hexlify
-del binascii
+cdef extern from "pystrhex.h":
+    cdef object _Py_strhex_bytes(const char*, const Py_ssize_t)
 
 
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
@@ -16,6 +14,14 @@ keccak(b"")
 
 cdef object str_encode = str.encode
 cdef object hash_address = keccak.hasher
+
+
+# This is the exact same as binascii.hexlify
+# https://github.com/python/cpython/blob/a4ea80d52394bafffb2257abbe815c7ffdb003a3/Modules/binascii.c#L863
+# https://github.com/python/cpython/blob/a4ea80d52394bafffb2257abbe815c7ffdb003a3/Python/pystrhex.c#L168
+# https://github.com/python/cpython/blob/a4ea80d52394bafffb2257abbe815c7ffdb003a3/Python/pystrhex.c#L153
+cdef inline bytes hexlify(const char* c_string):
+    return _Py_strhex_bytes(c_string, len(c_string))
 
 
 # this was ripped out of eth_utils and optimized a little bit
