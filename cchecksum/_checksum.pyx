@@ -16,7 +16,7 @@ del binascii
 keccak(b"")
 
 cdef object str_encode = str.encode
-cdef object hash_address = compose(hexlify, bytes, keccak.hasher)
+cdef object hash_address = compose(hexlify, keccak.hasher)
 
 
 # this was ripped out of eth_utils and optimized a little bit
