@@ -27,7 +27,11 @@ setup(
     },
     include_package_data=True,
     ext_modules=cythonize(
-        "cchecksum/_checksum_old.pyx" if sys.version_info < (3, 11) else "cchecksum/_checksum_new.pyx",
+        (
+            "cchecksum/_checksum_old.pyx"
+            if sys.version_info < (3, 11)
+            else "cchecksum/_checksum_new.pyx"
+        ),
         compiler_directives={
             "language_level": 3,
             "embedsignature": True,
