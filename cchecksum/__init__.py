@@ -4,6 +4,8 @@ with the most cpu-intensive part implemented in c.
 It keeps the exact same API as the existing implementation, exceptions and all.
 """
 
+import sys
+
 if sys.version_info < (3, 11):
     from cchecksum._checksum_old import to_checksum_address
 else:
