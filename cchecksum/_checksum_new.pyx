@@ -5,7 +5,7 @@ from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
 
 
-cdef extern from "pystrhex.h":
+cdef extern from "pycore_strhex.h":
     cdef object _Py_strhex_bytes(const char*, const Py_ssize_t)
 
 
@@ -110,7 +110,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
                     raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        is_0x_prefixed = False
+        is_0x_prefixed = True
         hex_address_bytes = hexlify(value)
         hex_address_bytes = hex_address_bytes.lower()
         
@@ -169,6 +169,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes[2:])))
     else:
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
+
 
 
 cdef unicode cchecksum(
