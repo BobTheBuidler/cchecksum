@@ -5,7 +5,6 @@ import binascii
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
-from eth_utils.toolz import compose
 
 
 cdef object hexlify = binascii.hexlify
@@ -16,7 +15,7 @@ del binascii
 keccak(b"")
 
 cdef object str_encode = str.encode
-cdef object hash_address = compose(hexlify, keccak.hasher)
+cdef object hash_address = keccak.hasher
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -161,9 +160,9 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
 
     if is_0x_prefixed:
-        return cchecksum(hex_address_mv, hash_address(hex_address_bytes[2:]))
+        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes[2:])))
     else:
-        return cchecksum(hex_address_mv, hash_address(hex_address_bytes))
+        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
 
 cdef unicode cchecksum(
@@ -390,4 +389,4 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
 
 
 del AnyAddress, ChecksumAddress
-del compose, keccak
+del keccak
