@@ -53,8 +53,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef unsigned char c
     
     if isinstance(value, str):
-        hex_address_no_0x = value.encode("ascii")
-        hex_address_no_0x = hex_address_no_0x.lower()
+        hex_address_no_0x = value.lower()
             
         if hex_address_no_0x.startswith(b"0x"):
             hex_address_no_0x = hex_address_no_0x[2:]
