@@ -43,8 +43,6 @@ try:
         zip_safe=False,
     )
 except distutils.compilers.C.errors.CompileError as e:
-    if "Try to install the project normally, without using the editable mode." not in str(e):
-        raise
     raise distutils.compilers.C.errors.CompileError(
         """Looks like you haven't properly installed the header files and static libraries for python dev. 
         Use your package manager to install them system-wide.
