@@ -45,7 +45,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     cdef bytes hex_address_bytes
-    cdef const unsigned char[::1] hex_address_mv
+    cdef const unsigned char[:] hex_address_mv
     cdef unsigned char c
     cdef bint is_0x_prefixed
     
@@ -173,8 +173,8 @@ cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
 
 
 cdef unicode cchecksum(
-    const unsigned char[::1] norm_address_no_0x, 
-    const unsigned char[::1] address_hash_hex_no_0x,
+    const unsigned char[:] norm_address_no_0x, 
+    const unsigned char[:] address_hash_hex_no_0x,
 ):
     """
     Computes the checksummed version of an Ethereum address.
