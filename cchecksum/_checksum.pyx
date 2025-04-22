@@ -49,20 +49,25 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    cdef bytes hex_address_no_0x
+    cdef bytes hex_address_bytes
     cdef const unsigned char [::1] hex_address_mv
     cdef unsigned char c
+    cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        hex_address_no_0x = str_encode(value, "ascii")
-        hex_address_no_0x = hex_address_no_0x.lower()
+        hex_address_bytes = str_encode(value, "ascii")
+        hex_address_bytes = hex_address_bytes.lower()
             
-        if hex_address_no_0x.startswith(b"0x"):
-            hex_address_no_0x = hex_address_no_0x[2:]
-
-        hex_address_mv = hex_address_no_0x
+        hex_address_mv = hex_address_bytes
 
         with nogil:
+            # if hex_address_mv[0] == b"0" and hex_address_mv[1] == b"x"
+            if hex_address_mv[0] == 48 and hex_address_mv[1] == 120:
+                hex_address_mv = hex_address_mv[2:]
+                is_0x_prefixed = True
+            else:
+                is_0x_prefixed = False
+
             for c in hex_address_mv:
                 if c == 48:  # 0
                     pass
@@ -100,10 +105,11 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
                     raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_no_0x = hexlify(value)
-        hex_address_no_0x = hex_address_no_0x.lower()
+        is_0x_prefixed = False
+        hex_address_bytes = hexlify(value)
+        hex_address_bytes = hex_address_bytes.lower()
         
-        hex_address_mv = hex_address_no_0x
+        hex_address_mv = hex_address_bytes
 
         with nogil:
             for c in hex_address_mv:
@@ -141,7 +147,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
                     pass
                 else:
                     raise ValueError(
-                        f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_no_0x.decode()}'"
+                        f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
                     )
         
     else:
@@ -151,10 +157,13 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     if len(hex_address_mv) != 40:
         raise ValueError(
-            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_no_0x.decode()}'"
+            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
 
-    return cchecksum(hex_address_mv, hash_address(hex_address_no_0x))
+    if is_0x_prefixed:
+        return cchecksum(hex_address_mv, hash_address(hex_address_bytes[2:]))
+    else:
+        return cchecksum(hex_address_mv, hash_address(hex_address_bytes))
 
 
 cdef unicode cchecksum(
