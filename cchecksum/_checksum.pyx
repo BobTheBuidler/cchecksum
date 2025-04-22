@@ -15,6 +15,7 @@ del binascii
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
 keccak(b"")
 
+cdef object str_encode = str.encode
 cdef object hash_address = compose(hexlify, bytes, keccak.hasher)
 
 
@@ -53,7 +54,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef unsigned char c
     
     if isinstance(value, str):
-        hex_address_no_0x = value.encode("ascii")
+        hex_address_no_0x = str_encode(value, "ascii")
         hex_address_no_0x = hex_address_no_0x.lower()
             
         if hex_address_no_0x.startswith(b"0x"):
