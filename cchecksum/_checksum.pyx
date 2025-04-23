@@ -2,7 +2,6 @@
 # cython: wraparound=False
 
 from cpython.unicode cimport PyUnicode_AsEncodedString
-from libc.string cimport strlen
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
