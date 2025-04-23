@@ -50,9 +50,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        hex_address_bytes = lowercase_ascii(
-            PyUnicode_AsEncodedString(<object>lowercase, b"ascii", NULL)
-        )
+        hex_address_bytes = lowercase_ascii(PyUnicode_AsEncodedString(value, b"ascii", NULL))
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -101,7 +99,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     elif isinstance(value, (bytes, bytearray)):
         is_0x_prefixed = False
-        hex_address_bytes = bytes(lowercase_ascii(hexlify(value)))
+        hex_address_bytes = bytes(lowercase_ascii(bytes(hexlify(value))))
         hex_address_mv = hex_address_bytes
 
         with nogil:
