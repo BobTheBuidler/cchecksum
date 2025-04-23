@@ -50,9 +50,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        hex_address_bytes = PyUnicode_AsEncodedString(value, b"ascii", NULL)
-        hex_address_bytes = hex_address_bytes.lower()
-            
+        hex_address_bytes = lowercase_ascii(PyUnicode_AsEncodedString(value, b"ascii", NULL))
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -101,7 +99,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     elif isinstance(value, (bytes, bytearray)):
         is_0x_prefixed = False
-        hex_address_bytes = bytes(hexlify(value)).lower()        
+        hex_address_bytes = lowercase_ascii_memview(hexlify(value))
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -159,7 +157,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
 
-cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
+cdef unsigned char[::1] hexlify(const unsigned char[::1] buffer):
     cdef Py_ssize_t buffer_len = buffer.shape[0]
     cdef unsigned char[::1] hexlified = bytearray(buffer_len * 2)  # contiguous and writeable
     cdef unsigned char c
@@ -393,6 +391,35 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
         return 70   # F
     else:
         return c
+
+    
+cdef unsigned char* lowercase_ascii(bytes src):
+    cdef Py_ssize_t src_len, i
+    cdef unsigned char* c_string
+    cdef unsigned char c
+    
+    src_len = len(src)
+    c_string = src
+    with nogil:
+        for i in range(src_len):
+            c = c_string[i]
+            c_string[i] = c + 32 if 65 <= c <= 90 else c
+    return c_string
+
+
+cdef unsigned char* lowercase_ascii_memview(unsigned char[::1] memview):
+    cdef Py_ssize_t src_len, i
+    cdef unsigned char* c_string
+    cdef unsigned char c
+
+    src_len = memview.shape[0]
+    bytes_obj = bytearray(src_len)
+    c_string = bytes_obj
+    with nogil:
+        for i in range(src_len):
+            c = memview[i]
+            c_string[i] = c + 32 if 65 <= c <= 90 else c
+    return c_string
 
 
 del AnyAddress, ChecksumAddress
