@@ -2,7 +2,7 @@
 # cython: wraparound=False
 
 import binascii
-from cpython.unicode cimport PyUnicode_AsEncodedString
+from cpython.unicode cimport PyUnicode_AsEncodedString, PyUnicode_ToLower
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
@@ -54,9 +54,11 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        hex_address_bytes = PyUnicode_AsEncodedString(value, b"ascii", NULL)
-        hex_address_bytes = hex_address_bytes.lower()
+        lower = PyUnicode_ToLower(value)
+        if lower is NULL:
+            raise MemoryError("PyUnicode_ToLower failed (out of memory or not unicode object)")
             
+        hex_address_bytes = PyUnicode_AsEncodedString(lower, b"ascii", NULL)            
         hex_address_mv = hex_address_bytes
 
         with nogil:
