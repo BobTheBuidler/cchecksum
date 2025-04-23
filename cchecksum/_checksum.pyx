@@ -50,9 +50,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        hex_address_bytes = PyUnicode_AsEncodedString(value, b"ascii", NULL)
-        hex_address_bytes = hex_address_bytes.lower()
-            
+        hex_address_bytes = lowercase_ascii(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -393,6 +391,20 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
         return 70   # F
     else:
         return c
+
+
+cdef unsigned char* lowercase_ascii(bytes src):
+    cdef Py_ssize_t src_len, i
+    cdef unsigned char* c_string
+    cdef unsigned char c
+
+    src_len = len(src)
+    c_string = src
+    with nogil:
+        for i in range(src_len):
+            c = c_string[i]
+            c_string[i] = c + 32 if 65 <= c <= 90 else c
+    return c_string
 
 
 del AnyAddress, ChecksumAddress
