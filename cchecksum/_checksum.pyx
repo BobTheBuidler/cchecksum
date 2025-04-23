@@ -1,6 +1,7 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
+from cpython.unicode cimport PyUnicode_AsEncodedString
 from libc.string cimport strlen
 
 from eth_hash.auto import keccak
@@ -10,7 +11,6 @@ from eth_typing import AnyAddress, ChecksumAddress
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
 keccak(b"")
 
-cdef object str_encode = str.encode
 cdef object hash_address = keccak.hasher
 cdef const unsigned char* hexdigits = b"0123456789abcdef"
 
@@ -51,7 +51,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        hex_address_bytes = str_encode(value, "ascii")
+        hex_address_bytes = PyUnicode_AsEncodedString(value, b"ascii", NULL)
         hex_address_bytes = hex_address_bytes.lower()
             
         hex_address_mv = hex_address_bytes
