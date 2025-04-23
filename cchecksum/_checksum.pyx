@@ -62,9 +62,12 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     elif isinstance(value, (bytes, bytearray)):
         hex_address_bytes = hexlify(value).lower()        
         hex_address_bytestr = hex_address_bytes
+        num_bytes = PyBytes_GET_SIZE(hex_address_bytes)
 
         with nogil:
-            for c in hex_address_bytestr:
+            for i in range(num_bytes):
+                c = hex_address_bytestr[i]
+                
                 if c == 48:  # 0
                     pass
                 elif c == 49:  # 1
