@@ -390,3 +390,4 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
 
 del AnyAddress, ChecksumAddress
 del keccak
+
