@@ -1,14 +1,11 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
-import binascii
+from libc.string cimport strlen
+from libc.stdint cimport uint8_t
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
-
-
-cdef object hexlify = binascii.hexlify
-del binascii
 
 
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
@@ -16,6 +13,7 @@ keccak(b"")
 
 cdef object str_encode = str.encode
 cdef object hash_address = keccak.hasher
+cdef const uint8_t* hexdigits = b"0123456789abcdef"
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -163,6 +161,21 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes[2:])))
     else:
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
+
+
+cdef const unsigned char[::1] hexlify(const uint_8* argbuf):
+    cdef unsigned char[::1] hexlified  # contiguous and writeable
+    cdef Py_ssize_t arglen, i
+    cdef uint8_t c
+    
+    arglen = strlen(argbuf)
+    hexlified = bytearray(arglen * 2)
+    with nogil:
+        for i in range(arglen):
+            c = argbuf[i]
+            hexlified[2*i] = hexdigits[c >> 4]
+            hexlified[2*i+1] = hexdigits[c & 0x0F]
+    return hexlified
 
 
 cdef unicode cchecksum(
