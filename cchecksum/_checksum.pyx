@@ -178,7 +178,7 @@ cdef const char[::1] hexlify(const char* argbuf):
 
 
 cdef unicode cchecksum(
-    const char[::1] norm_address_no_0x, 
+    const unsigned char[::1] norm_address_no_0x, 
     const char[::1] address_hash_hex_no_0x,
 ):
     """
