@@ -48,6 +48,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bytes hex_address_bytes
     cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
+
+    cdef unsigned char[::1] hash_buffer = bytearray(80)  # contiguous and writeable
     
     if isinstance(value, str):
         hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
@@ -106,17 +108,16 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
 
-    return cchecksum(
-        hex_address_mv, 
-        hexlify_unsafe(hash_address(hex_address_bytes), 40),
-    )
+    hexlify_to_buffer_unsafe(hash_address(hex_address_bytes), hash_buffer, 40)
+
+    return cchecksum(hex_address_mv, hash_buffer)
 
 
 cpdef bytes hexlify(const unsigned char[::1] src_buffer):
     return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))
 
 
-cdef const unsigned char[::1] hexlify_unsafe(const unsigned char[::1] src_buffer, Py_ssize_t num_bytes):
+cdef const unsigned char[::1] hexlify_unsafe(const unsigned char[::1] src_buffer, Py_ssize_t num_bytes) noexcept:
     """Make sure your `num_bytes` is correct or ting go boom"""
     cdef unsigned char[::1] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
     with nogil:
@@ -129,6 +130,19 @@ cdef inline void hexlify_to_buffer(
     unsigned char[::1] result_buffer, 
     Py_ssize_t num_bytes,
 ) nogil:
+    cdef Py_ssize_t i
+    cdef unsigned char c
+    for i in range(num_bytes):
+        c = src_buffer[i]
+        result_buffer[2*i] = hexdigits[c >> 4]
+        result_buffer[2*i+1] = hexdigits[c & 0x0F]
+
+
+cdef inline void hexlify_to_buffer_unsafe(
+    const unsigned char[::1] src_buffer, 
+    unsigned char[::1] result_buffer, 
+    Py_ssize_t num_bytes,
+) noexcept nogil:
     cdef Py_ssize_t i
     cdef unsigned char c
     for i in range(num_bytes):
