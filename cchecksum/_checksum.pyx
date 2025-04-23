@@ -2,6 +2,7 @@
 # cython: wraparound=False
 
 import binascii
+from cpython.object cimport PyObject
 from cpython.unicode cimport PyUnicode_AsEncodedString, PyUnicode_ToLower
 
 from eth_hash.auto import keccak
