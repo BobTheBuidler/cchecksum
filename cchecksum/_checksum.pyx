@@ -58,7 +58,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     
     if isinstance(value, str):
         lowercase = PyUnicode_ToLower(value)
-        if lowercase is None:
+        if lowercase is NULL:
             raise MemoryError("PyUnicode_ToLower failed (out of memory or not unicode object)")
             
         hex_address_bytes = PyUnicode_AsEncodedString(lowercase, b"ascii", NULL)            
