@@ -165,12 +165,13 @@ cdef unsigned char* lowercase_ascii(bytes src):
     
     src_c_string = src
     src_len = len(src)
-    dest = bytearray(src_len)
+    dest_bytes = bytearray(src_len)
+    dest_c_string = dest_bytes
     with nogil:
         for i in range(src_len):
-            c = src[i]
-            dest[i] = c + 32 if 65 <= c <= 90 else c
-        return dest
+            c = src_c_string[i]
+            dest_c_string[i] = c + 32 if 65 <= c <= 90 else c
+        return dest_c_string
 
 
 cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
