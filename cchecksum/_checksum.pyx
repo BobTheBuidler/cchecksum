@@ -45,11 +45,10 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    cdef bytes hex_address_bytes
+    cdef bytes hex_address_bytes, hashed
     cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
     cdef bint is_0x_prefixed
-    cdef unicode hashed
     
     if isinstance(value, str):
         hex_address_bytes = str_encode(value, "ascii")
