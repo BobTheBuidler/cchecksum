@@ -130,7 +130,7 @@ cpdef bytes hexlify(const unsigned char[:] src_buffer):
     return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))
 
 
-cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py_ssize_t num_bytes) noexcept:
+cdef const unsigned char[:] hexlify_unsafe(const char[:] src_buffer, Py_ssize_t num_bytes) noexcept:
     """Make sure your `num_bytes` is correct or ting go boom"""
     cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
     with nogil:
