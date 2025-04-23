@@ -157,21 +157,21 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
 
     if is_0x_prefixed:
-        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes[2:])))
+        hashed = hash_address(hex_address_bytes[2:])
     else:
-        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
+        hashed = hash_address(hex_address_bytes)
+    return cchecksum(hex_address_mv, hexlify(hashed, len(hashed)))
 
 
-cdef const unsigned char[::1] hexlify(const char* argbuf):
+cdef const unsigned char[::1] hexlify(const char* buffer, Py_ssize_t buffer_len):
     cdef unsigned char[::1] hexlified  # contiguous and writeable
-    cdef Py_ssize_t arglen, i
+    cdef Py_ssize_t i
     cdef char c
     
-    arglen = strlen(argbuf)
-    hexlified = bytearray(arglen * 2)
+    hexlified = bytearray(buffer_len * 2)
     with nogil:
-        for i in range(arglen):
-            c = argbuf[i]
+        for i in range(buffer_len):
+            c = buffer[i]
             hexlified[2*i] = hexdigits[c >> 4]
             hexlified[2*i+1] = hexdigits[c & 0x0F]
     return hexlified
