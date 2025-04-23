@@ -158,20 +158,17 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     
 cdef unsigned char* lowercase_ascii(bytes src):
-    cdef const unsigned char* src_c_string
+    cdef unsigned char* c_string
     cdef Py_ssize_t src_len, i
-    cdef unsigned char* dest
     cdef unsigned char c
     
-    src_c_string = src
     src_len = len(src)
-    dest_bytes = bytearray(src_len)
-    dest_c_string = dest_bytes
+    c_string = src
     with nogil:
         for i in range(src_len):
-            c = src_c_string[i]
-            dest_c_string[i] = c + 32 if 65 <= c <= 90 else c
-    return dest_c_string
+            c = c_string[i]
+            c_string[i] = c + 32 if 65 <= c <= 90 else c
+    return c_string
 
 
 cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
