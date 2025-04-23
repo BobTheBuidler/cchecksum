@@ -2,11 +2,13 @@
 # cython: wraparound=False
 
 import binascii
-from cpython.unicode cimport PyUnicode_AsEncodedString, PyUnicode_ToLower
+from cpython.unicode cimport PyUnicode_AsEncodedString
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
 
+cdef extern from "Python.h":
+    PyObject* PyUnicode_ToLower(PyObject*)
 
 cdef object hexlify = binascii.hexlify
 del binascii
