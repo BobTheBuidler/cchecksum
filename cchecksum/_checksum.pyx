@@ -12,7 +12,7 @@ from eth_typing import AnyAddress, ChecksumAddress
 keccak(b"")
 
 cdef object hash_address = keccak.hasher
-cdef const unsigned char* hexdigits = b"0123456789abcdef"
+cdef const char* hexdigits = b"0123456789abcdef"
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -46,11 +46,11 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     cdef bytes hex_address_bytes, hashed_bytes
-    cdef const unsigned char* hex_address_bytestr
+    cdef const char* hex_address_bytestr
     cdef Py_ssize_t num_bytes
-    cdef unsigned char c
+    cdef char c
 
-    cdef unsigned char[:] hash_buffer = bytearray(80)  # contiguous and writeable
+    cdef char[:] hash_buffer = bytearray(80)  # contiguous and writeable
     
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
@@ -113,7 +113,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
     
     hashed_bytes = hash_address(hex_address_bytes)
-    cdef const unsigned char* hashed_bytestr = hashed_bytes
+    cdef const char* hashed_bytestr = hashed_bytes
     
     with nogil:
         if num_bytes != 40:
@@ -128,25 +128,25 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     return result_buffer[:42].decode('ascii')
 
 
-cpdef bytes hexlify(const unsigned char[:] src_buffer):
+cpdef bytes hexlify(const char[:] src_buffer):
     return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))
 
 
-cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py_ssize_t num_bytes) noexcept:
+cdef const char[:] hexlify_unsafe(const char[:] src_buffer, Py_ssize_t num_bytes) noexcept:
     """Make sure your `num_bytes` is correct or ting go boom"""
-    cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
+    cdef char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
     with nogil:
         hexlify_memview_to_buffer_unsafe(src_buffer, result_buffer, num_bytes)
     return result_buffer
 
 
 cdef inline void hexlify_memview_to_buffer(
-    const unsigned char[:] src_buffer, 
-    unsigned char[:] result_buffer, 
+    const char[:] src_buffer, 
+    char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) nogil:
     cdef Py_ssize_t i
-    cdef unsigned char c
+    cdef char c
     for i in range(num_bytes):
         c = src_buffer[i]
         result_buffer[2*i] = hexdigits[c >> 4]
@@ -154,12 +154,12 @@ cdef inline void hexlify_memview_to_buffer(
 
 
 cdef inline void hexlify_c_string_to_buffer(
-    const unsigned char* src_buffer, 
-    unsigned char[:] result_buffer, 
+    const char* src_buffer, 
+    char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) nogil:
     cdef Py_ssize_t i
-    cdef unsigned char c
+    cdef char c
     for i in range(num_bytes):
         c = src_buffer[i]
         result_buffer[2*i] = hexdigits[c >> 4]
@@ -167,12 +167,12 @@ cdef inline void hexlify_c_string_to_buffer(
 
 
 cdef inline void hexlify_memview_to_buffer_unsafe(
-    const unsigned char[:] src_buffer, 
-    unsigned char[:] result_buffer, 
+    const char[:] src_buffer, 
+    char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) noexcept nogil:
     cdef Py_ssize_t i
-    cdef unsigned char c
+    cdef char c
     for i in range(num_bytes):
         c = src_buffer[i]
         result_buffer[2*i] = hexdigits[c >> 4]
@@ -180,12 +180,12 @@ cdef inline void hexlify_memview_to_buffer_unsafe(
 
 
 cdef inline void hexlify_c_string_to_buffer_unsafe(
-    const unsigned char* src_buffer, 
-    unsigned char[:] result_buffer, 
+    const char* src_buffer, 
+    char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) noexcept nogil:
     cdef Py_ssize_t i
-    cdef unsigned char c
+    cdef char c
     for i in range(num_bytes):
         c = src_buffer[i]
         result_buffer[2*i] = hexdigits[c >> 4]
@@ -194,8 +194,8 @@ cdef inline void hexlify_c_string_to_buffer_unsafe(
 
 cdef void populate_result_buffer(
     char[42] buffer,
-    const unsigned char* norm_address_no_0x, 
-    const unsigned char[:] address_hash_hex_no_0x,
+    const char* norm_address_no_0x, 
+    const char[:] address_hash_hex_no_0x,
 ) noexcept nogil:
     """
     Computes the checksummed version of an Ethereum address.
@@ -379,7 +379,7 @@ cdef void populate_result_buffer(
         buffer[41] = get_char(norm_address_no_0x[39])
 
 
-cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
+cdef inline char get_char(char c) noexcept nogil:
     """This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
     characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
     the character is capitalized.
@@ -400,10 +400,10 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
         return c
 
 
-cdef unsigned char* lowercase_ascii_and_validate(bytes src):
+cdef char* lowercase_ascii_and_validate(bytes src):
     cdef Py_ssize_t src_len, range_start, i
-    cdef unsigned char* c_string
-    cdef unsigned char c
+    cdef char* c_string
+    cdef char c
 
     # set value of `c_string` and `src_len` from `src`
     PyBytes_AsStringAndSize(src, &c_string, &src_len)
