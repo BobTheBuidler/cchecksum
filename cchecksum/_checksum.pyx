@@ -138,7 +138,7 @@ cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py
     return result_buffer
 
 
-cdef inline void hexlify_memview_to_buffer(
+cdef inline int hexlify_memview_to_buffer(
     const char[:] src_buffer, 
     unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
@@ -151,7 +151,7 @@ cdef inline void hexlify_memview_to_buffer(
         result_buffer[2*i+1] = hexdigits[c & 0x0F]
 
 
-cdef inline void hexlify_c_string_to_buffer(
+cdef inline int hexlify_c_string_to_buffer(
     const char* src_buffer, 
     unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
