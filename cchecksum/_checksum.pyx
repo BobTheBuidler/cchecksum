@@ -12,7 +12,7 @@ from eth_typing import AnyAddress, ChecksumAddress
 keccak(b"")
 
 cdef object hash_address = keccak.hasher
-cdef const unsigned char* hexdigits = b"0123456789abcdef"
+cdef const char* hexdigits = b"0123456789abcdef"
 
 
 # this was ripped out of eth_utils and optimized a little bit
