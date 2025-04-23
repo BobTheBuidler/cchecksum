@@ -107,7 +107,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
-    cdef char* hashed = hash_address(hex_address_bytes)
+    cdef const unsigned char* hashed = hash_address(hex_address_bytes)
     
     with nogil:
         if len(hex_address_mv) != 40:
