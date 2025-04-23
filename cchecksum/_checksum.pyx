@@ -47,8 +47,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     cdef bytes hex_address_bytes
-    cdef const uint_8[::1] hex_address_mv
-    cdef uint_8 c
+    cdef const uint8_t[::1] hex_address_mv
+    cdef uint8_t c
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
@@ -163,8 +163,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
 
-cdef const uint_8[::1] hexlify(const uint_8* argbuf):
-    cdef uint_8[::1] hexlified  # contiguous and writeable
+cdef const uint8_t[::1] hexlify(const uint8_t* argbuf):
+    cdef uint8_t[::1] hexlified  # contiguous and writeable
     cdef Py_ssize_t arglen, i
     cdef uint8_t c
     
@@ -179,8 +179,8 @@ cdef const uint_8[::1] hexlify(const uint_8* argbuf):
 
 
 cdef unicode cchecksum(
-    const uint_8[::1] norm_address_no_0x, 
-    const uint_8[::1] address_hash_hex_no_0x,
+    const uint8_t[::1] norm_address_no_0x, 
+    const uint8_t[::1] address_hash_hex_no_0x,
 ):
     """
     Computes the checksummed version of an Ethereum address.
@@ -208,7 +208,7 @@ cdef unicode cchecksum(
     """
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
-    cdef uint_8[42] buffer = b'0x' + bytearray(40)
+    cdef uint8_t[42] buffer = b'0x' + bytearray(40)
     
     with nogil:
         # Handle character casing based on the hash value
@@ -380,7 +380,7 @@ cdef unicode cchecksum(
     return buffer[:42].decode('ascii')
 
 
-cdef inline uint_8 get_char(uint_8 c) noexcept nogil:
+cdef inline uint8_t get_char(uint8_t c) noexcept nogil:
     """This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
     characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
     the character is capitalized.
