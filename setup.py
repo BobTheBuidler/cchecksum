@@ -1,8 +1,12 @@
+from pathlib import Path
 from Cython.Build import cythonize
 from setuptools import find_packages, setup
 
 with open("requirements.txt", "r") as f:
     requirements = list(map(str.strip, f.read().split("\n")))[:-1]
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="cchecksum",
@@ -14,6 +18,7 @@ setup(
         "version_scheme": "python-simplified-semver",
     },
     description="A ~8x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.",
+    long_description=long_description,
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
     url="https://github.com/BobTheBuidler/cchecksum",
