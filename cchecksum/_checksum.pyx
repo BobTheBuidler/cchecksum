@@ -46,7 +46,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     cdef bytes hex_address_bytes, hashed_bytes
-    cdef const unsigned char[::1] hex_address_mv
+    cdef const unsigned char* hex_address_bytestr
     cdef unsigned char c
 
     cdef unsigned char[::1] hash_buffer = bytearray(80)  # contiguous and writeable
@@ -57,14 +57,14 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     
     if isinstance(value, str):
         hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
-        hex_address_mv = hex_address_bytes
+        hex_address_bytestr = hex_address_bytes
 
     elif isinstance(value, (bytes, bytearray)):
         hex_address_bytes = hexlify(value).lower()        
-        hex_address_mv = hex_address_bytes
+        hex_address_bytestr = hex_address_bytes
 
         with nogil:
-            for c in hex_address_mv:
+            for c in hex_address_bytestr:
                 if c == 48:  # 0
                     pass
                 elif c == 49:  # 1
@@ -107,18 +107,17 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
+    if PyBytes_GET_SIZE(hex_address_bytes) != 40:
+        raise ValueError(
+            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
+        )
+    
     hashed_bytes = hash_address(hex_address_bytes)
     cdef const unsigned char* hashed_c_string = hashed_bytes
     
     with nogil:
-        if len(hex_address_mv) != 40:
-            raise ValueError(
-                f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
-            )
-        
         hexlify_c_string_to_buffer_unsafe(hashed_c_string, hash_buffer, 40)
-
-        populate_result_buffer(result_buffer, hex_address_mv, hash_buffer)
+        populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
     return result_buffer[:42].decode('ascii')
@@ -190,7 +189,7 @@ cdef inline void hexlify_c_string_to_buffer_unsafe(
 
 cdef void populate_result_buffer(
     char[42] buffer,
-    const unsigned char[::1] norm_address_no_0x, 
+    const unsigned char* norm_address_no_0x, 
     const unsigned char[::1] address_hash_hex_no_0x,
 ) noexcept nogil:
     """
