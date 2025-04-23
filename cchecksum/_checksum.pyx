@@ -1,20 +1,17 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
-import binascii
 from cpython.unicode cimport PyUnicode_AsEncodedString
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
-
-cdef object hexlify = binascii.hexlify
-del binascii
 
 
 # force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
 keccak(b"")
 
 cdef object hash_address = keccak.hasher
+cdef const unsigned char* hexdigits = b"0123456789abcdef"
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -48,7 +45,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     cdef bytes hex_address_bytes
-    cdef const unsigned char [::1] hex_address_mv
+    cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
     cdef bint is_0x_prefixed
     
@@ -105,7 +102,6 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     elif isinstance(value, (bytes, bytearray)):
         is_0x_prefixed = False
         hex_address_bytes = bytes(lowercase_ascii(hexlify(value)))
-        
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -176,7 +172,20 @@ cdef unsigned char[::1] lowercase_ascii(const unsigned char* src):
             dest[i] = c + 32 if 65 <= c <= 90 else c
         return dest
 
-        
+
+cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
+    cdef Py_ssize_t buffer_len = buffer.shape[0]
+    cdef unsigned char[::1] hexlified = bytearray(buffer_len * 2)  # contiguous and writeable
+    cdef unsigned char c
+    cdef Py_ssize_t i
+    with nogil:
+        for i in range(buffer_len):
+            c = buffer[i]
+            hexlified[2*i] = hexdigits[c >> 4]
+            hexlified[2*i+1] = hexdigits[c & 0x0F]
+    return hexlified
+
+
 cdef unicode cchecksum(
     const unsigned char[::1] norm_address_no_0x, 
     const unsigned char[::1] address_hash_hex_no_0x,
