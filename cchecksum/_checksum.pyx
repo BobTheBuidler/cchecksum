@@ -113,14 +113,15 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
 
     hashed = hash_address(hex_address_bytes)
+
+    if len(hex_address_mv) != 40:
+        raise ValueError(
+            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
+        )
+    
+    hexlify_to_buffer_unsafe(hashed, hash_buffer, 40)
     
     with nogil:
-        if len(hex_address_mv) != 40:
-            raise ValueError(
-                f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
-            )
-        
-        hexlify_to_buffer_unsafe(hashed, hash_buffer, 40)
 
         populate_result_buffer(result_buffer, hex_address_mv, hash_buffer)
         
