@@ -154,7 +154,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
 
     if is_0x_prefixed:
-        return cchecksum(hex_address_mv, hexlify(hash_address(bytes(hex_address_mv[2:]))))
+        return cchecksum(hex_address_mv, hexlify(hash_address(bytes(hex_address_mv))))
     else:
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
