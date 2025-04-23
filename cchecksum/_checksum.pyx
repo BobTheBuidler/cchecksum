@@ -400,7 +400,7 @@ cdef unsigned char* lowercase_ascii_and_validate(bytes src):
                 pass
             else:
                 with gil:
-                    raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(src.decode("ascii"))}")
+                    raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(src.decode('ascii'))}")
     
     return c_string[range_start:]
 
