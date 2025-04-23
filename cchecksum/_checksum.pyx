@@ -102,7 +102,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     elif isinstance(value, (bytes, bytearray)):
         is_0x_prefixed = False
-        hex_address_bytes = bytes(hexlify(value))
+        hex_address_bytes = <bytes>hexlify(value)
         hex_address_bytes = hex_address_bytes.lower()
         
         hex_address_mv = hex_address_bytes
