@@ -165,8 +165,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
 cdef const unsigned char[::1] hexlify(const unsigned char* buffer, Py_ssize_t buffer_len):
     cdef unsigned char[::1] hexlified  # contiguous and writeable
-    cdef Py_ssize_t i
     cdef unsigned char c
+    cdef Py_ssize_t i
     
     hexlified = bytearray(buffer_len * 2)
     with nogil:
