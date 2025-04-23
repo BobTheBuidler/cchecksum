@@ -49,6 +49,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
     cdef bint is_0x_prefixed
+    cdef unicode hashed
     
     if isinstance(value, str):
         hex_address_bytes = str_encode(value, "ascii")
