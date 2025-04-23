@@ -61,7 +61,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         if lowercase is NULL:
             raise MemoryError("PyUnicode_ToLower failed (out of memory or not unicode object)")
             
-        hex_address_bytes = PyUnicode_AsEncodedString(lowercase, b"ascii", NULL)            
+        hex_address_bytes = PyUnicode_AsEncodedString(<object>lowercase, b"ascii", NULL)            
         hex_address_mv = hex_address_bytes
 
         with nogil:
