@@ -55,4 +55,3 @@ def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> bytes:
     """
 
 def cchecksum(norm_address_no_0x: bytes, address_hash_hex_no_0x: bytes) -> ChecksumAddress: ...
-
