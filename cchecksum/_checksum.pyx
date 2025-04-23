@@ -52,13 +52,14 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef const unsigned char [::1] hex_address_mv
     cdef unsigned char c
     cdef bint is_0x_prefixed
+    cdef PyObject* lowercase
     
     if isinstance(value, str):
-        lower = PyUnicode_ToLower(value)
-        if lower is NULL:
+        lowercase = PyUnicode_ToLower(value)
+        if lowercase is NULL:
             raise MemoryError("PyUnicode_ToLower failed (out of memory or not unicode object)")
             
-        hex_address_bytes = PyUnicode_AsEncodedString(lower, b"ascii", NULL)            
+        hex_address_bytes = PyUnicode_AsEncodedString(lowercase, b"ascii", NULL)            
         hex_address_mv = hex_address_bytes
 
         with nogil:
