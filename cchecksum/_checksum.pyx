@@ -2,7 +2,6 @@
 # cython: wraparound=False
 
 import binascii
-from cpython.object cimport PyObject
 from cpython.unicode cimport PyUnicode_AsEncodedString, PyUnicode_ToLower
 
 from eth_hash.auto import keccak
@@ -53,11 +52,10 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef const unsigned char [::1] hex_address_mv
     cdef unsigned char c
     cdef bint is_0x_prefixed
-    cdef PyObject* lowercase
     
     if isinstance(value, str):
         lowercase = PyUnicode_ToLower(value)
-        if lowercase is NULL:
+        if lowercase is None:
             raise MemoryError("PyUnicode_ToLower failed (out of memory or not unicode object)")
             
         hex_address_bytes = PyUnicode_AsEncodedString(lowercase, b"ascii", NULL)            
