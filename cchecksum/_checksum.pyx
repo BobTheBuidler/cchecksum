@@ -394,8 +394,8 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
 
     
 cdef unsigned char* lowercase_ascii(bytes src):
-    cdef unsigned char* c_string
     cdef Py_ssize_t src_len, i
+    cdef unsigned char* c_string
     cdef unsigned char c
     
     src_len = len(src)
@@ -408,8 +408,8 @@ cdef unsigned char* lowercase_ascii(bytes src):
 
 
 cdef unsigned char* lowercase_ascii_memview(unsigned char[::1] memview):
-    cdef unsigned char* c_string
     cdef Py_ssize_t src_len, i
+    cdef unsigned char* c_string
     cdef unsigned char c
 
     src_len = memview.shape[0]
@@ -417,7 +417,7 @@ cdef unsigned char* lowercase_ascii_memview(unsigned char[::1] memview):
     c_string = bytes_obj
     with nogil:
         for i in range(src_len):
-            c = c_string[i]
+            c = memview[i]
             c_string[i] = c + 32 if 65 <= c <= 90 else c
     return c_string
 
