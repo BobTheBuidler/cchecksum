@@ -1,6 +1,7 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
+from cpython.bytes cimport PyBytes_GET_SIZE
 from cpython.unicode cimport PyUnicode_AsEncodedString
 
 from eth_hash.auto import keccak
@@ -158,7 +159,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
 
 cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
-    cdef Py_ssize_t buffer_len = buffer.shape[0]
+    cdef Py_ssize_t buffer_len = len(buffer)
     cdef unsigned char[::1] hexlified = bytearray(buffer_len * 2)  # contiguous and writeable
     cdef unsigned char c
     cdef Py_ssize_t i
@@ -398,7 +399,7 @@ cdef unsigned char* lowercase_ascii(bytes src):
     cdef unsigned char* c_string
     cdef unsigned char c
 
-    src_len = len(src)
+    src_len = PyBytes_GET_SIZE(src)
     c_string = src
     with nogil:
         for i in range(src_len):
