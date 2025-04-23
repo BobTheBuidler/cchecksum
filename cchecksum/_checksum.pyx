@@ -171,7 +171,7 @@ cdef unsigned char* lowercase_ascii(bytes src):
         for i in range(src_len):
             c = src_c_string[i]
             dest_c_string[i] = c + 32 if 65 <= c <= 90 else c
-        return dest_c_string
+    return dest_c_string
 
 
 cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
