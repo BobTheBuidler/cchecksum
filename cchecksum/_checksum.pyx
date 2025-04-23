@@ -1,7 +1,7 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
-from cpython.bytes cimport PyBytes_GET_SIZE
+from cpython.bytes cimport PyBytes_GET_SIZE, PyBytes_AsStringAndSize
 from cpython.unicode cimport PyUnicode_AsEncodedString
 
 from eth_hash.auto import keccak
@@ -47,6 +47,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     """
     cdef bytes hex_address_bytes, hashed_bytes
     cdef const unsigned char* hex_address_bytestr
+    cdef Py_ssize_t num_bytes
     cdef unsigned char c
 
     cdef unsigned char[:] hash_buffer = bytearray(80)  # contiguous and writeable
@@ -56,13 +57,14 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef char[42] result_buffer = b'0x' + bytearray(40)
     
     if isinstance(value, str):
-        hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
-        hex_address_bytestr = hex_address_bytes
+        hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))
+        # set value of `hex_address_bytestr` and `num_bytes` from `hex_address_bytes`
+        PyBytes_AsStringAndSize(hex_address_bytes, &hex_address_bytestr, &num_bytes)
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_bytes = hexlify(value).lower()        
-        hex_address_bytestr = hex_address_bytes
-        num_bytes = PyBytes_GET_SIZE(hex_address_bytes)
+        hex_address_bytes = hexlify(value).lower()
+        # set value of `hex_address_bytestr` and `num_bytes` from `hex_address_bytes`
+        PyBytes_AsStringAndSize(hex_address_bytes, &hex_address_bytestr, &num_bytes)
 
         with nogil:
             for i in range(num_bytes):
@@ -109,16 +111,16 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         raise TypeError(
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
-
-    if PyBytes_GET_SIZE(hex_address_bytes) != 40:
-        raise ValueError(
-            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
-        )
     
     hashed_bytes = hash_address(hex_address_bytes)
     cdef const unsigned char* hashed_bytestr = hashed_bytes
     
     with nogil:
+        if num_bytes != 40:
+            raise ValueError(
+                f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
+            )
+            
         hexlify_c_string_to_buffer_unsafe(hashed_bytestr, hash_buffer, 40)
         populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
         
@@ -402,9 +404,9 @@ cdef unsigned char* lowercase_ascii_and_validate(bytes src):
     cdef Py_ssize_t src_len, range_start, i
     cdef unsigned char* c_string
     cdef unsigned char c
-    
-    src_len = PyBytes_GET_SIZE(src)
-    c_string = src
+
+    # set value of `c_string` and `src_len` from `src`
+    PyBytes_AsStringAndSize(src, &c_string, &src_len)
 
     with nogil:
         # if c_string[0] == b"0" and c_string[1] in (b"X", b"x")
