@@ -48,58 +48,12 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bytes hex_address_bytes
     cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
-    cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        hex_address_bytes = lowercase_ascii(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
+        hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
         hex_address_mv = hex_address_bytes
 
-        with nogil:
-            # if hex_address_mv[0] == b"0" and hex_address_mv[1] == b"x"
-            if hex_address_mv[0] == 48 and hex_address_mv[1] == 120:
-                hex_address_mv = hex_address_mv[2:]
-                is_0x_prefixed = True
-            else:
-                is_0x_prefixed = False
-
-            for c in hex_address_mv:
-                if c == 48:  # 0
-                    pass
-                elif c == 49:  # 1
-                    pass
-                elif c == 50:  # 2
-                    pass
-                elif c == 51:  # 3
-                    pass
-                elif c == 52:  # 4
-                    pass
-                elif c == 53:  # 5
-                    pass
-                elif c == 54:  # 6
-                    pass
-                elif c == 55:  # 7
-                    pass
-                elif c == 56:  # 8
-                    pass
-                elif c == 57:  # 9
-                    pass
-                elif c == 97:  # a
-                    pass
-                elif c == 98:  # b
-                    pass
-                elif c == 99:  # c
-                    pass
-                elif c == 100:  # d
-                    pass
-                elif c == 101:  # e
-                    pass
-                elif c == 102:  # f
-                    pass
-                else:
-                    raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
-
     elif isinstance(value, (bytes, bytearray)):
-        is_0x_prefixed = False
         hex_address_bytes = bytes(hexlify(value)).lower()        
         hex_address_mv = hex_address_bytes
 
@@ -152,10 +106,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
 
-    if is_0x_prefixed:
-        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes[2:])))
-    else:
-        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
+    return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
 
 cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
@@ -394,18 +345,63 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
         return c
 
 
-cdef unsigned char* lowercase_ascii(bytes src):
-    cdef Py_ssize_t src_len, i
+cdef unsigned char* lowercase_ascii_and_validate(bytes src):
+    cdef Py_ssize_t src_len, range_start, i
     cdef unsigned char* c_string
     cdef unsigned char c
-
+    
     src_len = PyBytes_GET_SIZE(src)
     c_string = src
+
     with nogil:
-        for i in range(src_len):
+        # if c_string[0] == b"0" and c_string[1] in (b"X", b"x")
+        if c_string[0] == 48 and c_string[1] in (88, 120):
+            range_start = 2
+        else:
+            range_start = 0
+    
+        for i in range(range_start, src_len):
             c = c_string[i]
-            c_string[i] = c + 32 if 65 <= c <= 90 else c
-    return c_string
+
+            if 65 <= c <= 90:
+                c += 32
+
+            if c == 48:  # 0
+                pass
+            elif c == 49:  # 1
+                pass
+            elif c == 50:  # 2
+                pass
+            elif c == 51:  # 3
+                pass
+            elif c == 52:  # 4
+                pass
+            elif c == 53:  # 5
+                pass
+            elif c == 54:  # 6
+                pass
+            elif c == 55:  # 7
+                pass
+            elif c == 56:  # 8
+                pass
+            elif c == 57:  # 9
+                pass
+            elif c == 97:  # a
+                pass
+            elif c == 98:  # b
+                pass
+            elif c == 99:  # c
+                pass
+            elif c == 100:  # d
+                pass
+            elif c == 101:  # e
+                pass
+            elif c == 102:  # f
+                pass
+            else:
+                raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
+    
+    return c_string[range_start:]
 
 
 del AnyAddress, ChecksumAddress
