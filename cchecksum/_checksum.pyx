@@ -45,7 +45,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    cdef bytes hex_address_bytes, hashed
+    cdef bytes hex_address_bytes
     cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
 
@@ -107,16 +107,16 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
-    hashed = hash_address(hex_address_bytes)
-
-    if len(hex_address_mv) != 40:
-        raise ValueError(
-            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
-        )
-    
-    hexlify_to_buffer_unsafe(hashed, hash_buffer, 40)
+    cdef char* hashed = hash_address(hex_address_bytes)
     
     with nogil:
+        if len(hex_address_mv) != 40:
+            raise ValueError(
+                f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
+            )
+        
+        hexlify_c_string_to_buffer_unsafe(hashed, hash_buffer, 40)
+
         populate_result_buffer(result_buffer, hex_address_mv, hash_buffer)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
@@ -131,11 +131,11 @@ cdef const unsigned char[::1] hexlify_unsafe(const unsigned char[::1] src_buffer
     """Make sure your `num_bytes` is correct or ting go boom"""
     cdef unsigned char[::1] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
     with nogil:
-        hexlify_to_buffer(src_buffer, result_buffer, num_bytes)
+        hexlify_memview_to_buffer_unsafe(src_buffer, result_buffer, num_bytes)
     return result_buffer
 
 
-cdef inline void hexlify_to_buffer(
+cdef inline void hexlify_memview_to_buffer(
     const unsigned char[::1] src_buffer, 
     unsigned char[::1] result_buffer, 
     Py_ssize_t num_bytes,
@@ -148,8 +148,34 @@ cdef inline void hexlify_to_buffer(
         result_buffer[2*i+1] = hexdigits[c & 0x0F]
 
 
-cdef inline void hexlify_to_buffer_unsafe(
+cdef inline void hexlify_c_string_to_buffer(
+    const unsigned char* src_buffer, 
+    unsigned char[::1] result_buffer, 
+    Py_ssize_t num_bytes,
+) nogil:
+    cdef Py_ssize_t i
+    cdef unsigned char c
+    for i in range(num_bytes):
+        c = src_buffer[i]
+        result_buffer[2*i] = hexdigits[c >> 4]
+        result_buffer[2*i+1] = hexdigits[c & 0x0F]
+
+
+cdef inline void hexlify_memview_to_buffer_unsafe(
     const unsigned char[::1] src_buffer, 
+    unsigned char[::1] result_buffer, 
+    Py_ssize_t num_bytes,
+) noexcept nogil:
+    cdef Py_ssize_t i
+    cdef unsigned char c
+    for i in range(num_bytes):
+        c = src_buffer[i]
+        result_buffer[2*i] = hexdigits[c >> 4]
+        result_buffer[2*i+1] = hexdigits[c & 0x0F]
+
+
+cdef inline void hexlify_c_string_to_buffer_unsafe(
+    const unsigned char* src_buffer, 
     unsigned char[::1] result_buffer, 
     Py_ssize_t num_bytes,
 ) noexcept nogil:
