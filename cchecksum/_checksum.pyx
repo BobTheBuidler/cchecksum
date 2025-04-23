@@ -99,7 +99,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     elif isinstance(value, (bytes, bytearray)):
         is_0x_prefixed = False
-        hex_address_bytes = bytes(lowercase_ascii(bytes(hexlify(value))))
+        hex_address_bytes = lowercase_ascii(bytes(hexlify(value)))
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -157,12 +157,14 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
     
-cdef unsigned char[::1] lowercase_ascii(const unsigned char* src):
+cdef unsigned char* lowercase_ascii(bytes src):
+    cdef const unsigned char* src_c_string
     cdef Py_ssize_t src_len, i
-    cdef unsigned char[::1] dest
+    cdef unsigned char* dest
     cdef unsigned char c
     
-    src_len = src.shape[0]
+    src_c_string = src
+    src_len = len(src)
     dest = bytearray(src_len)
     with nogil:
         for i in range(src_len):
