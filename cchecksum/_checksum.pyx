@@ -45,7 +45,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    cdef bytes hex_address_bytes, hashed
+    cdef bytes hex_address_bytes
     cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
     cdef bint is_0x_prefixed
@@ -102,7 +102,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     elif isinstance(value, (bytes, bytearray)):
         is_0x_prefixed = False
-        hex_address_bytes = bytes(hexlify(value, len(value)))
+        hex_address_bytes = bytes(hexlify(value))
         hex_address_bytes = hex_address_bytes.lower()
         
         hex_address_mv = hex_address_bytes
@@ -157,18 +157,16 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
 
     if is_0x_prefixed:
-        hashed = hash_address(hex_address_bytes[2:])
+        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes[2:])))
     else:
-        hashed = hash_address(hex_address_bytes)
-    return cchecksum(hex_address_mv, hexlify(hashed, len(hashed)))
+        return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
 
-cdef const unsigned char[::1] hexlify(const unsigned char* buffer, Py_ssize_t buffer_len):
-    cdef unsigned char[::1] hexlified  # contiguous and writeable
+cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
+    cdef Py_ssize_t buffer_len = buffer.shape[0]
+    cdef unsigned char[::1] hexlified = bytearray(buffer_len * 2)  # contiguous and writeable
     cdef unsigned char c
     cdef Py_ssize_t i
-    
-    hexlified = bytearray(buffer_len * 2)
     with nogil:
         for i in range(buffer_len):
             c = buffer[i]
