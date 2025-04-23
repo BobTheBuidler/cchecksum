@@ -399,7 +399,8 @@ cdef unsigned char* lowercase_ascii_and_validate(bytes src):
             elif c == 102:  # f
                 pass
             else:
-                raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(value)}")
+                with gil:
+                    raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(src.decode("ascii"))}")
     
     return c_string[range_start:]
 
