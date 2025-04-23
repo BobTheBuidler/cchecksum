@@ -124,21 +124,21 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     return result_buffer[:42].decode('ascii')
 
 
-cpdef bytes hexlify(const unsigned char[::1] src_buffer):
+cpdef bytes hexlify(const unsigned char[:] src_buffer):
     return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))
 
 
-cdef const unsigned char[::1] hexlify_unsafe(const unsigned char[::1] src_buffer, Py_ssize_t num_bytes) noexcept:
+cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py_ssize_t num_bytes) noexcept:
     """Make sure your `num_bytes` is correct or ting go boom"""
-    cdef unsigned char[::1] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
+    cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
     with nogil:
         hexlify_memview_to_buffer_unsafe(src_buffer, result_buffer, num_bytes)
     return result_buffer
 
 
 cdef inline void hexlify_memview_to_buffer(
-    const unsigned char[::1] src_buffer, 
-    unsigned char[::1] result_buffer, 
+    const unsigned char[:] src_buffer, 
+    unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) nogil:
     cdef Py_ssize_t i
@@ -151,7 +151,7 @@ cdef inline void hexlify_memview_to_buffer(
 
 cdef inline void hexlify_c_string_to_buffer(
     const unsigned char* src_buffer, 
-    unsigned char[::1] result_buffer, 
+    unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) nogil:
     cdef Py_ssize_t i
@@ -163,8 +163,8 @@ cdef inline void hexlify_c_string_to_buffer(
 
 
 cdef inline void hexlify_memview_to_buffer_unsafe(
-    const unsigned char[::1] src_buffer, 
-    unsigned char[::1] result_buffer, 
+    const unsigned char[:] src_buffer, 
+    unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) noexcept nogil:
     cdef Py_ssize_t i
