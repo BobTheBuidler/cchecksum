@@ -49,7 +49,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef const unsigned char[:] hex_address_mv
     cdef unsigned char c
 
-    cdef unsigned char[::1] hash_buffer = bytearray(80)  # contiguous and writeable
+    cdef unsigned char[:] hash_buffer = bytearray(80)  # contiguous and writeable
     
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
@@ -177,7 +177,7 @@ cdef inline void hexlify_memview_to_buffer_unsafe(
 
 cdef inline void hexlify_c_string_to_buffer_unsafe(
     const unsigned char* src_buffer, 
-    unsigned char[::1] result_buffer, 
+    unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
 ) noexcept nogil:
     cdef Py_ssize_t i
