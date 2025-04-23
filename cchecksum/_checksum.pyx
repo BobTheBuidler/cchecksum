@@ -54,7 +54,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         hex_address_mv = hex_address_bytes
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_bytes = bytes(hexlify(value)).lower()        
+        hex_address_bytes = hexlify(value).lower()        
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -106,20 +106,35 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
 
-    return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
+    return cchecksum(
+        hex_address_mv, 
+        hexlify_unsafe(hash_address(hex_address_bytes), 40),
+    )
 
 
-cdef const unsigned char[::1] hexlify(const unsigned char[::1] buffer):
-    cdef Py_ssize_t buffer_len = len(buffer)
-    cdef unsigned char[::1] hexlified = bytearray(buffer_len * 2)  # contiguous and writeable
-    cdef unsigned char c
-    cdef Py_ssize_t i
+cpdef bytes hexlify(const unsigned char[::1] src_buffer):
+    return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))
+
+
+cdef const unsigned char[::1] hexlify_unsafe(const unsigned char[::1] src_buffer, Py_ssize_t num_bytes):
+    """Make sure your `num_bytes` is correct or ting go boom"""
+    cdef unsigned char[::1] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
     with nogil:
-        for i in range(buffer_len):
-            c = buffer[i]
-            hexlified[2*i] = hexdigits[c >> 4]
-            hexlified[2*i+1] = hexdigits[c & 0x0F]
-    return hexlified
+        hexlify_to_buffer(src_buffer, result_buffer, num_bytes)
+    return result_buffer
+
+
+cdef inline void hexlify_to_buffer(
+    const unsigned char[::1] src_buffer, 
+    unsigned char[::1] result_buffer, 
+    Py_ssize_t num_bytes,
+) nogil:
+    cdef Py_ssize_t i
+    cdef unsigned char c
+    for i in range(num_bytes):
+        c = src_buffer[i]
+        result_buffer[2*i] = hexdigits[c >> 4]
+        result_buffer[2*i+1] = hexdigits[c & 0x0F]
 
 
 cdef unicode cchecksum(
