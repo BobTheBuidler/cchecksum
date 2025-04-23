@@ -19,6 +19,7 @@ setup(
     },
     description="A ~8x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.",
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author="BobTheBuidler",
     author_email="bobthebuidlerdefi@gmail.com",
     url="https://github.com/BobTheBuidler/cchecksum",
