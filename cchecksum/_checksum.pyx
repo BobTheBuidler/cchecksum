@@ -45,7 +45,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    cdef bytes hex_address_bytes
+    cdef bytes hex_address_bytes, hashed_bytes
     cdef const unsigned char[::1] hex_address_mv
     cdef unsigned char c
 
@@ -107,7 +107,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
 
-    cdef const unsigned char* hashed = hash_address(hex_address_bytes)
+    hashed_bytes = hash_address(hex_address_bytes)
+    cdef const unsigned char* hashed_c_string = hashed_bytes
     
     with nogil:
         if len(hex_address_mv) != 40:
@@ -115,7 +116,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
                 f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
             )
         
-        hexlify_c_string_to_buffer_unsafe(hashed, hash_buffer, 40)
+        hexlify_c_string_to_buffer_unsafe(hashed_c_string, hash_buffer, 40)
 
         populate_result_buffer(result_buffer, hex_address_mv, hash_buffer)
         
