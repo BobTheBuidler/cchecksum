@@ -116,7 +116,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
     
     hashed_bytes = hash_address(hex_address_bytes)
-    cdef const unsigned char* hashed_bytestr = hashed_bytes
+    cdef const char* hashed_bytestr = hashed_bytes
     
     with nogil:
         hexlify_c_string_to_buffer_unsafe(hashed_bytestr, hash_buffer, 40)
@@ -126,7 +126,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     return result_buffer[:42].decode('ascii')
 
 
-cpdef bytes hexlify(const unsigned char[:] src_buffer):
+cpdef bytes hexlify(const char[:] src_buffer):
     return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))
 
 
