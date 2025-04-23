@@ -162,8 +162,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
 
-cdef const char[::1] hexlify(const char* argbuf):
-    cdef char[::1] hexlified  # contiguous and writeable
+cdef const unsigned char[::1] hexlify(const char* argbuf):
+    cdef unsigned char[::1] hexlified  # contiguous and writeable
     cdef Py_ssize_t arglen, i
     cdef char c
     
@@ -179,7 +179,7 @@ cdef const char[::1] hexlify(const char* argbuf):
 
 cdef unicode cchecksum(
     const unsigned char[::1] norm_address_no_0x, 
-    const char[::1] address_hash_hex_no_0x,
+    const unsigned char[::1] address_hash_hex_no_0x,
 ):
     """
     Computes the checksummed version of an Ethereum address.
