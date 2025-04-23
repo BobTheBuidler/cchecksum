@@ -2,14 +2,10 @@
 # cython: wraparound=False
 
 import binascii
-from cpython.object cimport PyObject
 from cpython.unicode cimport PyUnicode_AsEncodedString
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
-
-cdef extern from "Python.h":
-    PyObject* PyUnicode_ToLower(PyObject*)
 
 cdef object hexlify = binascii.hexlify
 del binascii
@@ -57,11 +53,9 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        lowercase = PyUnicode_ToLower(<PyObject*>value)
-        if lowercase is NULL:
-            raise MemoryError("PyUnicode_ToLower failed (out of memory or not unicode object)")
-            
-        hex_address_bytes = PyUnicode_AsEncodedString(<object>lowercase, b"ascii", NULL)            
+        hex_address_bytes = lowercase_ascii(
+            PyUnicode_AsEncodedString(<object>lowercase, b"ascii", NULL)
+        )
         hex_address_mv = hex_address_bytes
 
         with nogil:
@@ -110,8 +104,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
 
     elif isinstance(value, (bytes, bytearray)):
         is_0x_prefixed = False
-        hex_address_bytes = hexlify(value)
-        hex_address_bytes = hex_address_bytes.lower()
+        hex_address_bytes = bytes(lowercase_ascii(hexlify(value)))
         
         hex_address_mv = hex_address_bytes
 
@@ -169,7 +162,21 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     else:
         return cchecksum(hex_address_mv, hexlify(hash_address(hex_address_bytes)))
 
+    
+cdef unsigned char[::1] lowercase_ascii(const unsigned char* src):
+    cdef Py_ssize_t src_len, i
+    cdef unsigned char[::1] dest
+    cdef unsigned char c
+    
+    src_len = src.shape[0]
+    dest = bytearray(src_len)
+    with nogil:
+        for i in range(src_len):
+            c = src[i]
+            dest[i] = c + 32 if 65 <= c <= 90 else c
+        return dest
 
+        
 cdef unicode cchecksum(
     const unsigned char[::1] norm_address_no_0x, 
     const unsigned char[::1] address_hash_hex_no_0x,
