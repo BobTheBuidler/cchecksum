@@ -57,7 +57,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
-        lowercase = PyUnicode_ToLower(value)
+        lowercase = PyUnicode_ToLower(<PyObject*>value)
         if lowercase is NULL:
             raise MemoryError("PyUnicode_ToLower failed (out of memory or not unicode object)")
             
