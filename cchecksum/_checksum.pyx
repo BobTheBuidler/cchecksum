@@ -106,11 +106,6 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         raise TypeError(
             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."
         )
-    
-    if len(hex_address_mv) != 40:
-        raise ValueError(
-            f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
-        )
 
     hashed = hash_address(hex_address_bytes)
 
@@ -122,7 +117,6 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     hexlify_to_buffer_unsafe(hashed, hash_buffer, 40)
     
     with nogil:
-
         populate_result_buffer(result_buffer, hex_address_mv, hash_buffer)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
