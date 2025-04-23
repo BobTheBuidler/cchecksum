@@ -12,7 +12,7 @@ keccak(b"")
 
 cdef object str_encode = str.encode
 cdef object hash_address = keccak.hasher
-cdef const char* hexdigits = b"0123456789abcdef"
+cdef const unsigned char* hexdigits = b"0123456789abcdef"
 
 
 # this was ripped out of eth_utils and optimized a little bit
@@ -163,10 +163,10 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     return cchecksum(hex_address_mv, hexlify(hashed, len(hashed)))
 
 
-cdef const unsigned char[::1] hexlify(const char* buffer, Py_ssize_t buffer_len):
+cdef const unsigned char[::1] hexlify(const unsigned char* buffer, Py_ssize_t buffer_len):
     cdef unsigned char[::1] hexlified  # contiguous and writeable
     cdef Py_ssize_t i
-    cdef char c
+    cdef unsigned char c
     
     hexlified = bytearray(buffer_len * 2)
     with nogil:
