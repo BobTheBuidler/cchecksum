@@ -379,7 +379,7 @@ cdef unicode cchecksum(
     return buffer[:42].decode('ascii')
 
 
-cdef inline char get_char(char c) noexcept nogil:
+cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
     """This checks if `address_char` falls in the ASCII range for lowercase hexadecimal
     characters ('a' to 'f'), which correspond to ASCII values 97 to 102. If it does,
     the character is capitalized.
