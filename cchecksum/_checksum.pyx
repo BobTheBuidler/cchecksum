@@ -46,8 +46,8 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
     cdef bytes hex_address_bytes
-    cdef const char[::1] hex_address_mv
-    cdef char c
+    cdef const unsigned char[::1] hex_address_mv
+    cdef unsigned char c
     cdef bint is_0x_prefixed
     
     if isinstance(value, str):
