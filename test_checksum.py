@@ -96,5 +96,6 @@ def test_benchmark() -> None:
 def test_threadsafety() -> None:
     test_addresses = benchmark_addresses[:1000]
     map = ThreadPoolExecutor.map
-    cchecksum = map(to_checksum_address, test_addresses)
-    eth_utils = map(eth_utils.to_checksum_address, test_addresses)
+    fast_way = map(to_checksum_address, test_addresses)
+    slow_way = map(eth_utils.to_checksum_address, test_addresses)
+    assert fast_way == slow_way
