@@ -8,6 +8,19 @@ import pytest
 from cchecksum import to_checksum_address
 
 
+benchmark_addresses = []
+range_start = 100000000000000000000000000000000000000000
+
+@lru_cache(maxsize=None)
+def __get_prefix(addrlen: int) -> str:
+    return f"0x{'0' * (40 - len(address))}"
+    
+for i in range(range_start, range_start + 500000):
+    address = hex(i)[2:]
+    address = f"{__get_prefix(len(address))}{address}"
+    benchmark_addresses.append(address)
+
+
 def test_checksum_str() -> None:
     lower = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".lower()
     assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
@@ -63,22 +76,6 @@ def test_value_error() -> None:
         raise RuntimeError("this should not happen")
 
 
-# Benchmark
-benchmark_addresses = []
-range_start = 100000000000000000000000000000000000000000
-for i in range(range_start, range_start + 500000):
-    address = hex(i)[2:]
-    address = f"0x{'0' * (40 - len(address))}{address}"
-    benchmark_addresses.append(address)
-
-
-def test_threadsafety() -> None:
-    test_addresses = benchmark_addresses[:1000]
-    map = ThreadPoolExecutor.map
-    cchecksum = map(to_checksum_address, test_addresses)
-    eth_utils = map(eth_utils.to_checksum_address, test_addresses)
-
-
 def test_benchmark() -> None:
     start = time.time()
     checksummed = list(map(to_checksum_address, benchmark_addresses))
@@ -91,3 +88,10 @@ def test_benchmark() -> None:
     assert checksummed == python
     assert cython_duration < python_duration
     print(f"took {cython_duration/python_duration}% of the time")
+
+
+def test_threadsafety() -> None:
+    test_addresses = benchmark_addresses[:1000]
+    map = ThreadPoolExecutor.map
+    cchecksum = map(to_checksum_address, test_addresses)
+    eth_utils = map(eth_utils.to_checksum_address, test_addresses)
