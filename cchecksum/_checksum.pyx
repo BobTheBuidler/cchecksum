@@ -53,7 +53,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
-    cdef char[42] result_buffer = b'0x' + bytearray(40)
+    cdef unsigned char[42] result_buffer = b'0x' + bytearray(40)
     
     if isinstance(value, str):
         hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
