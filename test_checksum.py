@@ -1,6 +1,7 @@
 import time
 from binascii import unhexlify
 from concurrent.futures import ThreadPoolExecutor
+from functools import lru_cache
 
 import eth_utils
 import pytest
