@@ -11,10 +11,12 @@ from cchecksum import to_checksum_address
 benchmark_addresses = []
 range_start = 100000000000000000000000000000000000000000
 
+
 @lru_cache(maxsize=None)
 def __get_prefix(addrlen: int) -> str:
     return f"0x{'0' * (40 - len(address))}"
-    
+
+
 for i in range(range_start, range_start + 500000):
     address = hex(i)[2:]
     address = f"{__get_prefix(len(address))}{address}"
