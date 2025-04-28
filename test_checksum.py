@@ -70,11 +70,13 @@ for i in range(range_start, range_start + 500000):
     address = f"0x{'0' * (40 - len(address))}{address}"
     benchmark_addresses.append(address)
 
+
 def test_threadsafety() -> None:
     test_addresses = benchmark_addresses[:1000]
     map = ThreadPoolExecutor.map
     cchecksum = map(to_checksum_address, test_addresses)
     eth_utils = map(eth_utils.to_checksum_address, test_addresses)
+
 
 def test_benchmark() -> None:
     start = time.time()
