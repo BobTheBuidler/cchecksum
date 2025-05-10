@@ -22,6 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
+        architecture: [ "x86", "x64" ]
         pyversion: [ "3.8", "3.9", "3.10", "3.11", "3.12", "3.13" ]
         exclude:
         # gh runner throws "Error: Version ${{ matrix.pyversion }} with arch arm64 not found"
@@ -38,6 +39,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.pyversion }}
+          architecture: ${{ matrix.architecture }}
 
       - name: Install pytest
         run: pip install pytest
