@@ -1,4 +1,5 @@
 # cython: boundscheck=False
+# cython: initializedcheck=False
 # cython: wraparound=False
 
 from cpython.bytes cimport PyBytes_GET_SIZE
