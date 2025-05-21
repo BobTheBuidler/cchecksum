@@ -39,8 +39,8 @@ jobs:
         with:
           python-version: ${{ matrix.pyversion }}
 
-      - name: Install pytest
-        run: pip install pytest
+      - name: Install test dependencies
+        run: pip install pytest eth-utils
 
       - name: Install cchecksum
         run: |
