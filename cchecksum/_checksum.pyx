@@ -191,7 +191,7 @@ cdef inline void hexlify_c_string_to_buffer_unsafe(
 
 
 cdef void populate_result_buffer(
-    char[42] buffer,
+    unsigned char[42] buffer,
     const unsigned char* norm_address_no_0x, 
     const unsigned char[:] address_hash_hex_no_0x,
 ) noexcept nogil:
