@@ -24,13 +24,33 @@ for i in range(range_start, range_start + 500000):
     benchmark_addresses.append(address)
 
 
-def test_checksum_str() -> None:
+def test_checksum_str_lower() -> None:
     lower = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".lower()
     assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
 
-def test_checksum_str_no_0x_prefix() -> None:
+def test_checksum_str_upper() -> None:
+    lower = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".upper()
+    assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+
+
+def test_checksum_str_mixed() -> None:
+    lower = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+    assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+
+
+def test_checksum_str_no_0x_prefix_lower() -> None:
     lower = "C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".lower()
+    assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+
+
+def test_checksum_str_no_0x_prefix_upper() -> None:
+    lower = "C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2".upper()
+    assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+
+
+def test_checksum_str_no_0x_prefix_mixed() -> None:
+    lower = "C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
     assert to_checksum_address(lower) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
 
