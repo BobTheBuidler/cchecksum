@@ -1,7 +1,7 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
-from cpython.bytes cimport PyBytes_GET_SIZE, PyBytes_AsStringAndSize
+from cpython.bytes cimport PyBytes_AsStringAndSize
 from cpython.unicode cimport PyUnicode_AsEncodedString
 
 from eth_hash.auto import keccak
