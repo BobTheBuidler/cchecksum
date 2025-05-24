@@ -418,6 +418,7 @@ cdef unsigned char* lowercase_ascii_and_validate(bytes src):
 
             if 65 <= c <= 90:
                 c += 32
+                c_string[i] = c
 
             if c == 48:  # 0
                 pass
