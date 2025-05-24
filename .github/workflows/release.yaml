@@ -89,8 +89,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install cibuildwheel
-        run: |
-          python -m pip install --upgrade pip setuptools wheel cibuildwheel
+        run: python -m pip install --upgrade pip setuptools wheel cibuildwheel
 
       - name: Build wheels
         env:
@@ -102,8 +101,7 @@ jobs:
           CIBW_ARCHS_WINDOWS: ${{ matrix.cibw_archs_windows || '' }}
           # Which wheels to build for Linux (manylinux vs. musllinux)
           CIBW_BUILD: ${{ matrix.cibw_build || '' }}
-        run: |
-          python -m cibuildwheel --output-dir wheelhouse
+        run: python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4
@@ -132,8 +130,7 @@ jobs:
           pip install setuptools wheel twine cython
 
       - name: Build sdist
-        run: |
-          python setup.py sdist
+        run: python setup.py sdist
 
       # ----------------------------------------------------
       # Download wheels built on each runner
