@@ -10,3 +10,11 @@ A ~8x faster drop-in replacement for eth_utils.to_checksum_address. Raises the e
 
 .. module:: cchecksum
    .. autofunction:: cchecksum.to_checksum_address
+
+..automodule:: cchecksum
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   source/modules.rst
