@@ -1,6 +1,17 @@
 cchecksum package
 =================
 
+Submodules
+----------
+
+cchecksum.monkey\_patch module
+------------------------------
+
+.. automodule:: cchecksum.monkey_patch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
