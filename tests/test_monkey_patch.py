@@ -2,7 +2,7 @@ import eth_utils
 import eth_utils.address
 import web3.main as web3_main
 import web3.middleware as web3_middleware
-import web3.utils as web3_utils
+import web3._utils as web3_utils
 
 import cchecksum
 
