@@ -16,8 +16,8 @@ def test_monkey_patch_eth_utils():
 def test_monkey_patch_web3py():
     cchecksum.monkey_patch_web3py()
 
-    assert web3_main.to_checksum_address == to_checksum_address
-    assert web3_utils.ens.to_checksum_address == to_checksum_address
-    assert web3_utils.method_formatters.to_checksum_address == to_checksum_address
-    assert web3_utils.normalizers.to_checksum_address == to_checksum_address
-    assert web3_middleware.signing.to_checksum_address == to_checksum_address
+    assert web3_main.to_checksum_address is cchecksum.to_checksum_address
+    assert web3_utils.ens.to_checksum_address is cchecksum.to_checksum_address
+    assert web3_utils.method_formatters.to_checksum_address is cchecksum.to_checksum_address
+    assert web3_utils.normalizers.to_checksum_address is cchecksum.to_checksum_address
+    assert web3_middleware.signing.to_checksum_address is cchecksum.to_checksum_address
