@@ -8,7 +8,5 @@ cchecksum
 
 A ~8x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.
 
-.. automodule:: cchecksum
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. module:: cchecksum
+   .. autofunction:: cchecksum.to_checksum_address
