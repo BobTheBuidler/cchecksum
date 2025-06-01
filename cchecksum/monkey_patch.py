@@ -5,7 +5,7 @@ def monkey_patch_eth_utils() -> None:
     """Monkey patch eth_utils to use cchecksum's implementation internally."""
     import eth_utils
     import eth_utils.address
-  
+
     eth_utils.to_checksum_address = to_checksum_address
     eth_utils.address.to_checksum_address = to_checksum_address
 
