@@ -6,7 +6,7 @@
 cchecksum
 =============================================
 
-A ~2x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.
+A ~8x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.
 
 .. automodule:: cchecksum
    :members:
