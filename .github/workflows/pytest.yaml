@@ -39,12 +39,9 @@ jobs:
         with:
           python-version: ${{ matrix.pyversion }}
 
-      - name: Install test dependencies
-        run: pip install pytest eth-utils
-
       - name: Install cchecksum
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements.txt -r requirements-dev.txt
           pip install -e .
       
       - name: Run test suite
