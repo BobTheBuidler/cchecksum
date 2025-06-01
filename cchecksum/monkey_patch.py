@@ -13,11 +13,12 @@ def monkey_patch_eth_utils() -> None:
 def monkey_patch_web3py() -> None:
     """Monkey patch web3.py to use cchecksum's implementation internally."""
     import web3._utils as web3_utils
+    import web3._utils.ens as web3_ens
     import web3.main as web3_main
     import web3.middleware as web3_middleware
 
     web3_main.to_checksum_address = to_checksum_address
-    web3_utils.ens.to_checksum_address = to_checksum_address
+    web3_ens.to_checksum_address = to_checksum_address
     web3_utils.method_formatters.to_checksum_address = to_checksum_address
     web3_utils.normalizers.to_checksum_address = to_checksum_address
     web3_middleware.signing.to_checksum_address = to_checksum_address
