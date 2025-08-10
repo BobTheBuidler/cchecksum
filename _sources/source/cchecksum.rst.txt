@@ -9,13 +9,13 @@ cchecksum.monkey\_patch module
 
 .. automodule:: cchecksum.monkey_patch
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: cchecksum
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
