@@ -115,14 +115,11 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
     
     cdef unsigned char[32] outbuf
+    cdef const unsigned char* hashed_bytestr
 
     with nogil:
         FIPS202_SHA3_256(hex_address_bytestr, 40, &outbuf[0])
-
-    hashed_bytes = bytes(outbuf)
-    cdef const unsigned char* hashed_bytestr = hashed_bytes
-    
-    with nogil:
+        hashed_bytestr = <const unsigned char*>&outbuf[0]
         hexlify_c_string_to_buffer(hashed_bytestr, hash_buffer, 40)
         populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
         
