@@ -5,7 +5,7 @@ typedef unsigned long long int u64;
 typedef unsigned int ui;
 
 void Keccak(ui r, ui c, const u8 *in, u64 inLen, u8 sfx, u8 *out, u64 outLen);
-void FIPS202_SHA3_256(const u8 *in, u64 inLen, u8 *out) { Keccak(1088, 512, in, inLen, 0x06, out, 32); }
+void Keccak_256(const u8 *in, u64 inLen, u8 *out) { Keccak(1088, 512, in, inLen, 0x01, out, 32); }
 
 int LFSR86540(u8 *R) { (*R)=((*R)<<1)^(((*R)&0x80)?0x71:0); return ((*R)&2)>>1; }
 #define ROL(a,o) ((((u64)a)<<o)^(((u64)a)>>(64-o)))

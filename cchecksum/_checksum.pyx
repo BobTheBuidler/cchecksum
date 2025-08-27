@@ -8,7 +8,7 @@ from eth_typing import AnyAddress, ChecksumAddress
 
 
 cdef extern from "keccak/keccak.h":
-    void FIPS202_SHA3_256(const unsigned char *input, unsigned int inputByteLen, unsigned char *output) nogil
+    void Keccak_256(const unsigned char *input, unsigned int inputByteLen, unsigned char *output) nogil
 
 
 cdef const unsigned char* hexdigits = b"0123456789abcdef"
@@ -118,7 +118,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef const unsigned char* hashed_bytestr
 
     with nogil:
-        FIPS202_SHA3_256(hex_address_bytestr, 40, &outbuf[0])
+        Keccak_256(hex_address_bytestr, 40, &outbuf[0])
         hashed_bytestr = <const unsigned char*>&outbuf[0]
         hexlify_c_string_to_buffer(hashed_bytestr, hash_buffer, 40)
         populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
