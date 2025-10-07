@@ -6,5 +6,5 @@ build/
 cchecksum.egg-info/
 dist/
 env/
-*.c
+_checksum.c
 *.so
