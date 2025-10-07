@@ -1,7 +1,7 @@
+import os
 from pathlib import Path
 from Cython.Build import cythonize
 from setuptools import find_packages, setup
-import os
 
 # -----------------------------------------------------------------------------
 # Always ignore SETUPTOOLS_SCM_PRETEND_VERSION for cchecksum builds.
