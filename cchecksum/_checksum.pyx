@@ -7,7 +7,7 @@ from cpython.unicode cimport PyUnicode_AsEncodedString
 from eth_typing import AnyAddress, ChecksumAddress
 
 
-cdef extern from "keccak.c":
+cdef extern from "keccak/keccak.h":
     void FIPS202_SHA3_256(const unsigned char *input, unsigned int inputByteLen, unsigned char *output) nogil
 
 
