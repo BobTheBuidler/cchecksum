@@ -8,7 +8,7 @@ from eth_typing import AnyAddress, ChecksumAddress
 
 
 cdef extern from "keccak.c":
-    void FIPS202_SHA3_256(const unsigned char *input, unsigned int inputByteLen, unsigned char *output)
+    void FIPS202_SHA3_256(const unsigned char *input, unsigned int inputByteLen, unsigned char *output) nogil
 
 
 cdef const unsigned char* hexdigits = b"0123456789abcdef"
