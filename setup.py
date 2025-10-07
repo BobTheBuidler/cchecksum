@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from Cython.Build import cythonize
-from setuptools import find_packages, setup
+from setuptools import Extension, find_packages, setup
 
 # -----------------------------------------------------------------------------
 # Always ignore SETUPTOOLS_SCM_PRETEND_VERSION for cchecksum builds.
@@ -43,7 +43,16 @@ setup(
     },
     include_package_data=True,
     ext_modules=cythonize(
-        "cchecksum/**/*.pyx",
+        # "cchecksum/**/*.pyx",
+        Extension(
+            "cchecksum._checksum",
+            sources=[
+                "cchecksum/_checksum.pyx",
+                "cchecksum/keccak/keccak.c",
+            ],
+            include_dirs=["cchecksum/keccak"],
+            language="c",
+        ),
         compiler_directives={
             "language_level": 3,
             "embedsignature": True,
