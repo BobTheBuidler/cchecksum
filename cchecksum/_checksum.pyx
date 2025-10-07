@@ -4,14 +4,13 @@
 from cpython.bytes cimport PyBytes_GET_SIZE
 from cpython.unicode cimport PyUnicode_AsEncodedString
 
-from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
 
 
-# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
-keccak(b"")
+cdef extern from "keccak.c":
+    void FIPS202_SHA3_256(const unsigned char *input, unsigned int inputByteLen, unsigned char *output)
 
-cdef object hash_address = keccak.hasher
+
 cdef const unsigned char* hexdigits = b"0123456789abcdef"
 
 
@@ -115,7 +114,14 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
     
-    hashed_bytes = hash_address(hex_address_bytes)
+    cdef const unsigned char* inbuf = hex_address_bytes
+    cdef unsigned int inlen = len(hex_address_bytes)
+
+    with nogil:
+        cdef unsigned char[32] outbuf
+        FIPS202_SHA3_256(inbuf, inlen, &outbuf[0])
+
+    hashed_bytes = bytes(outbuf)
     cdef const unsigned char* hashed_bytestr = hashed_bytes
     
     with nogil:
