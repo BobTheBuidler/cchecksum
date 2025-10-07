@@ -1,6 +1,19 @@
 from pathlib import Path
 from Cython.Build import cythonize
 from setuptools import find_packages, setup
+import os
+
+# -----------------------------------------------------------------------------
+# Ignore SETUPTOOLS_SCM_PRETEND_VERSION for cchecksum builds.
+# This environment variable is sometimes set by downstream projects (e.g., for
+# dry runs or CI version overrides). If it is present during a dependency build,
+# it can cause cchecksum to be built with the wrong version metadata, leading to
+# install failures and version mismatches on PyPI. We only want to use this env
+# var if we are building cchecksum as the top-level project, not as a dependency.
+# -----------------------------------------------------------------------------
+if os.environ.get("SETUPTOOLS_SCM_PRETEND_VERSION"):
+    if Path.cwd().resolve() != Path(__file__).parent.resolve():
+        del os.environ["SETUPTOOLS_SCM_PRETEND_VERSION"]
 
 with open("requirements.txt", "r") as f:
     requirements = list(map(str.strip, f.read().split("\n")))[:-1]
