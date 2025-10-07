@@ -114,11 +114,10 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
     
-    cdef const unsigned char* inbuf = hex_address_bytes
     cdef unsigned char[32] outbuf
 
     with nogil:
-        FIPS202_SHA3_256(inbuf, 40, &outbuf[0])
+        FIPS202_SHA3_256(hex_address_bytestr, 40, &outbuf[0])
 
     hashed_bytes = bytes(outbuf)
     cdef const unsigned char* hashed_bytestr = hashed_bytes
