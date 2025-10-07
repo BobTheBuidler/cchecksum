@@ -439,4 +439,3 @@ cdef unsigned char* lowercase_ascii_and_validate(bytes src):
 
 
 del AnyAddress, ChecksumAddress
-del keccak
