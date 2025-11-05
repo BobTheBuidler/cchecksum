@@ -2,7 +2,7 @@ __pycache__/
 .eggs/
 .hypothesis/
 .pytest_cache/
-build/
+build/*
 !build/*.c
 cchecksum.egg-info/
 dist/
