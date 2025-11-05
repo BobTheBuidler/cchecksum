@@ -2,7 +2,6 @@ __pycache__/
 .eggs/
 .hypothesis/
 .pytest_cache/
-build/
 cchecksum.egg-info/
 dist/
 env/
