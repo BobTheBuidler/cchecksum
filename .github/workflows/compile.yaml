@@ -25,11 +25,11 @@ jobs:
       - name: Build Cython extensions
         run: make cython
 
-      - name: Prepare build directory
-        run: |
-          rm -rf build
-          mkdir build
-          cp cchecksum/*.c build/
+      - name: Ensure build directory exists
+        run: mkdir -p build
+
+      - name: Copy generated C files to build
+        run: find cchecksum -name '*.c' -exec cp {} build/ \;
 
       - name: Check for changes in build/
         id: check_changes
