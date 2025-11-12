@@ -11,6 +11,7 @@ on:
       - '**/pytest.yaml'
       - '!**/docs/conf.py'
       - 'requirements.txt'
+      - '.github/workflows/pytest.yaml'
       
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
