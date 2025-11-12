@@ -10,6 +10,8 @@ on:
       - '**.pyx'
       - '**/pytest.yaml'
       - '!**/docs/conf.py'
+      - 'requirements.txt'
+      - '.github/workflows/pytest.yaml'
       
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -40,9 +42,7 @@ jobs:
           python-version: ${{ matrix.pyversion }}
 
       - name: Install cchecksum
-        run: |
-          pip install -r requirements.txt -r requirements-dev.txt
-          pip install -e .
+        run: pip install .
       
       - name: Run test suite
         run: pytest -s -v
