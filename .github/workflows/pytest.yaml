@@ -13,6 +13,7 @@ on:
       - 'requirements.txt'
       - 'requirements-dev.txt'
       - '.github/workflows/pytest.yaml'
+      - 'pyproject.toml'
       
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
