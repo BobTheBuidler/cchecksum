@@ -41,8 +41,8 @@ jobs:
         with:
           python-version: ${{ matrix.pyversion }}
 
-      - name: Install cchecksum
-        run: pip install .
+      - name: Install cchecksum and test deps
+        run: pip install . -r requirements-test.txt
       
       - name: Run test suite
         run: pytest -s -v
