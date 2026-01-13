@@ -31,11 +31,8 @@ setup(
     url="https://github.com/BobTheBuidler/cchecksum",
     license="MIT",
     install_requires=requirements,
-    setup_requires=["setuptools_scm", "cython"],
     python_requires=">=3.8,<4",
-    package_data={
-        "cchecksum": ["py.typed", "*.pxd", "**/*.pxd"],
-    },
+    package_data={"cchecksum": ["py.typed", "*.pxd", "**/*.pxd"]},
     include_package_data=True,
     ext_modules=cythonize(
         "cchecksum/**/*.pyx",
