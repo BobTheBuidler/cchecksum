@@ -46,6 +46,7 @@ jobs:
           python-version: ${{ matrix.pyversion }}
 
       - name: Install cchecksum and test deps
+        shell: bash
         run: |
           if [ "${{ matrix.install_target }}" = "sdist" ]; then
             pip install build
@@ -56,4 +57,5 @@ jobs:
           fi
       
       - name: Run test suite
+        shell: bash
         run: pytest -s -v
