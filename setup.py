@@ -22,12 +22,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name="cchecksum",
     packages=find_packages(),
-    use_scm_version={
-        "root": ".",
-        "relative_to": __file__,
-        "local_scheme": "no-local-version",
-        "version_scheme": "python-simplified-semver",
-    },
+    version="0.3.6",
     description="A ~8x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.",
     long_description=long_description,
     long_description_content_type="text/markdown",
