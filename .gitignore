@@ -2,6 +2,7 @@ __pycache__/
 .eggs/
 .hypothesis/
 .pytest_cache/
+.worktrees
 build/
 cchecksum.egg-info/
 dist/
