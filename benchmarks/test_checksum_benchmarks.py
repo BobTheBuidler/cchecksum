@@ -31,5 +31,7 @@ def test_to_checksum_address_bytes(benchmark: BenchmarkFixture, value: bytes) ->
 
 @pytest.mark.benchmark(group="to_checksum_address_bytearray")
 @pytest.mark.parametrize("value", BYTEARRAY_CASES, ids=BYTEARRAY_CASE_IDS)
-def test_to_checksum_address_bytearray(benchmark: BenchmarkFixture, value: Union[bytes, bytearray]) -> None:
+def test_to_checksum_address_bytearray(
+    benchmark: BenchmarkFixture, value: Union[bytes, bytearray]
+) -> None:
     benchmark(batch, BATCH_SIZE, to_checksum_address, value)
