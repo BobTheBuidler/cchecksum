@@ -7,3 +7,4 @@ cchecksum.egg-info/
 dist/
 env/
 *.so
+.worktrees
