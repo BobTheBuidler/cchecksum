@@ -58,4 +58,4 @@ jobs:
       
       - name: Run test suite
         shell: bash
-        run: pytest -s -v
+        run: pytest tests -s -v
