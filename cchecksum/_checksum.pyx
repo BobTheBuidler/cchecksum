@@ -119,7 +119,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef const unsigned char* hashed_bytestr = hashed_bytes
     
     with nogil:
-        hexlify_c_string_to_buffer_unsafe(hashed_bytestr, hash_buffer, 40)
+        hexlify_c_string_to_buffer(hashed_bytestr, hash_buffer, 40)
         populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
@@ -134,37 +134,11 @@ cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py
     """Make sure your `num_bytes` is correct or ting go boom"""
     cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
     with nogil:
-        hexlify_memview_to_buffer_unsafe(src_buffer, result_buffer, num_bytes)
+        hexlify_memview_to_buffer(src_buffer, result_buffer, num_bytes)
     return result_buffer
 
 
 cdef inline void hexlify_memview_to_buffer(
-    const unsigned char[:] src_buffer, 
-    unsigned char[:] result_buffer, 
-    Py_ssize_t num_bytes,
-) nogil:
-    cdef Py_ssize_t i
-    cdef unsigned char c
-    for i in range(num_bytes):
-        c = src_buffer[i]
-        result_buffer[2*i] = hexdigits[c >> 4]
-        result_buffer[2*i+1] = hexdigits[c & 0x0F]
-
-
-cdef inline void hexlify_c_string_to_buffer(
-    const unsigned char* src_buffer, 
-    unsigned char[:] result_buffer, 
-    Py_ssize_t num_bytes,
-) nogil:
-    cdef Py_ssize_t i
-    cdef unsigned char c
-    for i in range(num_bytes):
-        c = src_buffer[i]
-        result_buffer[2*i] = hexdigits[c >> 4]
-        result_buffer[2*i+1] = hexdigits[c & 0x0F]
-
-
-cdef inline void hexlify_memview_to_buffer_unsafe(
     const unsigned char[:] src_buffer, 
     unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
@@ -177,7 +151,7 @@ cdef inline void hexlify_memview_to_buffer_unsafe(
         result_buffer[2*i+1] = hexdigits[c & 0x0F]
 
 
-cdef inline void hexlify_c_string_to_buffer_unsafe(
+cdef inline void hexlify_c_string_to_buffer(
     const unsigned char* src_buffer, 
     unsigned char[:] result_buffer, 
     Py_ssize_t num_bytes,
