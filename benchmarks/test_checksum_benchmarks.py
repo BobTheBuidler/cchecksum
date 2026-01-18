@@ -1,9 +1,8 @@
-from typing import Union
+from typing import Any, Callable, Union
 
 import pytest
 from pytest_codspeed import BenchmarkFixture
 
-from benchmarks.batch import batch
 from benchmarks.data import (
     BYTEARRAY_CASES,
     BYTEARRAY_CASE_IDS,
@@ -13,7 +12,6 @@ from benchmarks.data import (
     STR_CASE_IDS,
 )
 from cchecksum import to_checksum_address
-from typing import Any, Callable
 
 
 def _run_10k(func: Callable[..., Any], *args: Any, **kwargs: Any) -> None:
