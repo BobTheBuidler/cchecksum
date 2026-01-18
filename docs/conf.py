@@ -11,7 +11,6 @@ import sys
 
 from sphinx.util import logging
 
-
 project = "cchecksum"
 copyright = "2024, BobTheBuidler"
 author = "BobTheBuidler"
