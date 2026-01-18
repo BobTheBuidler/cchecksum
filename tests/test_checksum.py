@@ -8,7 +8,6 @@ import pytest
 
 from cchecksum import to_checksum_address
 
-
 benchmark_addresses = []
 range_start = 100000000000000000000000000000000000000000
 
