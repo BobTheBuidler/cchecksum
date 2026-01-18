@@ -35,8 +35,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v6
 
@@ -53,9 +51,7 @@ jobs:
             requirements.txt
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install . -r requirements-codspeed.txt
+        run: python -m pip install --upgrade pip && pip install . -r requirements-codspeed.txt
 
       - name: Remove source package to force use of installed extension
         run: rm -rf cchecksum
@@ -64,4 +60,4 @@ jobs:
         uses: CodSpeedHQ/action@v4
         with:
           mode: instrumentation
-          run: pytest --codspeed --test-group=${{ matrix.shard }} --test-group-count=4 benchmarks/
+          run: pytest --codspeed benchmarks/
