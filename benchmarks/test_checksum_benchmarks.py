@@ -13,18 +13,24 @@ from benchmarks.data import (
     STR_CASE_IDS,
 )
 from cchecksum import to_checksum_address
+from typing import Any, Callable
+
+
+def _run_10k(func: Callable[..., Any], *args: Any, **kwargs: Any) -> None:
+    for _ in range(10_000):
+        func(*args, **kwargs)
 
 
 @pytest.mark.benchmark(group="to_checksum_address_str")
 @pytest.mark.parametrize("value", STR_CASES, ids=STR_CASE_IDS)
 def test_to_checksum_address_str(benchmark: BenchmarkFixture, value: str) -> None:
-    benchmark(run_10k, to_checksum_address, value)
+    benchmark(_run_10k, to_checksum_address, value)
 
 
 @pytest.mark.benchmark(group="to_checksum_address_bytes")
 @pytest.mark.parametrize("value", BYTES_CASES, ids=BYTES_CASE_IDS)
 def test_to_checksum_address_bytes(benchmark: BenchmarkFixture, value: bytes) -> None:
-    benchmark(run_10k, to_checksum_address, value)
+    benchmark(_run_10k, to_checksum_address, value)
 
 
 @pytest.mark.benchmark(group="to_checksum_address_bytearray")
@@ -32,4 +38,4 @@ def test_to_checksum_address_bytes(benchmark: BenchmarkFixture, value: bytes) ->
 def test_to_checksum_address_bytearray(
     benchmark: BenchmarkFixture, value: Union[bytes, bytearray]
 ) -> None:
-    benchmark(run_10k, to_checksum_address, value)
+    benchmark(_run_10k, to_checksum_address, value)
