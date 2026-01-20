@@ -3,19 +3,18 @@
 
 from cpython.bytes cimport PyBytes_GET_SIZE
 from cpython.unicode cimport PyUnicode_AsEncodedString
+from libc.stddef cimport size_t
 
-from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
 
 
-# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
-keccak(b"")
-
-cdef object hash_address = keccak.hasher
 cdef const unsigned char* hexdigits = b"0123456789abcdef"
 
 
 # this was ripped out of eth_utils and optimized a little bit
+
+cdef extern from "keccak.h":
+    void keccak_256(const unsigned char* data, size_t len, unsigned char* out) nogil
 
 
 cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
@@ -45,9 +44,10 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    cdef bytes hex_address_bytes, hashed_bytes
+    cdef bytes hex_address_bytes
     cdef const unsigned char* hex_address_bytestr
     cdef unsigned char c
+    cdef unsigned char hash_out[32]
 
     cdef unsigned char hash_buffer[80]
     
@@ -85,11 +85,9 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
     
-    hashed_bytes = hash_address(hex_address_bytes)
-    cdef const unsigned char* hashed_bytestr = hashed_bytes
-    
     with nogil:
-        hexlify_c_string_to_buffer(hashed_bytestr, hash_buffer, 40)
+        keccak_256(hex_address_bytestr, 40, hash_out)
+        hexlify_c_string_to_buffer(hash_out, hash_buffer, 32)
         populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
@@ -408,4 +406,3 @@ cdef unsigned char* lowercase_ascii_and_validate(bytes src):
 
 
 del AnyAddress, ChecksumAddress
-del keccak
