@@ -35,7 +35,7 @@ def to_checksum_address_many(
         bytearray,
         memoryview,
         Iterable[Union[AnyAddress, str, bytes, bytearray]],
-    ]
+    ],
 ) -> List[ChecksumAddress]:
     """
     Convert multiple addresses to EIP-55 checksum format.
