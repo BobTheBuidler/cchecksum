@@ -11,7 +11,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name="cchecksum",
     packages=find_packages(),
-    version="0.3.9",
+    version="0.3.10",
     description="A ~8x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.",
     long_description=long_description,
     long_description_content_type="text/markdown",
