@@ -55,5 +55,7 @@ STR_CONTAINER_CASE_IDS: Final = [f"str-container-{size}" for size in CONTAINER_S
 BYTES_CONTAINER_CASES: Final = [_build_container(BYTES_CASES, size) for size in CONTAINER_SIZES]
 BYTES_CONTAINER_CASE_IDS: Final = [f"bytes-container-{size}" for size in CONTAINER_SIZES]
 
-BYTEARRAY_CONTAINER_CASES: Final = [_build_container(BYTEARRAY_CASES, size) for size in CONTAINER_SIZES]
+BYTEARRAY_CONTAINER_CASES: Final = [
+    _build_container(BYTEARRAY_CASES, size) for size in CONTAINER_SIZES
+]
 BYTEARRAY_CONTAINER_CASE_IDS: Final = [f"bytearray-container-{size}" for size in CONTAINER_SIZES]
