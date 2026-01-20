@@ -1,6 +1,6 @@
 from pathlib import Path
 from Cython.Build import cythonize
-from setuptools import find_packages, setup
+from setuptools import Extension, find_packages, setup
 
 with open("requirements.txt", "r") as f:
     requirements = list(map(str.strip, f.read().split("\n")))[:-1]
@@ -24,7 +24,13 @@ setup(
     package_data={"cchecksum": ["py.typed", "*.pxd", "**/*.pxd"]},
     include_package_data=True,
     ext_modules=cythonize(
-        "cchecksum/**/*.pyx",
+        [
+            Extension(
+                "cchecksum._checksum",
+                sources=["cchecksum/_checksum.pyx", "cchecksum/keccak.c"],
+                include_dirs=["cchecksum"],
+            )
+        ],
         compiler_directives={
             "language_level": 3,
             "embedsignature": True,
