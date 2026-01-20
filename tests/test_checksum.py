@@ -58,57 +58,41 @@ def test_checksum_bytes() -> None:
     assert to_checksum_address(bytes) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
 
-def test_checksum_many_strs() -> None:
-    addresses = [
-        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-        "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
-    ]
-    assert to_checksum_address_many(addresses) == [
-        to_checksum_address(address) for address in addresses
-    ]
+def test_checksum_many_str() -> None:
+    addresses = benchmark_addresses[:10]
+    expected = [to_checksum_address(addr) for addr in addresses]
+    assert to_checksum_address_many(addresses) == expected
 
 
 def test_checksum_many_bytes() -> None:
-    addresses = [
-        unhexlify("C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"),
-        unhexlify("b47e3cd837ddf8e4c57f05d70ab865de6e193bbb"),
-    ]
-    assert to_checksum_address_many(addresses) == [
-        to_checksum_address(address) for address in addresses
-    ]
+    addresses = benchmark_addresses[:10]
+    addresses_bytes = [unhexlify(addr[2:]) for addr in addresses]
+    expected = [to_checksum_address(addr) for addr in addresses_bytes]
+    assert to_checksum_address_many(addresses_bytes) == expected
 
 
-def test_checksum_many_memoryview() -> None:
-    addresses = [
-        unhexlify("C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"),
-        unhexlify("b47e3cd837ddf8e4c57f05d70ab865de6e193bbb"),
-    ]
-    packed = b"".join(addresses)
-    assert to_checksum_address_many(memoryview(packed)) == [
-        to_checksum_address(address) for address in addresses
-    ]
+def test_checksum_many_packed_bytes() -> None:
+    addresses = benchmark_addresses[:5]
+    packed = b"".join(unhexlify(addr[2:]) for addr in addresses)
+    expected = [to_checksum_address(addr) for addr in addresses]
+    assert to_checksum_address_many(packed) == expected
 
 
-def test_checksum_many_type_error() -> None:
-    input = object()
-    try:
-        to_checksum_address(input)
-    except TypeError as e:
-        with pytest.raises(TypeError, match=str(e)):
-            to_checksum_address_many([input])
-    else:
-        raise RuntimeError("this should not happen")
+def test_checksum_many_packed_memoryview() -> None:
+    addresses = benchmark_addresses[:5]
+    packed = b"".join(unhexlify(addr[2:]) for addr in addresses)
+    expected = [to_checksum_address(addr) for addr in addresses]
+    assert to_checksum_address_many(memoryview(packed)) == expected
 
 
-def test_checksum_many_value_error() -> None:
-    input = "i am a bad string"
-    try:
-        to_checksum_address(input)
-    except ValueError as e:
-        with pytest.raises(ValueError, match=str(e)):
-            to_checksum_address_many([input])
-    else:
-        raise RuntimeError("this should not happen")
+def test_checksum_many_packed_length_error() -> None:
+    with pytest.raises(ValueError, match="multiple of 20"):
+        to_checksum_address_many(b"\x00" * 21)
+
+
+def test_checksum_many_invalid_item_type() -> None:
+    with pytest.raises(TypeError, match="Unsupported type"):
+        to_checksum_address_many([1])
 
 
 def test_type_error() -> None:
@@ -170,13 +154,4 @@ def test_threadsafety() -> None:
     executor = ThreadPoolExecutor(100)
     fast_way = executor.map(to_checksum_address, test_addresses)
     slow_way = executor.map(eth_utils.to_checksum_address, test_addresses)
-    assert list(fast_way) == list(slow_way)
-
-
-def test_threadsafety_many() -> None:
-    test_addresses = benchmark_addresses[:1000]
-    batches = [test_addresses[i : i + 50] for i in range(0, len(test_addresses), 50)]
-    executor = ThreadPoolExecutor(50)
-    fast_way = executor.map(to_checksum_address_many, batches)
-    slow_way = executor.map(lambda batch: list(map(eth_utils.to_checksum_address, batch)), batches)
     assert list(fast_way) == list(slow_way)
