@@ -40,3 +40,19 @@ BYTES_CASE_IDS = [f"bytes-{index}" for index in range(len(BASE_ADDRESSES))]
 
 BYTEARRAY_CASES = [bytearray(address) for address in BYTES_CASES]
 BYTEARRAY_CASE_IDS = [f"bytearray-{index}" for index in range(len(BYTES_CASES))]
+
+CONTAINER_SIZE = 1000
+
+
+def _build_container(cases: list, size: int) -> list:
+    return [cases[index % len(cases)] for index in range(size)]
+
+
+STR_CONTAINER_CASES = [_build_container(STR_CASES, CONTAINER_SIZE)]
+STR_CONTAINER_CASE_IDS = [f"str-container-{CONTAINER_SIZE}"]
+
+BYTES_CONTAINER_CASES = [_build_container(BYTES_CASES, CONTAINER_SIZE)]
+BYTES_CONTAINER_CASE_IDS = [f"bytes-container-{CONTAINER_SIZE}"]
+
+BYTEARRAY_CONTAINER_CASES = [_build_container(BYTEARRAY_CASES, CONTAINER_SIZE)]
+BYTEARRAY_CONTAINER_CASE_IDS = [f"bytearray-container-{CONTAINER_SIZE}"]
