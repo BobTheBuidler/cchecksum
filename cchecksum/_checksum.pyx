@@ -70,39 +70,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             for i in range(num_bytes):
                 c = hex_address_bytestr[i]
                 
-                if c == 48:  # 0
-                    pass
-                elif c == 49:  # 1
-                    pass
-                elif c == 50:  # 2
-                    pass
-                elif c == 51:  # 3
-                    pass
-                elif c == 52:  # 4
-                    pass
-                elif c == 53:  # 5
-                    pass
-                elif c == 54:  # 6
-                    pass
-                elif c == 55:  # 7
-                    pass
-                elif c == 56:  # 8
-                    pass
-                elif c == 57:  # 9
-                    pass
-                elif c == 97:  # a
-                    pass
-                elif c == 98:  # b
-                    pass
-                elif c == 99:  # c
-                    pass
-                elif c == 100:  # d
-                    pass
-                elif c == 101:  # e
-                    pass
-                elif c == 102:  # f
-                    pass
-                else:
+                if not is_hex_lower(c):
                     raise ValueError(
                         f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
                     )
@@ -370,6 +338,10 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
         return 70   # F
     else:
         return c
+
+
+cdef inline bint is_hex_lower(unsigned char c) noexcept nogil:
+    return (48 <= c <= 57) or (97 <= c <= 102)
 
 
 cdef unsigned char* lowercase_ascii_and_validate(bytes src):
