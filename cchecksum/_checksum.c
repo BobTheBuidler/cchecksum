@@ -3183,7 +3183,7 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_kp_u_strided_and_direct __pyx_string_tab[48]
 #define __pyx_kp_u_strided_and_direct_or_indirect __pyx_string_tab[49]
 #define __pyx_kp_u_strided_and_indirect __pyx_string_tab[50]
-#define __pyx_kp_u_to_checksum_address_line_21 __pyx_string_tab[51]
+#define __pyx_kp_u_to_checksum_address_line_20 __pyx_string_tab[51]
 #define __pyx_kp_u_unable_to_allocate_array_data __pyx_string_tab[52]
 #define __pyx_kp_u_unable_to_allocate_shape_and_str __pyx_string_tab[53]
 #define __pyx_kp_u_when_sending_a_str_it_must_be_a __pyx_string_tab[54]
@@ -16612,7 +16612,7 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *__
   return __pyx_r;
 }
 
-/* "cchecksum/_checksum.pyx":21
+/* "cchecksum/_checksum.pyx":20
  * 
  * 
  * cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):             # <<<<<<<<<<<<<<
@@ -16659,7 +16659,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("to_checksum_address", 0);
 
-  /* "cchecksum/_checksum.pyx":58
+  /* "cchecksum/_checksum.pyx":57
  *     # 2 for "0x" prefix and 40 for the address itself
  *     cdef char result_buffer[42]
  *     result_buffer[0] = 48  # '0'             # <<<<<<<<<<<<<<
@@ -16668,7 +16668,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
   (__pyx_v_result_buffer[0]) = 48;
 
-  /* "cchecksum/_checksum.pyx":59
+  /* "cchecksum/_checksum.pyx":58
  *     cdef char result_buffer[42]
  *     result_buffer[0] = 48  # '0'
  *     result_buffer[1] = 120  # 'x'             # <<<<<<<<<<<<<<
@@ -16677,7 +16677,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
   (__pyx_v_result_buffer[1]) = 0x78;
 
-  /* "cchecksum/_checksum.pyx":61
+  /* "cchecksum/_checksum.pyx":60
  *     result_buffer[1] = 120  # 'x'
  * 
  *     if isinstance(value, str):             # <<<<<<<<<<<<<<
@@ -16687,34 +16687,34 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
   __pyx_t_1 = PyUnicode_Check(__pyx_v_value); 
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":62
+    /* "cchecksum/_checksum.pyx":61
  * 
  *     if isinstance(value, str):
  *         hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))             # <<<<<<<<<<<<<<
  *         hex_address_bytestr = hex_address_bytes
  * 
 */
-    __pyx_t_2 = PyUnicode_AsEncodedString(__pyx_v_value, ((char *)"ascii"), NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_2 = PyUnicode_AsEncodedString(__pyx_v_value, ((char *)"ascii"), NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (!(likely(PyBytes_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("bytes", __pyx_t_2))) __PYX_ERR(0, 62, __pyx_L1_error)
-    __pyx_t_3 = __pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate(((PyObject*)__pyx_t_2)); if (unlikely(__pyx_t_3 == ((void *)NULL) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
-    __pyx_t_4 = __Pyx_PyBytes_FromCString(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+    if (!(likely(PyBytes_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("bytes", __pyx_t_2))) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate(((PyObject*)__pyx_t_2)); if (unlikely(__pyx_t_3 == ((void *)NULL) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyBytes_FromCString(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 61, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_hex_address_bytes = ((PyObject*)__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "cchecksum/_checksum.pyx":63
+    /* "cchecksum/_checksum.pyx":62
  *     if isinstance(value, str):
  *         hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))
  *         hex_address_bytestr = hex_address_bytes             # <<<<<<<<<<<<<<
  * 
  *     elif isinstance(value, (bytes, bytearray)):
 */
-    __pyx_t_5 = __Pyx_PyBytes_AsUString(__pyx_v_hex_address_bytes); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyBytes_AsUString(__pyx_v_hex_address_bytes); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
     __pyx_v_hex_address_bytestr = __pyx_t_5;
 
-    /* "cchecksum/_checksum.pyx":61
+    /* "cchecksum/_checksum.pyx":60
  *     result_buffer[1] = 120  # 'x'
  * 
  *     if isinstance(value, str):             # <<<<<<<<<<<<<<
@@ -16724,7 +16724,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
     goto __pyx_L3;
   }
 
-  /* "cchecksum/_checksum.pyx":65
+  /* "cchecksum/_checksum.pyx":64
  *         hex_address_bytestr = hex_address_bytes
  * 
  *     elif isinstance(value, (bytes, bytearray)):             # <<<<<<<<<<<<<<
@@ -16742,22 +16742,22 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
   __pyx_L4_bool_binop_done:;
   if (likely(__pyx_t_1)) {
 
-    /* "cchecksum/_checksum.pyx":66
+    /* "cchecksum/_checksum.pyx":65
  * 
  *     elif isinstance(value, (bytes, bytearray)):
  *         hex_address_bytes = hexlify(value)             # <<<<<<<<<<<<<<
  *         hex_address_bytestr = hex_address_bytes
  *         num_bytes = PyBytes_GET_SIZE(hex_address_bytes)
 */
-    __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_char__const__(__pyx_v_value, 0); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 66, __pyx_L1_error)
-    __pyx_t_4 = __pyx_f_9cchecksum_9_checksum_hexlify(__pyx_t_7, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_char__const__(__pyx_v_value, 0); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_4 = __pyx_f_9cchecksum_9_checksum_hexlify(__pyx_t_7, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
     __pyx_t_7.memview = NULL; __pyx_t_7.data = NULL;
     __pyx_v_hex_address_bytes = ((PyObject*)__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "cchecksum/_checksum.pyx":67
+    /* "cchecksum/_checksum.pyx":66
  *     elif isinstance(value, (bytes, bytearray)):
  *         hex_address_bytes = hexlify(value)
  *         hex_address_bytestr = hex_address_bytes             # <<<<<<<<<<<<<<
@@ -16766,12 +16766,12 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
     if (unlikely(__pyx_v_hex_address_bytes == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "expected bytes, NoneType found");
-      __PYX_ERR(0, 67, __pyx_L1_error)
+      __PYX_ERR(0, 66, __pyx_L1_error)
     }
-    __pyx_t_5 = __Pyx_PyBytes_AsUString(__pyx_v_hex_address_bytes); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyBytes_AsUString(__pyx_v_hex_address_bytes); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 66, __pyx_L1_error)
     __pyx_v_hex_address_bytestr = __pyx_t_5;
 
-    /* "cchecksum/_checksum.pyx":68
+    /* "cchecksum/_checksum.pyx":67
  *         hex_address_bytes = hexlify(value)
  *         hex_address_bytestr = hex_address_bytes
  *         num_bytes = PyBytes_GET_SIZE(hex_address_bytes)             # <<<<<<<<<<<<<<
@@ -16780,7 +16780,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
     __pyx_v_num_bytes = PyBytes_GET_SIZE(__pyx_v_hex_address_bytes);
 
-    /* "cchecksum/_checksum.pyx":70
+    /* "cchecksum/_checksum.pyx":69
  *         num_bytes = PyBytes_GET_SIZE(hex_address_bytes)
  * 
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -16793,7 +16793,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
         __Pyx_FastGIL_Remember();
         /*try:*/ {
 
-          /* "cchecksum/_checksum.pyx":71
+          /* "cchecksum/_checksum.pyx":70
  * 
  *         with nogil:
  *             for i in range(num_bytes):             # <<<<<<<<<<<<<<
@@ -16805,7 +16805,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
           for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
             __pyx_v_i = __pyx_t_10;
 
-            /* "cchecksum/_checksum.pyx":72
+            /* "cchecksum/_checksum.pyx":71
  *         with nogil:
  *             for i in range(num_bytes):
  *                 c = hex_address_bytestr[i]             # <<<<<<<<<<<<<<
@@ -16814,7 +16814,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
             __pyx_v_c = (__pyx_v_hex_address_bytestr[__pyx_v_i]);
 
-            /* "cchecksum/_checksum.pyx":74
+            /* "cchecksum/_checksum.pyx":73
  *                 c = hex_address_bytestr[i]
  * 
  *                 if not is_hex_lower(c):             # <<<<<<<<<<<<<<
@@ -16824,7 +16824,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
             __pyx_t_1 = (!__pyx_f_9cchecksum_9_checksum_is_hex_lower(__pyx_v_c));
             if (unlikely(__pyx_t_1)) {
 
-              /* "cchecksum/_checksum.pyx":75
+              /* "cchecksum/_checksum.pyx":74
  * 
  *                 if not is_hex_lower(c):
  *                     raise ValueError(             # <<<<<<<<<<<<<<
@@ -16836,23 +16836,23 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
                   /*try:*/ {
                     __pyx_t_2 = NULL;
 
-                    /* "cchecksum/_checksum.pyx":76
+                    /* "cchecksum/_checksum.pyx":75
  *                 if not is_hex_lower(c):
  *                     raise ValueError(
  *                         f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"             # <<<<<<<<<<<<<<
  *                     )
  * 
 */
-                    __pyx_t_11 = PyObject_Repr(__pyx_v_value); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 76, __pyx_L15_error)
+                    __pyx_t_11 = PyObject_Repr(__pyx_v_value); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 75, __pyx_L15_error)
                     __Pyx_GOTREF(__pyx_t_11);
-                    __pyx_t_12 = __Pyx_PyUnicode_Unicode(__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 76, __pyx_L15_error)
+                    __pyx_t_12 = __Pyx_PyUnicode_Unicode(__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 75, __pyx_L15_error)
                     __Pyx_GOTREF(__pyx_t_12);
                     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
                     if (unlikely(__pyx_v_hex_address_bytes == Py_None)) {
                       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "decode");
-                      __PYX_ERR(0, 76, __pyx_L15_error)
+                      __PYX_ERR(0, 75, __pyx_L15_error)
                     }
-                    __pyx_t_11 = __Pyx_decode_bytes(__pyx_v_hex_address_bytes, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 76, __pyx_L15_error)
+                    __pyx_t_11 = __Pyx_decode_bytes(__pyx_v_hex_address_bytes, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 75, __pyx_L15_error)
                     __Pyx_GOTREF(__pyx_t_11);
                     __pyx_t_13[0] = __pyx_mstate_global->__pyx_kp_u_Unknown_format;
                     __pyx_t_13[1] = __pyx_t_12;
@@ -16860,7 +16860,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
                     __pyx_t_13[3] = __pyx_t_11;
                     __pyx_t_13[4] = __pyx_mstate_global->__pyx_kp_u__4;
                     __pyx_t_14 = __Pyx_PyUnicode_Join(__pyx_t_13, 5, 15 + __Pyx_PyUnicode_GET_LENGTH(__pyx_t_12) + 31 + __Pyx_PyUnicode_GET_LENGTH(__pyx_t_11) + 1, 127 | __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_12) | __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_11));
-                    if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 76, __pyx_L15_error)
+                    if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 75, __pyx_L15_error)
                     __Pyx_GOTREF(__pyx_t_14);
                     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -16870,15 +16870,15 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
                       __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_ValueError)), __pyx_callargs+__pyx_t_15, (2-__pyx_t_15) | (__pyx_t_15*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
                       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
                       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-                      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L15_error)
+                      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 74, __pyx_L15_error)
                       __Pyx_GOTREF(__pyx_t_4);
                     }
                     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
                     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-                    __PYX_ERR(0, 75, __pyx_L15_error)
+                    __PYX_ERR(0, 74, __pyx_L15_error)
                   }
 
-                  /* "cchecksum/_checksum.pyx":75
+                  /* "cchecksum/_checksum.pyx":74
  * 
  *                 if not is_hex_lower(c):
  *                     raise ValueError(             # <<<<<<<<<<<<<<
@@ -16893,7 +16893,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
                   }
               }
 
-              /* "cchecksum/_checksum.pyx":74
+              /* "cchecksum/_checksum.pyx":73
  *                 c = hex_address_bytestr[i]
  * 
  *                 if not is_hex_lower(c):             # <<<<<<<<<<<<<<
@@ -16904,7 +16904,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
           }
         }
 
-        /* "cchecksum/_checksum.pyx":70
+        /* "cchecksum/_checksum.pyx":69
  *         num_bytes = PyBytes_GET_SIZE(hex_address_bytes)
  * 
  *         with nogil:             # <<<<<<<<<<<<<<
@@ -16926,7 +16926,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
         }
     }
 
-    /* "cchecksum/_checksum.pyx":65
+    /* "cchecksum/_checksum.pyx":64
  *         hex_address_bytestr = hex_address_bytes
  * 
  *     elif isinstance(value, (bytes, bytearray)):             # <<<<<<<<<<<<<<
@@ -16936,7 +16936,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
     goto __pyx_L3;
   }
 
-  /* "cchecksum/_checksum.pyx":80
+  /* "cchecksum/_checksum.pyx":79
  * 
  *     else:
  *         raise TypeError(             # <<<<<<<<<<<<<<
@@ -16946,23 +16946,23 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
   /*else*/ {
     __pyx_t_14 = NULL;
 
-    /* "cchecksum/_checksum.pyx":81
+    /* "cchecksum/_checksum.pyx":80
  *     else:
  *         raise TypeError(
  *             f"Unsupported type: '{repr(type(value))}'. Must be one of: bool, str, bytes, bytearray or int."             # <<<<<<<<<<<<<<
  *         )
  * 
 */
-    __pyx_t_2 = PyObject_Repr(((PyObject *)Py_TYPE(__pyx_v_value))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_2 = PyObject_Repr(((PyObject *)Py_TYPE(__pyx_v_value))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_11 = __Pyx_PyUnicode_Unicode(__pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyUnicode_Unicode(__pyx_t_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_16[0] = __pyx_mstate_global->__pyx_kp_u_Unsupported_type;
     __pyx_t_16[1] = __pyx_t_11;
     __pyx_t_16[2] = __pyx_mstate_global->__pyx_kp_u_Must_be_one_of_bool_str_bytes_b;
     __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_16, 3, 19 + __Pyx_PyUnicode_GET_LENGTH(__pyx_t_11) + 54, 127 | __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_11));
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_t_15 = 1;
@@ -16971,16 +16971,16 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
       __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_TypeError)), __pyx_callargs+__pyx_t_15, (2-__pyx_t_15) | (__pyx_t_15*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     }
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __PYX_ERR(0, 80, __pyx_L1_error)
+    __PYX_ERR(0, 79, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "cchecksum/_checksum.pyx":84
+  /* "cchecksum/_checksum.pyx":83
  *         )
  * 
  *     if PyBytes_GET_SIZE(hex_address_bytes) != 40:             # <<<<<<<<<<<<<<
@@ -16990,7 +16990,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
   __pyx_t_1 = (PyBytes_GET_SIZE(__pyx_v_hex_address_bytes) != 40);
   if (unlikely(__pyx_t_1)) {
 
-    /* "cchecksum/_checksum.pyx":85
+    /* "cchecksum/_checksum.pyx":84
  * 
  *     if PyBytes_GET_SIZE(hex_address_bytes) != 40:
  *         raise ValueError(             # <<<<<<<<<<<<<<
@@ -16999,23 +16999,23 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
     __pyx_t_2 = NULL;
 
-    /* "cchecksum/_checksum.pyx":86
+    /* "cchecksum/_checksum.pyx":85
  *     if PyBytes_GET_SIZE(hex_address_bytes) != 40:
  *         raise ValueError(
  *             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"             # <<<<<<<<<<<<<<
  *         )
  * 
 */
-    __pyx_t_14 = PyObject_Repr(__pyx_v_value); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 86, __pyx_L1_error)
+    __pyx_t_14 = PyObject_Repr(__pyx_v_value); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_11 = __Pyx_PyUnicode_Unicode(__pyx_t_14); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 86, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyUnicode_Unicode(__pyx_t_14); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     if (unlikely(__pyx_v_hex_address_bytes == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "decode");
-      __PYX_ERR(0, 86, __pyx_L1_error)
+      __PYX_ERR(0, 85, __pyx_L1_error)
     }
-    __pyx_t_14 = __Pyx_decode_bytes(__pyx_v_hex_address_bytes, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 86, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_decode_bytes(__pyx_v_hex_address_bytes, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __pyx_t_13[0] = __pyx_mstate_global->__pyx_kp_u_Unknown_format;
     __pyx_t_13[1] = __pyx_t_11;
@@ -17023,7 +17023,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
     __pyx_t_13[3] = __pyx_t_14;
     __pyx_t_13[4] = __pyx_mstate_global->__pyx_kp_u__4;
     __pyx_t_12 = __Pyx_PyUnicode_Join(__pyx_t_13, 5, 15 + __Pyx_PyUnicode_GET_LENGTH(__pyx_t_11) + 31 + __Pyx_PyUnicode_GET_LENGTH(__pyx_t_14) + 1, 127 | __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_11) | __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_14));
-    if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 86, __pyx_L1_error)
+    if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -17033,14 +17033,14 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
       __pyx_t_4 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_ValueError)), __pyx_callargs+__pyx_t_15, (2-__pyx_t_15) | (__pyx_t_15*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     }
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __PYX_ERR(0, 85, __pyx_L1_error)
+    __PYX_ERR(0, 84, __pyx_L1_error)
 
-    /* "cchecksum/_checksum.pyx":84
+    /* "cchecksum/_checksum.pyx":83
  *         )
  * 
  *     if PyBytes_GET_SIZE(hex_address_bytes) != 40:             # <<<<<<<<<<<<<<
@@ -17049,7 +17049,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
   }
 
-  /* "cchecksum/_checksum.pyx":89
+  /* "cchecksum/_checksum.pyx":88
  *         )
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -17062,7 +17062,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "cchecksum/_checksum.pyx":90
+        /* "cchecksum/_checksum.pyx":89
  * 
  *     with nogil:
  *         keccak_256(hex_address_bytestr, 40, hash_out)             # <<<<<<<<<<<<<<
@@ -17071,7 +17071,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
         keccak_256(__pyx_v_hex_address_bytestr, 40, __pyx_v_hash_out);
 
-        /* "cchecksum/_checksum.pyx":91
+        /* "cchecksum/_checksum.pyx":90
  *     with nogil:
  *         keccak_256(hex_address_bytestr, 40, hash_out)
  *         hexlify_c_string_to_buffer(hash_out, hash_buffer, 32)             # <<<<<<<<<<<<<<
@@ -17080,7 +17080,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
 */
         __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buffer(__pyx_v_hash_out, __pyx_v_hash_buffer, 32);
 
-        /* "cchecksum/_checksum.pyx":92
+        /* "cchecksum/_checksum.pyx":91
  *         keccak_256(hex_address_bytestr, 40, hash_out)
  *         hexlify_c_string_to_buffer(hash_out, hash_buffer, 32)
  *         populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)             # <<<<<<<<<<<<<<
@@ -17090,7 +17090,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
         __pyx_f_9cchecksum_9_checksum_populate_result_buffer(__pyx_v_result_buffer, __pyx_v_hex_address_bytestr, __pyx_v_hash_buffer);
       }
 
-      /* "cchecksum/_checksum.pyx":89
+      /* "cchecksum/_checksum.pyx":88
  *         )
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -17107,7 +17107,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
       }
   }
 
-  /* "cchecksum/_checksum.pyx":95
+  /* "cchecksum/_checksum.pyx":94
  * 
  *     # It is faster to decode a buffer with a known size ie buffer[:42]
  *     return result_buffer[:42].decode('ascii')             # <<<<<<<<<<<<<<
@@ -17115,13 +17115,13 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address(PyObject *__p
  * 
 */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_decode_c_string(__pyx_v_result_buffer, 0, 42, NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_decode_c_string(__pyx_v_result_buffer, 0, 42, NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = ((PyObject*)__pyx_t_4);
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "cchecksum/_checksum.pyx":21
+  /* "cchecksum/_checksum.pyx":20
  * 
  * 
  * cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):             # <<<<<<<<<<<<<<
@@ -17186,32 +17186,32 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_value,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 21, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 20, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 21, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 20, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "to_checksum_address", 0) < (0)) __PYX_ERR(0, 21, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "to_checksum_address", 0) < (0)) __PYX_ERR(0, 20, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 1; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("to_checksum_address", 1, 1, 1, i); __PYX_ERR(0, 21, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("to_checksum_address", 1, 1, 1, i); __PYX_ERR(0, 20, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 21, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 20, __pyx_L3_error)
     }
     __pyx_v_value = values[0];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("to_checksum_address", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 21, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("to_checksum_address", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 20, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -17241,7 +17241,7 @@ static PyObject *__pyx_pf_9cchecksum_9_checksum_to_checksum_address(CYTHON_UNUSE
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("to_checksum_address", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_9cchecksum_9_checksum_to_checksum_address(__pyx_v_value, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_9cchecksum_9_checksum_to_checksum_address(__pyx_v_value, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17258,7 +17258,7 @@ static PyObject *__pyx_pf_9cchecksum_9_checksum_to_checksum_address(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "cchecksum/_checksum.pyx":98
+/* "cchecksum/_checksum.pyx":97
  * 
  * 
  * cpdef bytes hexlify(const unsigned char[:] src_buffer):             # <<<<<<<<<<<<<<
@@ -17287,7 +17287,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_hexlify(__Pyx_memviewslice __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("hexlify", 0);
 
-  /* "cchecksum/_checksum.pyx":99
+  /* "cchecksum/_checksum.pyx":98
  * 
  * cpdef bytes hexlify(const unsigned char[:] src_buffer):
  *     return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))             # <<<<<<<<<<<<<<
@@ -17297,8 +17297,8 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_hexlify(__Pyx_memviewslice __pyx_
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = NULL;
   __pyx_t_3 = __Pyx_MemoryView_Len(__pyx_v_src_buffer); 
-  __pyx_t_4 = __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__pyx_v_src_buffer, __pyx_t_3); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 99, __pyx_L1_error)
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_4, 1, (PyObject *(*)(char *)) __pyx_memview_get_unsigned_char__const__, (int (*)(char *, PyObject *)) NULL, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_4 = __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__pyx_v_src_buffer, __pyx_t_3); if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_t_4, 1, (PyObject *(*)(char *)) __pyx_memview_get_unsigned_char__const__, (int (*)(char *, PyObject *)) NULL, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_4, 1);
   __pyx_t_4.memview = NULL; __pyx_t_4.data = NULL;
@@ -17308,14 +17308,14 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_hexlify(__Pyx_memviewslice __pyx_
     __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)(&PyBytes_Type), __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
   __pyx_r = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "cchecksum/_checksum.pyx":98
+  /* "cchecksum/_checksum.pyx":97
  * 
  * 
  * cpdef bytes hexlify(const unsigned char[:] src_buffer):             # <<<<<<<<<<<<<<
@@ -17377,32 +17377,32 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject ** const __pyx_pyargnames[] = {&__pyx_mstate_global->__pyx_n_u_src_buffer,0};
     const Py_ssize_t __pyx_kwds_len = (__pyx_kwds) ? __Pyx_NumKwargs_FASTCALL(__pyx_kwds) : 0;
-    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 98, __pyx_L3_error)
+    if (unlikely(__pyx_kwds_len) < 0) __PYX_ERR(0, 97, __pyx_L3_error)
     if (__pyx_kwds_len > 0) {
       switch (__pyx_nargs) {
         case  1:
         values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 98, __pyx_L3_error)
+        if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 97, __pyx_L3_error)
         CYTHON_FALLTHROUGH;
         case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
       const Py_ssize_t kwd_pos_args = __pyx_nargs;
-      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "hexlify", 0) < (0)) __PYX_ERR(0, 98, __pyx_L3_error)
+      if (__Pyx_ParseKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values, kwd_pos_args, __pyx_kwds_len, "hexlify", 0) < (0)) __PYX_ERR(0, 97, __pyx_L3_error)
       for (Py_ssize_t i = __pyx_nargs; i < 1; i++) {
-        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("hexlify", 1, 1, 1, i); __PYX_ERR(0, 98, __pyx_L3_error) }
+        if (unlikely(!values[i])) { __Pyx_RaiseArgtupleInvalid("hexlify", 1, 1, 1, i); __PYX_ERR(0, 97, __pyx_L3_error) }
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_ArgRef_FASTCALL(__pyx_args, 0);
-      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 98, __pyx_L3_error)
+      if (!CYTHON_ASSUME_SAFE_MACROS && unlikely(!values[0])) __PYX_ERR(0, 97, __pyx_L3_error)
     }
-    __pyx_v_src_buffer = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_char__const__(values[0], 0); if (unlikely(!__pyx_v_src_buffer.memview)) __PYX_ERR(0, 98, __pyx_L3_error)
+    __pyx_v_src_buffer = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_char__const__(values[0], 0); if (unlikely(!__pyx_v_src_buffer.memview)) __PYX_ERR(0, 97, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("hexlify", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 98, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("hexlify", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 97, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -17434,7 +17434,8 @@ static PyObject *__pyx_pf_9cchecksum_9_checksum_2hexlify(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("hexlify", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_9cchecksum_9_checksum_hexlify(__pyx_v_src_buffer, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+  if (unlikely(!__pyx_v_src_buffer.memview)) { __Pyx_RaiseUnboundLocalError("src_buffer"); __PYX_ERR(0, 97, __pyx_L1_error) }
+  __pyx_t_1 = __pyx_f_9cchecksum_9_checksum_hexlify(__pyx_v_src_buffer, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17451,7 +17452,7 @@ static PyObject *__pyx_pf_9cchecksum_9_checksum_2hexlify(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "cchecksum/_checksum.pyx":102
+/* "cchecksum/_checksum.pyx":101
  * 
  * 
  * cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py_ssize_t num_bytes) noexcept:             # <<<<<<<<<<<<<<
@@ -17473,7 +17474,7 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("hexlify_unsafe", 0);
 
-  /* "cchecksum/_checksum.pyx":104
+  /* "cchecksum/_checksum.pyx":103
  * cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py_ssize_t num_bytes) noexcept:
  *     """Make sure your `num_bytes` is correct or ting go boom"""
  *     cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable             # <<<<<<<<<<<<<<
@@ -17481,7 +17482,7 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
  *         hexlify_memview_to_buffer(src_buffer, result_buffer, num_bytes)
 */
   __pyx_t_2 = NULL;
-  __pyx_t_3 = PyLong_FromSsize_t((__pyx_v_num_bytes * 2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_3 = PyLong_FromSsize_t((__pyx_v_num_bytes * 2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = 1;
   {
@@ -17489,16 +17490,16 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
     __pyx_t_1 = __Pyx_PyObject_FastCall((PyObject*)(&PyByteArray_Type), __pyx_callargs+__pyx_t_4, (2-__pyx_t_4) | (__pyx_t_4*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   }
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_char(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_char(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_result_buffer = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "cchecksum/_checksum.pyx":105
+  /* "cchecksum/_checksum.pyx":104
  *     """Make sure your `num_bytes` is correct or ting go boom"""
  *     cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -17511,7 +17512,7 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "cchecksum/_checksum.pyx":106
+        /* "cchecksum/_checksum.pyx":105
  *     cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
  *     with nogil:
  *         hexlify_memview_to_buffer(src_buffer, result_buffer, num_bytes)             # <<<<<<<<<<<<<<
@@ -17521,7 +17522,7 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
         __pyx_f_9cchecksum_9_checksum_hexlify_memview_to_buffer(__pyx_v_src_buffer, __pyx_v_result_buffer, __pyx_v_num_bytes);
       }
 
-      /* "cchecksum/_checksum.pyx":105
+      /* "cchecksum/_checksum.pyx":104
  *     """Make sure your `num_bytes` is correct or ting go boom"""
  *     cdef unsigned char[:] result_buffer = bytearray(num_bytes * 2)  # contiguous and writeable
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -17538,7 +17539,7 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
       }
   }
 
-  /* "cchecksum/_checksum.pyx":107
+  /* "cchecksum/_checksum.pyx":106
  *     with nogil:
  *         hexlify_memview_to_buffer(src_buffer, result_buffer, num_bytes)
  *     return result_buffer             # <<<<<<<<<<<<<<
@@ -17549,7 +17550,7 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
   __pyx_r = __pyx_v_result_buffer;
   goto __pyx_L0;
 
-  /* "cchecksum/_checksum.pyx":102
+  /* "cchecksum/_checksum.pyx":101
  * 
  * 
  * cdef const unsigned char[:] hexlify_unsafe(const unsigned char[:] src_buffer, Py_ssize_t num_bytes) noexcept:             # <<<<<<<<<<<<<<
@@ -17577,7 +17578,7 @@ static __Pyx_memviewslice __pyx_f_9cchecksum_9_checksum_hexlify_unsafe(__Pyx_mem
   return __pyx_r;
 }
 
-/* "cchecksum/_checksum.pyx":110
+/* "cchecksum/_checksum.pyx":109
  * 
  * 
  * cdef inline void hexlify_memview_to_buffer(             # <<<<<<<<<<<<<<
@@ -17593,7 +17594,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_memview_to_buffe
   Py_ssize_t __pyx_t_3;
   Py_ssize_t __pyx_t_4;
 
-  /* "cchecksum/_checksum.pyx":117
+  /* "cchecksum/_checksum.pyx":116
  *     cdef Py_ssize_t i
  *     cdef unsigned char c
  *     for i in range(num_bytes):             # <<<<<<<<<<<<<<
@@ -17605,7 +17606,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_memview_to_buffe
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "cchecksum/_checksum.pyx":118
+    /* "cchecksum/_checksum.pyx":117
  *     cdef unsigned char c
  *     for i in range(num_bytes):
  *         c = src_buffer[i]             # <<<<<<<<<<<<<<
@@ -17615,7 +17616,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_memview_to_buffe
     __pyx_t_4 = __pyx_v_i;
     __pyx_v_c = (*((unsigned char const  *) ( /* dim=0 */ (__pyx_v_src_buffer.data + __pyx_t_4 * __pyx_v_src_buffer.strides[0]) )));
 
-    /* "cchecksum/_checksum.pyx":119
+    /* "cchecksum/_checksum.pyx":118
  *     for i in range(num_bytes):
  *         c = src_buffer[i]
  *         result_buffer[2*i] = hexdigits[c >> 4]             # <<<<<<<<<<<<<<
@@ -17625,7 +17626,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_memview_to_buffe
     __pyx_t_4 = (2 * __pyx_v_i);
     *((unsigned char *) ( /* dim=0 */ (__pyx_v_result_buffer.data + __pyx_t_4 * __pyx_v_result_buffer.strides[0]) )) = (__pyx_v_9cchecksum_9_checksum_hexdigits[(__pyx_v_c >> 4)]);
 
-    /* "cchecksum/_checksum.pyx":120
+    /* "cchecksum/_checksum.pyx":119
  *         c = src_buffer[i]
  *         result_buffer[2*i] = hexdigits[c >> 4]
  *         result_buffer[2*i+1] = hexdigits[c & 0x0F]             # <<<<<<<<<<<<<<
@@ -17636,7 +17637,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_memview_to_buffe
     *((unsigned char *) ( /* dim=0 */ (__pyx_v_result_buffer.data + __pyx_t_4 * __pyx_v_result_buffer.strides[0]) )) = (__pyx_v_9cchecksum_9_checksum_hexdigits[(__pyx_v_c & 0x0F)]);
   }
 
-  /* "cchecksum/_checksum.pyx":110
+  /* "cchecksum/_checksum.pyx":109
  * 
  * 
  * cdef inline void hexlify_memview_to_buffer(             # <<<<<<<<<<<<<<
@@ -17647,7 +17648,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_memview_to_buffe
   /* function exit code */
 }
 
-/* "cchecksum/_checksum.pyx":123
+/* "cchecksum/_checksum.pyx":122
  * 
  * 
  * cdef inline void hexlify_c_string_to_buffer(             # <<<<<<<<<<<<<<
@@ -17662,7 +17663,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buff
   Py_ssize_t __pyx_t_2;
   Py_ssize_t __pyx_t_3;
 
-  /* "cchecksum/_checksum.pyx":130
+  /* "cchecksum/_checksum.pyx":129
  *     cdef Py_ssize_t i
  *     cdef unsigned char c
  *     for i in range(num_bytes):             # <<<<<<<<<<<<<<
@@ -17674,7 +17675,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buff
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "cchecksum/_checksum.pyx":131
+    /* "cchecksum/_checksum.pyx":130
  *     cdef unsigned char c
  *     for i in range(num_bytes):
  *         c = src_buffer[i]             # <<<<<<<<<<<<<<
@@ -17683,7 +17684,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buff
 */
     __pyx_v_c = (__pyx_v_src_buffer[__pyx_v_i]);
 
-    /* "cchecksum/_checksum.pyx":132
+    /* "cchecksum/_checksum.pyx":131
  *     for i in range(num_bytes):
  *         c = src_buffer[i]
  *         result_buffer[2*i] = hexdigits[c >> 4]             # <<<<<<<<<<<<<<
@@ -17692,7 +17693,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buff
 */
     (__pyx_v_result_buffer[(2 * __pyx_v_i)]) = (__pyx_v_9cchecksum_9_checksum_hexdigits[(__pyx_v_c >> 4)]);
 
-    /* "cchecksum/_checksum.pyx":133
+    /* "cchecksum/_checksum.pyx":132
  *         c = src_buffer[i]
  *         result_buffer[2*i] = hexdigits[c >> 4]
  *         result_buffer[2*i+1] = hexdigits[c & 0x0F]             # <<<<<<<<<<<<<<
@@ -17702,7 +17703,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buff
     (__pyx_v_result_buffer[((2 * __pyx_v_i) + 1)]) = (__pyx_v_9cchecksum_9_checksum_hexdigits[(__pyx_v_c & 0x0F)]);
   }
 
-  /* "cchecksum/_checksum.pyx":123
+  /* "cchecksum/_checksum.pyx":122
  * 
  * 
  * cdef inline void hexlify_c_string_to_buffer(             # <<<<<<<<<<<<<<
@@ -17713,7 +17714,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buff
   /* function exit code */
 }
 
-/* "cchecksum/_checksum.pyx":136
+/* "cchecksum/_checksum.pyx":135
  * 
  * 
  * cdef void populate_result_buffer(             # <<<<<<<<<<<<<<
@@ -17724,7 +17725,7 @@ static CYTHON_INLINE void __pyx_f_9cchecksum_9_checksum_hexlify_c_string_to_buff
 static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_buffer, unsigned char const *__pyx_v_norm_address_no_0x, unsigned char const *__pyx_v_address_hash_hex_no_0x) {
   int __pyx_t_1;
 
-  /* "cchecksum/_checksum.pyx":161
+  /* "cchecksum/_checksum.pyx":160
  *     # `if address_hash_hex_no_0x[x] < 56`
  *     # '0' to '7' have ASCII values 48 to 55
  *     if address_hash_hex_no_0x[0] < 56:             # <<<<<<<<<<<<<<
@@ -17734,7 +17735,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[0]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":162
+    /* "cchecksum/_checksum.pyx":161
  *     # '0' to '7' have ASCII values 48 to 55
  *     if address_hash_hex_no_0x[0] < 56:
  *         buffer[2] = norm_address_no_0x[0]             # <<<<<<<<<<<<<<
@@ -17743,7 +17744,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[2]) = (__pyx_v_norm_address_no_0x[0]);
 
-    /* "cchecksum/_checksum.pyx":161
+    /* "cchecksum/_checksum.pyx":160
  *     # `if address_hash_hex_no_0x[x] < 56`
  *     # '0' to '7' have ASCII values 48 to 55
  *     if address_hash_hex_no_0x[0] < 56:             # <<<<<<<<<<<<<<
@@ -17753,7 +17754,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L3;
   }
 
-  /* "cchecksum/_checksum.pyx":164
+  /* "cchecksum/_checksum.pyx":163
  *         buffer[2] = norm_address_no_0x[0]
  *     else:
  *         buffer[2] = get_char(norm_address_no_0x[0])             # <<<<<<<<<<<<<<
@@ -17765,7 +17766,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L3:;
 
-  /* "cchecksum/_checksum.pyx":165
+  /* "cchecksum/_checksum.pyx":164
  *     else:
  *         buffer[2] = get_char(norm_address_no_0x[0])
  *     if address_hash_hex_no_0x[1] < 56:             # <<<<<<<<<<<<<<
@@ -17775,7 +17776,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[1]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":166
+    /* "cchecksum/_checksum.pyx":165
  *         buffer[2] = get_char(norm_address_no_0x[0])
  *     if address_hash_hex_no_0x[1] < 56:
  *         buffer[3] = norm_address_no_0x[1]             # <<<<<<<<<<<<<<
@@ -17784,7 +17785,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[3]) = (__pyx_v_norm_address_no_0x[1]);
 
-    /* "cchecksum/_checksum.pyx":165
+    /* "cchecksum/_checksum.pyx":164
  *     else:
  *         buffer[2] = get_char(norm_address_no_0x[0])
  *     if address_hash_hex_no_0x[1] < 56:             # <<<<<<<<<<<<<<
@@ -17794,7 +17795,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L4;
   }
 
-  /* "cchecksum/_checksum.pyx":168
+  /* "cchecksum/_checksum.pyx":167
  *         buffer[3] = norm_address_no_0x[1]
  *     else:
  *         buffer[3] = get_char(norm_address_no_0x[1])             # <<<<<<<<<<<<<<
@@ -17806,7 +17807,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L4:;
 
-  /* "cchecksum/_checksum.pyx":169
+  /* "cchecksum/_checksum.pyx":168
  *     else:
  *         buffer[3] = get_char(norm_address_no_0x[1])
  *     if address_hash_hex_no_0x[2] < 56:             # <<<<<<<<<<<<<<
@@ -17816,7 +17817,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[2]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":170
+    /* "cchecksum/_checksum.pyx":169
  *         buffer[3] = get_char(norm_address_no_0x[1])
  *     if address_hash_hex_no_0x[2] < 56:
  *         buffer[4] = norm_address_no_0x[2]             # <<<<<<<<<<<<<<
@@ -17825,7 +17826,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[4]) = (__pyx_v_norm_address_no_0x[2]);
 
-    /* "cchecksum/_checksum.pyx":169
+    /* "cchecksum/_checksum.pyx":168
  *     else:
  *         buffer[3] = get_char(norm_address_no_0x[1])
  *     if address_hash_hex_no_0x[2] < 56:             # <<<<<<<<<<<<<<
@@ -17835,7 +17836,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L5;
   }
 
-  /* "cchecksum/_checksum.pyx":172
+  /* "cchecksum/_checksum.pyx":171
  *         buffer[4] = norm_address_no_0x[2]
  *     else:
  *         buffer[4] = get_char(norm_address_no_0x[2])             # <<<<<<<<<<<<<<
@@ -17847,7 +17848,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L5:;
 
-  /* "cchecksum/_checksum.pyx":173
+  /* "cchecksum/_checksum.pyx":172
  *     else:
  *         buffer[4] = get_char(norm_address_no_0x[2])
  *     if address_hash_hex_no_0x[3] < 56:             # <<<<<<<<<<<<<<
@@ -17857,7 +17858,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[3]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":174
+    /* "cchecksum/_checksum.pyx":173
  *         buffer[4] = get_char(norm_address_no_0x[2])
  *     if address_hash_hex_no_0x[3] < 56:
  *         buffer[5] = norm_address_no_0x[3]             # <<<<<<<<<<<<<<
@@ -17866,7 +17867,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[5]) = (__pyx_v_norm_address_no_0x[3]);
 
-    /* "cchecksum/_checksum.pyx":173
+    /* "cchecksum/_checksum.pyx":172
  *     else:
  *         buffer[4] = get_char(norm_address_no_0x[2])
  *     if address_hash_hex_no_0x[3] < 56:             # <<<<<<<<<<<<<<
@@ -17876,7 +17877,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L6;
   }
 
-  /* "cchecksum/_checksum.pyx":176
+  /* "cchecksum/_checksum.pyx":175
  *         buffer[5] = norm_address_no_0x[3]
  *     else:
  *         buffer[5] = get_char(norm_address_no_0x[3])             # <<<<<<<<<<<<<<
@@ -17888,7 +17889,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L6:;
 
-  /* "cchecksum/_checksum.pyx":177
+  /* "cchecksum/_checksum.pyx":176
  *     else:
  *         buffer[5] = get_char(norm_address_no_0x[3])
  *     if address_hash_hex_no_0x[4] < 56:             # <<<<<<<<<<<<<<
@@ -17898,7 +17899,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[4]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":178
+    /* "cchecksum/_checksum.pyx":177
  *         buffer[5] = get_char(norm_address_no_0x[3])
  *     if address_hash_hex_no_0x[4] < 56:
  *         buffer[6] = norm_address_no_0x[4]             # <<<<<<<<<<<<<<
@@ -17907,7 +17908,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[6]) = (__pyx_v_norm_address_no_0x[4]);
 
-    /* "cchecksum/_checksum.pyx":177
+    /* "cchecksum/_checksum.pyx":176
  *     else:
  *         buffer[5] = get_char(norm_address_no_0x[3])
  *     if address_hash_hex_no_0x[4] < 56:             # <<<<<<<<<<<<<<
@@ -17917,7 +17918,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L7;
   }
 
-  /* "cchecksum/_checksum.pyx":180
+  /* "cchecksum/_checksum.pyx":179
  *         buffer[6] = norm_address_no_0x[4]
  *     else:
  *         buffer[6] = get_char(norm_address_no_0x[4])             # <<<<<<<<<<<<<<
@@ -17929,7 +17930,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L7:;
 
-  /* "cchecksum/_checksum.pyx":181
+  /* "cchecksum/_checksum.pyx":180
  *     else:
  *         buffer[6] = get_char(norm_address_no_0x[4])
  *     if address_hash_hex_no_0x[5] < 56:             # <<<<<<<<<<<<<<
@@ -17939,7 +17940,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[5]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":182
+    /* "cchecksum/_checksum.pyx":181
  *         buffer[6] = get_char(norm_address_no_0x[4])
  *     if address_hash_hex_no_0x[5] < 56:
  *         buffer[7] = norm_address_no_0x[5]             # <<<<<<<<<<<<<<
@@ -17948,7 +17949,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[7]) = (__pyx_v_norm_address_no_0x[5]);
 
-    /* "cchecksum/_checksum.pyx":181
+    /* "cchecksum/_checksum.pyx":180
  *     else:
  *         buffer[6] = get_char(norm_address_no_0x[4])
  *     if address_hash_hex_no_0x[5] < 56:             # <<<<<<<<<<<<<<
@@ -17958,7 +17959,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L8;
   }
 
-  /* "cchecksum/_checksum.pyx":184
+  /* "cchecksum/_checksum.pyx":183
  *         buffer[7] = norm_address_no_0x[5]
  *     else:
  *         buffer[7] = get_char(norm_address_no_0x[5])             # <<<<<<<<<<<<<<
@@ -17970,7 +17971,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L8:;
 
-  /* "cchecksum/_checksum.pyx":185
+  /* "cchecksum/_checksum.pyx":184
  *     else:
  *         buffer[7] = get_char(norm_address_no_0x[5])
  *     if address_hash_hex_no_0x[6] < 56:             # <<<<<<<<<<<<<<
@@ -17980,7 +17981,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[6]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":186
+    /* "cchecksum/_checksum.pyx":185
  *         buffer[7] = get_char(norm_address_no_0x[5])
  *     if address_hash_hex_no_0x[6] < 56:
  *         buffer[8] = norm_address_no_0x[6]             # <<<<<<<<<<<<<<
@@ -17989,7 +17990,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[8]) = (__pyx_v_norm_address_no_0x[6]);
 
-    /* "cchecksum/_checksum.pyx":185
+    /* "cchecksum/_checksum.pyx":184
  *     else:
  *         buffer[7] = get_char(norm_address_no_0x[5])
  *     if address_hash_hex_no_0x[6] < 56:             # <<<<<<<<<<<<<<
@@ -17999,7 +18000,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L9;
   }
 
-  /* "cchecksum/_checksum.pyx":188
+  /* "cchecksum/_checksum.pyx":187
  *         buffer[8] = norm_address_no_0x[6]
  *     else:
  *         buffer[8] = get_char(norm_address_no_0x[6])             # <<<<<<<<<<<<<<
@@ -18011,7 +18012,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L9:;
 
-  /* "cchecksum/_checksum.pyx":189
+  /* "cchecksum/_checksum.pyx":188
  *     else:
  *         buffer[8] = get_char(norm_address_no_0x[6])
  *     if address_hash_hex_no_0x[7] < 56:             # <<<<<<<<<<<<<<
@@ -18021,7 +18022,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[7]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":190
+    /* "cchecksum/_checksum.pyx":189
  *         buffer[8] = get_char(norm_address_no_0x[6])
  *     if address_hash_hex_no_0x[7] < 56:
  *         buffer[9] = norm_address_no_0x[7]             # <<<<<<<<<<<<<<
@@ -18030,7 +18031,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[9]) = (__pyx_v_norm_address_no_0x[7]);
 
-    /* "cchecksum/_checksum.pyx":189
+    /* "cchecksum/_checksum.pyx":188
  *     else:
  *         buffer[8] = get_char(norm_address_no_0x[6])
  *     if address_hash_hex_no_0x[7] < 56:             # <<<<<<<<<<<<<<
@@ -18040,7 +18041,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L10;
   }
 
-  /* "cchecksum/_checksum.pyx":192
+  /* "cchecksum/_checksum.pyx":191
  *         buffer[9] = norm_address_no_0x[7]
  *     else:
  *         buffer[9] = get_char(norm_address_no_0x[7])             # <<<<<<<<<<<<<<
@@ -18052,7 +18053,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L10:;
 
-  /* "cchecksum/_checksum.pyx":193
+  /* "cchecksum/_checksum.pyx":192
  *     else:
  *         buffer[9] = get_char(norm_address_no_0x[7])
  *     if address_hash_hex_no_0x[8] < 56:             # <<<<<<<<<<<<<<
@@ -18062,7 +18063,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[8]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":194
+    /* "cchecksum/_checksum.pyx":193
  *         buffer[9] = get_char(norm_address_no_0x[7])
  *     if address_hash_hex_no_0x[8] < 56:
  *         buffer[10] = norm_address_no_0x[8]             # <<<<<<<<<<<<<<
@@ -18071,7 +18072,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[10]) = (__pyx_v_norm_address_no_0x[8]);
 
-    /* "cchecksum/_checksum.pyx":193
+    /* "cchecksum/_checksum.pyx":192
  *     else:
  *         buffer[9] = get_char(norm_address_no_0x[7])
  *     if address_hash_hex_no_0x[8] < 56:             # <<<<<<<<<<<<<<
@@ -18081,7 +18082,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L11;
   }
 
-  /* "cchecksum/_checksum.pyx":196
+  /* "cchecksum/_checksum.pyx":195
  *         buffer[10] = norm_address_no_0x[8]
  *     else:
  *         buffer[10] = get_char(norm_address_no_0x[8])             # <<<<<<<<<<<<<<
@@ -18093,7 +18094,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L11:;
 
-  /* "cchecksum/_checksum.pyx":197
+  /* "cchecksum/_checksum.pyx":196
  *     else:
  *         buffer[10] = get_char(norm_address_no_0x[8])
  *     if address_hash_hex_no_0x[9] < 56:             # <<<<<<<<<<<<<<
@@ -18103,7 +18104,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[9]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":198
+    /* "cchecksum/_checksum.pyx":197
  *         buffer[10] = get_char(norm_address_no_0x[8])
  *     if address_hash_hex_no_0x[9] < 56:
  *         buffer[11] = norm_address_no_0x[9]             # <<<<<<<<<<<<<<
@@ -18112,7 +18113,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[11]) = (__pyx_v_norm_address_no_0x[9]);
 
-    /* "cchecksum/_checksum.pyx":197
+    /* "cchecksum/_checksum.pyx":196
  *     else:
  *         buffer[10] = get_char(norm_address_no_0x[8])
  *     if address_hash_hex_no_0x[9] < 56:             # <<<<<<<<<<<<<<
@@ -18122,7 +18123,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L12;
   }
 
-  /* "cchecksum/_checksum.pyx":200
+  /* "cchecksum/_checksum.pyx":199
  *         buffer[11] = norm_address_no_0x[9]
  *     else:
  *         buffer[11] = get_char(norm_address_no_0x[9])             # <<<<<<<<<<<<<<
@@ -18134,7 +18135,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L12:;
 
-  /* "cchecksum/_checksum.pyx":201
+  /* "cchecksum/_checksum.pyx":200
  *     else:
  *         buffer[11] = get_char(norm_address_no_0x[9])
  *     if address_hash_hex_no_0x[10] < 56:             # <<<<<<<<<<<<<<
@@ -18144,7 +18145,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[10]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":202
+    /* "cchecksum/_checksum.pyx":201
  *         buffer[11] = get_char(norm_address_no_0x[9])
  *     if address_hash_hex_no_0x[10] < 56:
  *         buffer[12] = norm_address_no_0x[10]             # <<<<<<<<<<<<<<
@@ -18153,7 +18154,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[12]) = (__pyx_v_norm_address_no_0x[10]);
 
-    /* "cchecksum/_checksum.pyx":201
+    /* "cchecksum/_checksum.pyx":200
  *     else:
  *         buffer[11] = get_char(norm_address_no_0x[9])
  *     if address_hash_hex_no_0x[10] < 56:             # <<<<<<<<<<<<<<
@@ -18163,7 +18164,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L13;
   }
 
-  /* "cchecksum/_checksum.pyx":204
+  /* "cchecksum/_checksum.pyx":203
  *         buffer[12] = norm_address_no_0x[10]
  *     else:
  *         buffer[12] = get_char(norm_address_no_0x[10])             # <<<<<<<<<<<<<<
@@ -18175,7 +18176,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L13:;
 
-  /* "cchecksum/_checksum.pyx":205
+  /* "cchecksum/_checksum.pyx":204
  *     else:
  *         buffer[12] = get_char(norm_address_no_0x[10])
  *     if address_hash_hex_no_0x[11] < 56:             # <<<<<<<<<<<<<<
@@ -18185,7 +18186,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[11]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":206
+    /* "cchecksum/_checksum.pyx":205
  *         buffer[12] = get_char(norm_address_no_0x[10])
  *     if address_hash_hex_no_0x[11] < 56:
  *         buffer[13] = norm_address_no_0x[11]             # <<<<<<<<<<<<<<
@@ -18194,7 +18195,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[13]) = (__pyx_v_norm_address_no_0x[11]);
 
-    /* "cchecksum/_checksum.pyx":205
+    /* "cchecksum/_checksum.pyx":204
  *     else:
  *         buffer[12] = get_char(norm_address_no_0x[10])
  *     if address_hash_hex_no_0x[11] < 56:             # <<<<<<<<<<<<<<
@@ -18204,7 +18205,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L14;
   }
 
-  /* "cchecksum/_checksum.pyx":208
+  /* "cchecksum/_checksum.pyx":207
  *         buffer[13] = norm_address_no_0x[11]
  *     else:
  *         buffer[13] = get_char(norm_address_no_0x[11])             # <<<<<<<<<<<<<<
@@ -18216,7 +18217,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L14:;
 
-  /* "cchecksum/_checksum.pyx":209
+  /* "cchecksum/_checksum.pyx":208
  *     else:
  *         buffer[13] = get_char(norm_address_no_0x[11])
  *     if address_hash_hex_no_0x[12] < 56:             # <<<<<<<<<<<<<<
@@ -18226,7 +18227,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[12]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":210
+    /* "cchecksum/_checksum.pyx":209
  *         buffer[13] = get_char(norm_address_no_0x[11])
  *     if address_hash_hex_no_0x[12] < 56:
  *         buffer[14] = norm_address_no_0x[12]             # <<<<<<<<<<<<<<
@@ -18235,7 +18236,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[14]) = (__pyx_v_norm_address_no_0x[12]);
 
-    /* "cchecksum/_checksum.pyx":209
+    /* "cchecksum/_checksum.pyx":208
  *     else:
  *         buffer[13] = get_char(norm_address_no_0x[11])
  *     if address_hash_hex_no_0x[12] < 56:             # <<<<<<<<<<<<<<
@@ -18245,7 +18246,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L15;
   }
 
-  /* "cchecksum/_checksum.pyx":212
+  /* "cchecksum/_checksum.pyx":211
  *         buffer[14] = norm_address_no_0x[12]
  *     else:
  *         buffer[14] = get_char(norm_address_no_0x[12])             # <<<<<<<<<<<<<<
@@ -18257,7 +18258,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L15:;
 
-  /* "cchecksum/_checksum.pyx":213
+  /* "cchecksum/_checksum.pyx":212
  *     else:
  *         buffer[14] = get_char(norm_address_no_0x[12])
  *     if address_hash_hex_no_0x[13] < 56:             # <<<<<<<<<<<<<<
@@ -18267,7 +18268,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[13]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":214
+    /* "cchecksum/_checksum.pyx":213
  *         buffer[14] = get_char(norm_address_no_0x[12])
  *     if address_hash_hex_no_0x[13] < 56:
  *         buffer[15] = norm_address_no_0x[13]             # <<<<<<<<<<<<<<
@@ -18276,7 +18277,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[15]) = (__pyx_v_norm_address_no_0x[13]);
 
-    /* "cchecksum/_checksum.pyx":213
+    /* "cchecksum/_checksum.pyx":212
  *     else:
  *         buffer[14] = get_char(norm_address_no_0x[12])
  *     if address_hash_hex_no_0x[13] < 56:             # <<<<<<<<<<<<<<
@@ -18286,7 +18287,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L16;
   }
 
-  /* "cchecksum/_checksum.pyx":216
+  /* "cchecksum/_checksum.pyx":215
  *         buffer[15] = norm_address_no_0x[13]
  *     else:
  *         buffer[15] = get_char(norm_address_no_0x[13])             # <<<<<<<<<<<<<<
@@ -18298,7 +18299,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L16:;
 
-  /* "cchecksum/_checksum.pyx":217
+  /* "cchecksum/_checksum.pyx":216
  *     else:
  *         buffer[15] = get_char(norm_address_no_0x[13])
  *     if address_hash_hex_no_0x[14] < 56:             # <<<<<<<<<<<<<<
@@ -18308,7 +18309,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[14]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":218
+    /* "cchecksum/_checksum.pyx":217
  *         buffer[15] = get_char(norm_address_no_0x[13])
  *     if address_hash_hex_no_0x[14] < 56:
  *         buffer[16] = norm_address_no_0x[14]             # <<<<<<<<<<<<<<
@@ -18317,7 +18318,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[16]) = (__pyx_v_norm_address_no_0x[14]);
 
-    /* "cchecksum/_checksum.pyx":217
+    /* "cchecksum/_checksum.pyx":216
  *     else:
  *         buffer[15] = get_char(norm_address_no_0x[13])
  *     if address_hash_hex_no_0x[14] < 56:             # <<<<<<<<<<<<<<
@@ -18327,7 +18328,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L17;
   }
 
-  /* "cchecksum/_checksum.pyx":220
+  /* "cchecksum/_checksum.pyx":219
  *         buffer[16] = norm_address_no_0x[14]
  *     else:
  *         buffer[16] = get_char(norm_address_no_0x[14])             # <<<<<<<<<<<<<<
@@ -18339,7 +18340,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L17:;
 
-  /* "cchecksum/_checksum.pyx":221
+  /* "cchecksum/_checksum.pyx":220
  *     else:
  *         buffer[16] = get_char(norm_address_no_0x[14])
  *     if address_hash_hex_no_0x[15] < 56:             # <<<<<<<<<<<<<<
@@ -18349,7 +18350,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[15]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":222
+    /* "cchecksum/_checksum.pyx":221
  *         buffer[16] = get_char(norm_address_no_0x[14])
  *     if address_hash_hex_no_0x[15] < 56:
  *         buffer[17] = norm_address_no_0x[15]             # <<<<<<<<<<<<<<
@@ -18358,7 +18359,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[17]) = (__pyx_v_norm_address_no_0x[15]);
 
-    /* "cchecksum/_checksum.pyx":221
+    /* "cchecksum/_checksum.pyx":220
  *     else:
  *         buffer[16] = get_char(norm_address_no_0x[14])
  *     if address_hash_hex_no_0x[15] < 56:             # <<<<<<<<<<<<<<
@@ -18368,7 +18369,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L18;
   }
 
-  /* "cchecksum/_checksum.pyx":224
+  /* "cchecksum/_checksum.pyx":223
  *         buffer[17] = norm_address_no_0x[15]
  *     else:
  *         buffer[17] = get_char(norm_address_no_0x[15])             # <<<<<<<<<<<<<<
@@ -18380,7 +18381,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L18:;
 
-  /* "cchecksum/_checksum.pyx":225
+  /* "cchecksum/_checksum.pyx":224
  *     else:
  *         buffer[17] = get_char(norm_address_no_0x[15])
  *     if address_hash_hex_no_0x[16] < 56:             # <<<<<<<<<<<<<<
@@ -18390,7 +18391,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[16]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":226
+    /* "cchecksum/_checksum.pyx":225
  *         buffer[17] = get_char(norm_address_no_0x[15])
  *     if address_hash_hex_no_0x[16] < 56:
  *         buffer[18] = norm_address_no_0x[16]             # <<<<<<<<<<<<<<
@@ -18399,7 +18400,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[18]) = (__pyx_v_norm_address_no_0x[16]);
 
-    /* "cchecksum/_checksum.pyx":225
+    /* "cchecksum/_checksum.pyx":224
  *     else:
  *         buffer[17] = get_char(norm_address_no_0x[15])
  *     if address_hash_hex_no_0x[16] < 56:             # <<<<<<<<<<<<<<
@@ -18409,7 +18410,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L19;
   }
 
-  /* "cchecksum/_checksum.pyx":228
+  /* "cchecksum/_checksum.pyx":227
  *         buffer[18] = norm_address_no_0x[16]
  *     else:
  *         buffer[18] = get_char(norm_address_no_0x[16])             # <<<<<<<<<<<<<<
@@ -18421,7 +18422,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L19:;
 
-  /* "cchecksum/_checksum.pyx":229
+  /* "cchecksum/_checksum.pyx":228
  *     else:
  *         buffer[18] = get_char(norm_address_no_0x[16])
  *     if address_hash_hex_no_0x[17] < 56:             # <<<<<<<<<<<<<<
@@ -18431,7 +18432,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[17]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":230
+    /* "cchecksum/_checksum.pyx":229
  *         buffer[18] = get_char(norm_address_no_0x[16])
  *     if address_hash_hex_no_0x[17] < 56:
  *         buffer[19] = norm_address_no_0x[17]             # <<<<<<<<<<<<<<
@@ -18440,7 +18441,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[19]) = (__pyx_v_norm_address_no_0x[17]);
 
-    /* "cchecksum/_checksum.pyx":229
+    /* "cchecksum/_checksum.pyx":228
  *     else:
  *         buffer[18] = get_char(norm_address_no_0x[16])
  *     if address_hash_hex_no_0x[17] < 56:             # <<<<<<<<<<<<<<
@@ -18450,7 +18451,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L20;
   }
 
-  /* "cchecksum/_checksum.pyx":232
+  /* "cchecksum/_checksum.pyx":231
  *         buffer[19] = norm_address_no_0x[17]
  *     else:
  *         buffer[19] = get_char(norm_address_no_0x[17])             # <<<<<<<<<<<<<<
@@ -18462,7 +18463,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L20:;
 
-  /* "cchecksum/_checksum.pyx":233
+  /* "cchecksum/_checksum.pyx":232
  *     else:
  *         buffer[19] = get_char(norm_address_no_0x[17])
  *     if address_hash_hex_no_0x[18] < 56:             # <<<<<<<<<<<<<<
@@ -18472,7 +18473,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[18]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":234
+    /* "cchecksum/_checksum.pyx":233
  *         buffer[19] = get_char(norm_address_no_0x[17])
  *     if address_hash_hex_no_0x[18] < 56:
  *         buffer[20] = norm_address_no_0x[18]             # <<<<<<<<<<<<<<
@@ -18481,7 +18482,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[20]) = (__pyx_v_norm_address_no_0x[18]);
 
-    /* "cchecksum/_checksum.pyx":233
+    /* "cchecksum/_checksum.pyx":232
  *     else:
  *         buffer[19] = get_char(norm_address_no_0x[17])
  *     if address_hash_hex_no_0x[18] < 56:             # <<<<<<<<<<<<<<
@@ -18491,7 +18492,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L21;
   }
 
-  /* "cchecksum/_checksum.pyx":236
+  /* "cchecksum/_checksum.pyx":235
  *         buffer[20] = norm_address_no_0x[18]
  *     else:
  *         buffer[20] = get_char(norm_address_no_0x[18])             # <<<<<<<<<<<<<<
@@ -18503,7 +18504,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L21:;
 
-  /* "cchecksum/_checksum.pyx":237
+  /* "cchecksum/_checksum.pyx":236
  *     else:
  *         buffer[20] = get_char(norm_address_no_0x[18])
  *     if address_hash_hex_no_0x[19] < 56:             # <<<<<<<<<<<<<<
@@ -18513,7 +18514,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[19]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":238
+    /* "cchecksum/_checksum.pyx":237
  *         buffer[20] = get_char(norm_address_no_0x[18])
  *     if address_hash_hex_no_0x[19] < 56:
  *         buffer[21] = norm_address_no_0x[19]             # <<<<<<<<<<<<<<
@@ -18522,7 +18523,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[21]) = (__pyx_v_norm_address_no_0x[19]);
 
-    /* "cchecksum/_checksum.pyx":237
+    /* "cchecksum/_checksum.pyx":236
  *     else:
  *         buffer[20] = get_char(norm_address_no_0x[18])
  *     if address_hash_hex_no_0x[19] < 56:             # <<<<<<<<<<<<<<
@@ -18532,7 +18533,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L22;
   }
 
-  /* "cchecksum/_checksum.pyx":240
+  /* "cchecksum/_checksum.pyx":239
  *         buffer[21] = norm_address_no_0x[19]
  *     else:
  *         buffer[21] = get_char(norm_address_no_0x[19])             # <<<<<<<<<<<<<<
@@ -18544,7 +18545,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L22:;
 
-  /* "cchecksum/_checksum.pyx":241
+  /* "cchecksum/_checksum.pyx":240
  *     else:
  *         buffer[21] = get_char(norm_address_no_0x[19])
  *     if address_hash_hex_no_0x[20] < 56:             # <<<<<<<<<<<<<<
@@ -18554,7 +18555,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[20]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":242
+    /* "cchecksum/_checksum.pyx":241
  *         buffer[21] = get_char(norm_address_no_0x[19])
  *     if address_hash_hex_no_0x[20] < 56:
  *         buffer[22] = norm_address_no_0x[20]             # <<<<<<<<<<<<<<
@@ -18563,7 +18564,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[22]) = (__pyx_v_norm_address_no_0x[20]);
 
-    /* "cchecksum/_checksum.pyx":241
+    /* "cchecksum/_checksum.pyx":240
  *     else:
  *         buffer[21] = get_char(norm_address_no_0x[19])
  *     if address_hash_hex_no_0x[20] < 56:             # <<<<<<<<<<<<<<
@@ -18573,7 +18574,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L23;
   }
 
-  /* "cchecksum/_checksum.pyx":244
+  /* "cchecksum/_checksum.pyx":243
  *         buffer[22] = norm_address_no_0x[20]
  *     else:
  *         buffer[22] = get_char(norm_address_no_0x[20])             # <<<<<<<<<<<<<<
@@ -18585,7 +18586,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L23:;
 
-  /* "cchecksum/_checksum.pyx":245
+  /* "cchecksum/_checksum.pyx":244
  *     else:
  *         buffer[22] = get_char(norm_address_no_0x[20])
  *     if address_hash_hex_no_0x[21] < 56:             # <<<<<<<<<<<<<<
@@ -18595,7 +18596,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[21]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":246
+    /* "cchecksum/_checksum.pyx":245
  *         buffer[22] = get_char(norm_address_no_0x[20])
  *     if address_hash_hex_no_0x[21] < 56:
  *         buffer[23] = norm_address_no_0x[21]             # <<<<<<<<<<<<<<
@@ -18604,7 +18605,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[23]) = (__pyx_v_norm_address_no_0x[21]);
 
-    /* "cchecksum/_checksum.pyx":245
+    /* "cchecksum/_checksum.pyx":244
  *     else:
  *         buffer[22] = get_char(norm_address_no_0x[20])
  *     if address_hash_hex_no_0x[21] < 56:             # <<<<<<<<<<<<<<
@@ -18614,7 +18615,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L24;
   }
 
-  /* "cchecksum/_checksum.pyx":248
+  /* "cchecksum/_checksum.pyx":247
  *         buffer[23] = norm_address_no_0x[21]
  *     else:
  *         buffer[23] = get_char(norm_address_no_0x[21])             # <<<<<<<<<<<<<<
@@ -18626,7 +18627,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L24:;
 
-  /* "cchecksum/_checksum.pyx":249
+  /* "cchecksum/_checksum.pyx":248
  *     else:
  *         buffer[23] = get_char(norm_address_no_0x[21])
  *     if address_hash_hex_no_0x[22] < 56:             # <<<<<<<<<<<<<<
@@ -18636,7 +18637,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[22]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":250
+    /* "cchecksum/_checksum.pyx":249
  *         buffer[23] = get_char(norm_address_no_0x[21])
  *     if address_hash_hex_no_0x[22] < 56:
  *         buffer[24] = norm_address_no_0x[22]             # <<<<<<<<<<<<<<
@@ -18645,7 +18646,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[24]) = (__pyx_v_norm_address_no_0x[22]);
 
-    /* "cchecksum/_checksum.pyx":249
+    /* "cchecksum/_checksum.pyx":248
  *     else:
  *         buffer[23] = get_char(norm_address_no_0x[21])
  *     if address_hash_hex_no_0x[22] < 56:             # <<<<<<<<<<<<<<
@@ -18655,7 +18656,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L25;
   }
 
-  /* "cchecksum/_checksum.pyx":252
+  /* "cchecksum/_checksum.pyx":251
  *         buffer[24] = norm_address_no_0x[22]
  *     else:
  *         buffer[24] = get_char(norm_address_no_0x[22])             # <<<<<<<<<<<<<<
@@ -18667,7 +18668,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L25:;
 
-  /* "cchecksum/_checksum.pyx":253
+  /* "cchecksum/_checksum.pyx":252
  *     else:
  *         buffer[24] = get_char(norm_address_no_0x[22])
  *     if address_hash_hex_no_0x[23] < 56:             # <<<<<<<<<<<<<<
@@ -18677,7 +18678,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[23]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":254
+    /* "cchecksum/_checksum.pyx":253
  *         buffer[24] = get_char(norm_address_no_0x[22])
  *     if address_hash_hex_no_0x[23] < 56:
  *         buffer[25] = norm_address_no_0x[23]             # <<<<<<<<<<<<<<
@@ -18686,7 +18687,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[25]) = (__pyx_v_norm_address_no_0x[23]);
 
-    /* "cchecksum/_checksum.pyx":253
+    /* "cchecksum/_checksum.pyx":252
  *     else:
  *         buffer[24] = get_char(norm_address_no_0x[22])
  *     if address_hash_hex_no_0x[23] < 56:             # <<<<<<<<<<<<<<
@@ -18696,7 +18697,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L26;
   }
 
-  /* "cchecksum/_checksum.pyx":256
+  /* "cchecksum/_checksum.pyx":255
  *         buffer[25] = norm_address_no_0x[23]
  *     else:
  *         buffer[25] = get_char(norm_address_no_0x[23])             # <<<<<<<<<<<<<<
@@ -18708,7 +18709,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L26:;
 
-  /* "cchecksum/_checksum.pyx":257
+  /* "cchecksum/_checksum.pyx":256
  *     else:
  *         buffer[25] = get_char(norm_address_no_0x[23])
  *     if address_hash_hex_no_0x[24] < 56:             # <<<<<<<<<<<<<<
@@ -18718,7 +18719,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[24]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":258
+    /* "cchecksum/_checksum.pyx":257
  *         buffer[25] = get_char(norm_address_no_0x[23])
  *     if address_hash_hex_no_0x[24] < 56:
  *         buffer[26] = norm_address_no_0x[24]             # <<<<<<<<<<<<<<
@@ -18727,7 +18728,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[26]) = (__pyx_v_norm_address_no_0x[24]);
 
-    /* "cchecksum/_checksum.pyx":257
+    /* "cchecksum/_checksum.pyx":256
  *     else:
  *         buffer[25] = get_char(norm_address_no_0x[23])
  *     if address_hash_hex_no_0x[24] < 56:             # <<<<<<<<<<<<<<
@@ -18737,7 +18738,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L27;
   }
 
-  /* "cchecksum/_checksum.pyx":260
+  /* "cchecksum/_checksum.pyx":259
  *         buffer[26] = norm_address_no_0x[24]
  *     else:
  *         buffer[26] = get_char(norm_address_no_0x[24])             # <<<<<<<<<<<<<<
@@ -18749,7 +18750,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L27:;
 
-  /* "cchecksum/_checksum.pyx":261
+  /* "cchecksum/_checksum.pyx":260
  *     else:
  *         buffer[26] = get_char(norm_address_no_0x[24])
  *     if address_hash_hex_no_0x[25] < 56:             # <<<<<<<<<<<<<<
@@ -18759,7 +18760,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[25]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":262
+    /* "cchecksum/_checksum.pyx":261
  *         buffer[26] = get_char(norm_address_no_0x[24])
  *     if address_hash_hex_no_0x[25] < 56:
  *         buffer[27] = norm_address_no_0x[25]             # <<<<<<<<<<<<<<
@@ -18768,7 +18769,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[27]) = (__pyx_v_norm_address_no_0x[25]);
 
-    /* "cchecksum/_checksum.pyx":261
+    /* "cchecksum/_checksum.pyx":260
  *     else:
  *         buffer[26] = get_char(norm_address_no_0x[24])
  *     if address_hash_hex_no_0x[25] < 56:             # <<<<<<<<<<<<<<
@@ -18778,7 +18779,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L28;
   }
 
-  /* "cchecksum/_checksum.pyx":264
+  /* "cchecksum/_checksum.pyx":263
  *         buffer[27] = norm_address_no_0x[25]
  *     else:
  *         buffer[27] = get_char(norm_address_no_0x[25])             # <<<<<<<<<<<<<<
@@ -18790,7 +18791,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L28:;
 
-  /* "cchecksum/_checksum.pyx":265
+  /* "cchecksum/_checksum.pyx":264
  *     else:
  *         buffer[27] = get_char(norm_address_no_0x[25])
  *     if address_hash_hex_no_0x[26] < 56:             # <<<<<<<<<<<<<<
@@ -18800,7 +18801,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[26]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":266
+    /* "cchecksum/_checksum.pyx":265
  *         buffer[27] = get_char(norm_address_no_0x[25])
  *     if address_hash_hex_no_0x[26] < 56:
  *         buffer[28] = norm_address_no_0x[26]             # <<<<<<<<<<<<<<
@@ -18809,7 +18810,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[28]) = (__pyx_v_norm_address_no_0x[26]);
 
-    /* "cchecksum/_checksum.pyx":265
+    /* "cchecksum/_checksum.pyx":264
  *     else:
  *         buffer[27] = get_char(norm_address_no_0x[25])
  *     if address_hash_hex_no_0x[26] < 56:             # <<<<<<<<<<<<<<
@@ -18819,7 +18820,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L29;
   }
 
-  /* "cchecksum/_checksum.pyx":268
+  /* "cchecksum/_checksum.pyx":267
  *         buffer[28] = norm_address_no_0x[26]
  *     else:
  *         buffer[28] = get_char(norm_address_no_0x[26])             # <<<<<<<<<<<<<<
@@ -18831,7 +18832,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L29:;
 
-  /* "cchecksum/_checksum.pyx":269
+  /* "cchecksum/_checksum.pyx":268
  *     else:
  *         buffer[28] = get_char(norm_address_no_0x[26])
  *     if address_hash_hex_no_0x[27] < 56:             # <<<<<<<<<<<<<<
@@ -18841,7 +18842,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[27]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":270
+    /* "cchecksum/_checksum.pyx":269
  *         buffer[28] = get_char(norm_address_no_0x[26])
  *     if address_hash_hex_no_0x[27] < 56:
  *         buffer[29] = norm_address_no_0x[27]             # <<<<<<<<<<<<<<
@@ -18850,7 +18851,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[29]) = (__pyx_v_norm_address_no_0x[27]);
 
-    /* "cchecksum/_checksum.pyx":269
+    /* "cchecksum/_checksum.pyx":268
  *     else:
  *         buffer[28] = get_char(norm_address_no_0x[26])
  *     if address_hash_hex_no_0x[27] < 56:             # <<<<<<<<<<<<<<
@@ -18860,7 +18861,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L30;
   }
 
-  /* "cchecksum/_checksum.pyx":272
+  /* "cchecksum/_checksum.pyx":271
  *         buffer[29] = norm_address_no_0x[27]
  *     else:
  *         buffer[29] = get_char(norm_address_no_0x[27])             # <<<<<<<<<<<<<<
@@ -18872,7 +18873,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L30:;
 
-  /* "cchecksum/_checksum.pyx":273
+  /* "cchecksum/_checksum.pyx":272
  *     else:
  *         buffer[29] = get_char(norm_address_no_0x[27])
  *     if address_hash_hex_no_0x[28] < 56:             # <<<<<<<<<<<<<<
@@ -18882,7 +18883,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[28]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":274
+    /* "cchecksum/_checksum.pyx":273
  *         buffer[29] = get_char(norm_address_no_0x[27])
  *     if address_hash_hex_no_0x[28] < 56:
  *         buffer[30] = norm_address_no_0x[28]             # <<<<<<<<<<<<<<
@@ -18891,7 +18892,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[30]) = (__pyx_v_norm_address_no_0x[28]);
 
-    /* "cchecksum/_checksum.pyx":273
+    /* "cchecksum/_checksum.pyx":272
  *     else:
  *         buffer[29] = get_char(norm_address_no_0x[27])
  *     if address_hash_hex_no_0x[28] < 56:             # <<<<<<<<<<<<<<
@@ -18901,7 +18902,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L31;
   }
 
-  /* "cchecksum/_checksum.pyx":276
+  /* "cchecksum/_checksum.pyx":275
  *         buffer[30] = norm_address_no_0x[28]
  *     else:
  *         buffer[30] = get_char(norm_address_no_0x[28])             # <<<<<<<<<<<<<<
@@ -18913,7 +18914,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L31:;
 
-  /* "cchecksum/_checksum.pyx":277
+  /* "cchecksum/_checksum.pyx":276
  *     else:
  *         buffer[30] = get_char(norm_address_no_0x[28])
  *     if address_hash_hex_no_0x[29] < 56:             # <<<<<<<<<<<<<<
@@ -18923,7 +18924,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[29]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":278
+    /* "cchecksum/_checksum.pyx":277
  *         buffer[30] = get_char(norm_address_no_0x[28])
  *     if address_hash_hex_no_0x[29] < 56:
  *         buffer[31] = norm_address_no_0x[29]             # <<<<<<<<<<<<<<
@@ -18932,7 +18933,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[31]) = (__pyx_v_norm_address_no_0x[29]);
 
-    /* "cchecksum/_checksum.pyx":277
+    /* "cchecksum/_checksum.pyx":276
  *     else:
  *         buffer[30] = get_char(norm_address_no_0x[28])
  *     if address_hash_hex_no_0x[29] < 56:             # <<<<<<<<<<<<<<
@@ -18942,7 +18943,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L32;
   }
 
-  /* "cchecksum/_checksum.pyx":280
+  /* "cchecksum/_checksum.pyx":279
  *         buffer[31] = norm_address_no_0x[29]
  *     else:
  *         buffer[31] = get_char(norm_address_no_0x[29])             # <<<<<<<<<<<<<<
@@ -18954,7 +18955,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L32:;
 
-  /* "cchecksum/_checksum.pyx":281
+  /* "cchecksum/_checksum.pyx":280
  *     else:
  *         buffer[31] = get_char(norm_address_no_0x[29])
  *     if address_hash_hex_no_0x[30] < 56:             # <<<<<<<<<<<<<<
@@ -18964,7 +18965,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[30]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":282
+    /* "cchecksum/_checksum.pyx":281
  *         buffer[31] = get_char(norm_address_no_0x[29])
  *     if address_hash_hex_no_0x[30] < 56:
  *         buffer[32] = norm_address_no_0x[30]             # <<<<<<<<<<<<<<
@@ -18973,7 +18974,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[32]) = (__pyx_v_norm_address_no_0x[30]);
 
-    /* "cchecksum/_checksum.pyx":281
+    /* "cchecksum/_checksum.pyx":280
  *     else:
  *         buffer[31] = get_char(norm_address_no_0x[29])
  *     if address_hash_hex_no_0x[30] < 56:             # <<<<<<<<<<<<<<
@@ -18983,7 +18984,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L33;
   }
 
-  /* "cchecksum/_checksum.pyx":284
+  /* "cchecksum/_checksum.pyx":283
  *         buffer[32] = norm_address_no_0x[30]
  *     else:
  *         buffer[32] = get_char(norm_address_no_0x[30])             # <<<<<<<<<<<<<<
@@ -18995,7 +18996,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L33:;
 
-  /* "cchecksum/_checksum.pyx":285
+  /* "cchecksum/_checksum.pyx":284
  *     else:
  *         buffer[32] = get_char(norm_address_no_0x[30])
  *     if address_hash_hex_no_0x[31] < 56:             # <<<<<<<<<<<<<<
@@ -19005,7 +19006,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[31]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":286
+    /* "cchecksum/_checksum.pyx":285
  *         buffer[32] = get_char(norm_address_no_0x[30])
  *     if address_hash_hex_no_0x[31] < 56:
  *         buffer[33] = norm_address_no_0x[31]             # <<<<<<<<<<<<<<
@@ -19014,7 +19015,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[33]) = (__pyx_v_norm_address_no_0x[31]);
 
-    /* "cchecksum/_checksum.pyx":285
+    /* "cchecksum/_checksum.pyx":284
  *     else:
  *         buffer[32] = get_char(norm_address_no_0x[30])
  *     if address_hash_hex_no_0x[31] < 56:             # <<<<<<<<<<<<<<
@@ -19024,7 +19025,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L34;
   }
 
-  /* "cchecksum/_checksum.pyx":288
+  /* "cchecksum/_checksum.pyx":287
  *         buffer[33] = norm_address_no_0x[31]
  *     else:
  *         buffer[33] = get_char(norm_address_no_0x[31])             # <<<<<<<<<<<<<<
@@ -19036,7 +19037,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L34:;
 
-  /* "cchecksum/_checksum.pyx":289
+  /* "cchecksum/_checksum.pyx":288
  *     else:
  *         buffer[33] = get_char(norm_address_no_0x[31])
  *     if address_hash_hex_no_0x[32] < 56:             # <<<<<<<<<<<<<<
@@ -19046,7 +19047,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[32]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":290
+    /* "cchecksum/_checksum.pyx":289
  *         buffer[33] = get_char(norm_address_no_0x[31])
  *     if address_hash_hex_no_0x[32] < 56:
  *         buffer[34] = norm_address_no_0x[32]             # <<<<<<<<<<<<<<
@@ -19055,7 +19056,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[34]) = (__pyx_v_norm_address_no_0x[32]);
 
-    /* "cchecksum/_checksum.pyx":289
+    /* "cchecksum/_checksum.pyx":288
  *     else:
  *         buffer[33] = get_char(norm_address_no_0x[31])
  *     if address_hash_hex_no_0x[32] < 56:             # <<<<<<<<<<<<<<
@@ -19065,7 +19066,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L35;
   }
 
-  /* "cchecksum/_checksum.pyx":292
+  /* "cchecksum/_checksum.pyx":291
  *         buffer[34] = norm_address_no_0x[32]
  *     else:
  *         buffer[34] = get_char(norm_address_no_0x[32])             # <<<<<<<<<<<<<<
@@ -19077,7 +19078,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L35:;
 
-  /* "cchecksum/_checksum.pyx":293
+  /* "cchecksum/_checksum.pyx":292
  *     else:
  *         buffer[34] = get_char(norm_address_no_0x[32])
  *     if address_hash_hex_no_0x[33] < 56:             # <<<<<<<<<<<<<<
@@ -19087,7 +19088,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[33]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":294
+    /* "cchecksum/_checksum.pyx":293
  *         buffer[34] = get_char(norm_address_no_0x[32])
  *     if address_hash_hex_no_0x[33] < 56:
  *         buffer[35] = norm_address_no_0x[33]             # <<<<<<<<<<<<<<
@@ -19096,7 +19097,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[35]) = (__pyx_v_norm_address_no_0x[33]);
 
-    /* "cchecksum/_checksum.pyx":293
+    /* "cchecksum/_checksum.pyx":292
  *     else:
  *         buffer[34] = get_char(norm_address_no_0x[32])
  *     if address_hash_hex_no_0x[33] < 56:             # <<<<<<<<<<<<<<
@@ -19106,7 +19107,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L36;
   }
 
-  /* "cchecksum/_checksum.pyx":296
+  /* "cchecksum/_checksum.pyx":295
  *         buffer[35] = norm_address_no_0x[33]
  *     else:
  *         buffer[35] = get_char(norm_address_no_0x[33])             # <<<<<<<<<<<<<<
@@ -19118,7 +19119,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L36:;
 
-  /* "cchecksum/_checksum.pyx":297
+  /* "cchecksum/_checksum.pyx":296
  *     else:
  *         buffer[35] = get_char(norm_address_no_0x[33])
  *     if address_hash_hex_no_0x[34] < 56:             # <<<<<<<<<<<<<<
@@ -19128,7 +19129,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[34]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":298
+    /* "cchecksum/_checksum.pyx":297
  *         buffer[35] = get_char(norm_address_no_0x[33])
  *     if address_hash_hex_no_0x[34] < 56:
  *         buffer[36] = norm_address_no_0x[34]             # <<<<<<<<<<<<<<
@@ -19137,7 +19138,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[36]) = (__pyx_v_norm_address_no_0x[34]);
 
-    /* "cchecksum/_checksum.pyx":297
+    /* "cchecksum/_checksum.pyx":296
  *     else:
  *         buffer[35] = get_char(norm_address_no_0x[33])
  *     if address_hash_hex_no_0x[34] < 56:             # <<<<<<<<<<<<<<
@@ -19147,7 +19148,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L37;
   }
 
-  /* "cchecksum/_checksum.pyx":300
+  /* "cchecksum/_checksum.pyx":299
  *         buffer[36] = norm_address_no_0x[34]
  *     else:
  *         buffer[36] = get_char(norm_address_no_0x[34])             # <<<<<<<<<<<<<<
@@ -19159,7 +19160,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L37:;
 
-  /* "cchecksum/_checksum.pyx":301
+  /* "cchecksum/_checksum.pyx":300
  *     else:
  *         buffer[36] = get_char(norm_address_no_0x[34])
  *     if address_hash_hex_no_0x[35] < 56:             # <<<<<<<<<<<<<<
@@ -19169,7 +19170,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[35]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":302
+    /* "cchecksum/_checksum.pyx":301
  *         buffer[36] = get_char(norm_address_no_0x[34])
  *     if address_hash_hex_no_0x[35] < 56:
  *         buffer[37] = norm_address_no_0x[35]             # <<<<<<<<<<<<<<
@@ -19178,7 +19179,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[37]) = (__pyx_v_norm_address_no_0x[35]);
 
-    /* "cchecksum/_checksum.pyx":301
+    /* "cchecksum/_checksum.pyx":300
  *     else:
  *         buffer[36] = get_char(norm_address_no_0x[34])
  *     if address_hash_hex_no_0x[35] < 56:             # <<<<<<<<<<<<<<
@@ -19188,7 +19189,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L38;
   }
 
-  /* "cchecksum/_checksum.pyx":304
+  /* "cchecksum/_checksum.pyx":303
  *         buffer[37] = norm_address_no_0x[35]
  *     else:
  *         buffer[37] = get_char(norm_address_no_0x[35])             # <<<<<<<<<<<<<<
@@ -19200,7 +19201,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L38:;
 
-  /* "cchecksum/_checksum.pyx":305
+  /* "cchecksum/_checksum.pyx":304
  *     else:
  *         buffer[37] = get_char(norm_address_no_0x[35])
  *     if address_hash_hex_no_0x[36] < 56:             # <<<<<<<<<<<<<<
@@ -19210,7 +19211,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[36]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":306
+    /* "cchecksum/_checksum.pyx":305
  *         buffer[37] = get_char(norm_address_no_0x[35])
  *     if address_hash_hex_no_0x[36] < 56:
  *         buffer[38] = norm_address_no_0x[36]             # <<<<<<<<<<<<<<
@@ -19219,7 +19220,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[38]) = (__pyx_v_norm_address_no_0x[36]);
 
-    /* "cchecksum/_checksum.pyx":305
+    /* "cchecksum/_checksum.pyx":304
  *     else:
  *         buffer[37] = get_char(norm_address_no_0x[35])
  *     if address_hash_hex_no_0x[36] < 56:             # <<<<<<<<<<<<<<
@@ -19229,7 +19230,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L39;
   }
 
-  /* "cchecksum/_checksum.pyx":308
+  /* "cchecksum/_checksum.pyx":307
  *         buffer[38] = norm_address_no_0x[36]
  *     else:
  *         buffer[38] = get_char(norm_address_no_0x[36])             # <<<<<<<<<<<<<<
@@ -19241,7 +19242,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L39:;
 
-  /* "cchecksum/_checksum.pyx":309
+  /* "cchecksum/_checksum.pyx":308
  *     else:
  *         buffer[38] = get_char(norm_address_no_0x[36])
  *     if address_hash_hex_no_0x[37] < 56:             # <<<<<<<<<<<<<<
@@ -19251,7 +19252,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[37]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":310
+    /* "cchecksum/_checksum.pyx":309
  *         buffer[38] = get_char(norm_address_no_0x[36])
  *     if address_hash_hex_no_0x[37] < 56:
  *         buffer[39] = norm_address_no_0x[37]             # <<<<<<<<<<<<<<
@@ -19260,7 +19261,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[39]) = (__pyx_v_norm_address_no_0x[37]);
 
-    /* "cchecksum/_checksum.pyx":309
+    /* "cchecksum/_checksum.pyx":308
  *     else:
  *         buffer[38] = get_char(norm_address_no_0x[36])
  *     if address_hash_hex_no_0x[37] < 56:             # <<<<<<<<<<<<<<
@@ -19270,7 +19271,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L40;
   }
 
-  /* "cchecksum/_checksum.pyx":312
+  /* "cchecksum/_checksum.pyx":311
  *         buffer[39] = norm_address_no_0x[37]
  *     else:
  *         buffer[39] = get_char(norm_address_no_0x[37])             # <<<<<<<<<<<<<<
@@ -19282,7 +19283,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L40:;
 
-  /* "cchecksum/_checksum.pyx":313
+  /* "cchecksum/_checksum.pyx":312
  *     else:
  *         buffer[39] = get_char(norm_address_no_0x[37])
  *     if address_hash_hex_no_0x[38] < 56:             # <<<<<<<<<<<<<<
@@ -19292,7 +19293,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[38]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":314
+    /* "cchecksum/_checksum.pyx":313
  *         buffer[39] = get_char(norm_address_no_0x[37])
  *     if address_hash_hex_no_0x[38] < 56:
  *         buffer[40] = norm_address_no_0x[38]             # <<<<<<<<<<<<<<
@@ -19301,7 +19302,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[40]) = (__pyx_v_norm_address_no_0x[38]);
 
-    /* "cchecksum/_checksum.pyx":313
+    /* "cchecksum/_checksum.pyx":312
  *     else:
  *         buffer[39] = get_char(norm_address_no_0x[37])
  *     if address_hash_hex_no_0x[38] < 56:             # <<<<<<<<<<<<<<
@@ -19311,7 +19312,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L41;
   }
 
-  /* "cchecksum/_checksum.pyx":316
+  /* "cchecksum/_checksum.pyx":315
  *         buffer[40] = norm_address_no_0x[38]
  *     else:
  *         buffer[40] = get_char(norm_address_no_0x[38])             # <<<<<<<<<<<<<<
@@ -19323,7 +19324,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L41:;
 
-  /* "cchecksum/_checksum.pyx":317
+  /* "cchecksum/_checksum.pyx":316
  *     else:
  *         buffer[40] = get_char(norm_address_no_0x[38])
  *     if address_hash_hex_no_0x[39] < 56:             # <<<<<<<<<<<<<<
@@ -19333,7 +19334,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   __pyx_t_1 = ((__pyx_v_address_hash_hex_no_0x[39]) < 56);
   if (__pyx_t_1) {
 
-    /* "cchecksum/_checksum.pyx":318
+    /* "cchecksum/_checksum.pyx":317
  *         buffer[40] = get_char(norm_address_no_0x[38])
  *     if address_hash_hex_no_0x[39] < 56:
  *         buffer[41] = norm_address_no_0x[39]             # <<<<<<<<<<<<<<
@@ -19342,7 +19343,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 */
     (__pyx_v_buffer[41]) = (__pyx_v_norm_address_no_0x[39]);
 
-    /* "cchecksum/_checksum.pyx":317
+    /* "cchecksum/_checksum.pyx":316
  *     else:
  *         buffer[40] = get_char(norm_address_no_0x[38])
  *     if address_hash_hex_no_0x[39] < 56:             # <<<<<<<<<<<<<<
@@ -19352,7 +19353,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
     goto __pyx_L42;
   }
 
-  /* "cchecksum/_checksum.pyx":320
+  /* "cchecksum/_checksum.pyx":319
  *         buffer[41] = norm_address_no_0x[39]
  *     else:
  *         buffer[41] = get_char(norm_address_no_0x[39])             # <<<<<<<<<<<<<<
@@ -19364,7 +19365,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   }
   __pyx_L42:;
 
-  /* "cchecksum/_checksum.pyx":136
+  /* "cchecksum/_checksum.pyx":135
  * 
  * 
  * cdef void populate_result_buffer(             # <<<<<<<<<<<<<<
@@ -19375,7 +19376,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
   /* function exit code */
 }
 
-/* "cchecksum/_checksum.pyx":323
+/* "cchecksum/_checksum.pyx":322
  * 
  * 
  * cdef inline unsigned char get_char(unsigned char c) noexcept nogil:             # <<<<<<<<<<<<<<
@@ -19386,7 +19387,7 @@ static void __pyx_f_9cchecksum_9_checksum_populate_result_buffer(char *__pyx_v_b
 static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsigned char __pyx_v_c) {
   unsigned char __pyx_r;
 
-  /* "cchecksum/_checksum.pyx":328
+  /* "cchecksum/_checksum.pyx":327
  *     the character is capitalized.
  *     """
  *     if c == 97:     # a             # <<<<<<<<<<<<<<
@@ -19396,7 +19397,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
   switch (__pyx_v_c) {
     case 97:
 
-    /* "cchecksum/_checksum.pyx":329
+    /* "cchecksum/_checksum.pyx":328
  *     """
  *     if c == 97:     # a
  *         return 65   # A             # <<<<<<<<<<<<<<
@@ -19406,7 +19407,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     __pyx_r = 65;
     goto __pyx_L0;
 
-    /* "cchecksum/_checksum.pyx":328
+    /* "cchecksum/_checksum.pyx":327
  *     the character is capitalized.
  *     """
  *     if c == 97:     # a             # <<<<<<<<<<<<<<
@@ -19416,7 +19417,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     break;
     case 98:
 
-    /* "cchecksum/_checksum.pyx":331
+    /* "cchecksum/_checksum.pyx":330
  *         return 65   # A
  *     elif c == 98:   # b
  *         return 66   # B             # <<<<<<<<<<<<<<
@@ -19426,7 +19427,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     __pyx_r = 66;
     goto __pyx_L0;
 
-    /* "cchecksum/_checksum.pyx":330
+    /* "cchecksum/_checksum.pyx":329
  *     if c == 97:     # a
  *         return 65   # A
  *     elif c == 98:   # b             # <<<<<<<<<<<<<<
@@ -19436,7 +19437,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     break;
     case 99:
 
-    /* "cchecksum/_checksum.pyx":333
+    /* "cchecksum/_checksum.pyx":332
  *         return 66   # B
  *     elif c == 99:   # c
  *         return 67   # C             # <<<<<<<<<<<<<<
@@ -19446,7 +19447,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     __pyx_r = 67;
     goto __pyx_L0;
 
-    /* "cchecksum/_checksum.pyx":332
+    /* "cchecksum/_checksum.pyx":331
  *     elif c == 98:   # b
  *         return 66   # B
  *     elif c == 99:   # c             # <<<<<<<<<<<<<<
@@ -19456,7 +19457,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     break;
     case 0x64:
 
-    /* "cchecksum/_checksum.pyx":335
+    /* "cchecksum/_checksum.pyx":334
  *         return 67   # C
  *     elif c == 100:  # d
  *         return 68   # D             # <<<<<<<<<<<<<<
@@ -19466,7 +19467,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     __pyx_r = 68;
     goto __pyx_L0;
 
-    /* "cchecksum/_checksum.pyx":334
+    /* "cchecksum/_checksum.pyx":333
  *     elif c == 99:   # c
  *         return 67   # C
  *     elif c == 100:  # d             # <<<<<<<<<<<<<<
@@ -19476,7 +19477,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     break;
     case 0x65:
 
-    /* "cchecksum/_checksum.pyx":337
+    /* "cchecksum/_checksum.pyx":336
  *         return 68   # D
  *     elif c == 101:  # e
  *         return 69   # E             # <<<<<<<<<<<<<<
@@ -19486,7 +19487,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     __pyx_r = 69;
     goto __pyx_L0;
 
-    /* "cchecksum/_checksum.pyx":336
+    /* "cchecksum/_checksum.pyx":335
  *     elif c == 100:  # d
  *         return 68   # D
  *     elif c == 101:  # e             # <<<<<<<<<<<<<<
@@ -19496,7 +19497,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     break;
     case 0x66:
 
-    /* "cchecksum/_checksum.pyx":339
+    /* "cchecksum/_checksum.pyx":338
  *         return 69   # E
  *     elif c == 102:  # f
  *         return 70   # F             # <<<<<<<<<<<<<<
@@ -19506,7 +19507,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     __pyx_r = 70;
     goto __pyx_L0;
 
-    /* "cchecksum/_checksum.pyx":338
+    /* "cchecksum/_checksum.pyx":337
  *     elif c == 101:  # e
  *         return 69   # E
  *     elif c == 102:  # f             # <<<<<<<<<<<<<<
@@ -19516,7 +19517,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     break;
     default:
 
-    /* "cchecksum/_checksum.pyx":341
+    /* "cchecksum/_checksum.pyx":340
  *         return 70   # F
  *     else:
  *         return c             # <<<<<<<<<<<<<<
@@ -19528,7 +19529,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
     break;
   }
 
-  /* "cchecksum/_checksum.pyx":323
+  /* "cchecksum/_checksum.pyx":322
  * 
  * 
  * cdef inline unsigned char get_char(unsigned char c) noexcept nogil:             # <<<<<<<<<<<<<<
@@ -19541,7 +19542,7 @@ static CYTHON_INLINE unsigned char __pyx_f_9cchecksum_9_checksum_get_char(unsign
   return __pyx_r;
 }
 
-/* "cchecksum/_checksum.pyx":344
+/* "cchecksum/_checksum.pyx":343
  * 
  * 
  * cdef inline bint is_hex_lower(unsigned char c) noexcept nogil:             # <<<<<<<<<<<<<<
@@ -19554,7 +19555,7 @@ static CYTHON_INLINE int __pyx_f_9cchecksum_9_checksum_is_hex_lower(unsigned cha
   int __pyx_t_1;
   int __pyx_t_2;
 
-  /* "cchecksum/_checksum.pyx":345
+  /* "cchecksum/_checksum.pyx":344
  * 
  * cdef inline bint is_hex_lower(unsigned char c) noexcept nogil:
  *     return (48 <= c <= 57) or (97 <= c <= 102)             # <<<<<<<<<<<<<<
@@ -19579,7 +19580,7 @@ static CYTHON_INLINE int __pyx_f_9cchecksum_9_checksum_is_hex_lower(unsigned cha
   __pyx_r = __pyx_t_1;
   goto __pyx_L0;
 
-  /* "cchecksum/_checksum.pyx":344
+  /* "cchecksum/_checksum.pyx":343
  * 
  * 
  * cdef inline bint is_hex_lower(unsigned char c) noexcept nogil:             # <<<<<<<<<<<<<<
@@ -19592,7 +19593,7 @@ static CYTHON_INLINE int __pyx_f_9cchecksum_9_checksum_is_hex_lower(unsigned cha
   return __pyx_r;
 }
 
-/* "cchecksum/_checksum.pyx":348
+/* "cchecksum/_checksum.pyx":347
  * 
  * 
  * cdef unsigned char* lowercase_ascii_and_validate(bytes src):             # <<<<<<<<<<<<<<
@@ -19626,7 +19627,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lowercase_ascii_and_validate", 0);
 
-  /* "cchecksum/_checksum.pyx":353
+  /* "cchecksum/_checksum.pyx":352
  *     cdef unsigned char c
  * 
  *     src_len = PyBytes_GET_SIZE(src)             # <<<<<<<<<<<<<<
@@ -19635,7 +19636,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
 */
   __pyx_v_src_len = PyBytes_GET_SIZE(__pyx_v_src);
 
-  /* "cchecksum/_checksum.pyx":354
+  /* "cchecksum/_checksum.pyx":353
  * 
  *     src_len = PyBytes_GET_SIZE(src)
  *     c_string = src             # <<<<<<<<<<<<<<
@@ -19644,12 +19645,12 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
 */
   if (unlikely(__pyx_v_src == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "expected bytes, NoneType found");
-    __PYX_ERR(0, 354, __pyx_L1_error)
+    __PYX_ERR(0, 353, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyBytes_AsWritableUString(__pyx_v_src); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBytes_AsWritableUString(__pyx_v_src); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) __PYX_ERR(0, 353, __pyx_L1_error)
   __pyx_v_c_string = __pyx_t_1;
 
-  /* "cchecksum/_checksum.pyx":356
+  /* "cchecksum/_checksum.pyx":355
  *     c_string = src
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -19662,7 +19663,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
       __Pyx_FastGIL_Remember();
       /*try:*/ {
 
-        /* "cchecksum/_checksum.pyx":358
+        /* "cchecksum/_checksum.pyx":357
  *     with nogil:
  *         # if c_string[0] == b"0" and c_string[1] in (b"X", b"x")
  *         if c_string[0] == 48 and c_string[1] in (88, 120):             # <<<<<<<<<<<<<<
@@ -19690,7 +19691,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
         __pyx_L7_bool_binop_done:;
         if (__pyx_t_2) {
 
-          /* "cchecksum/_checksum.pyx":359
+          /* "cchecksum/_checksum.pyx":358
  *         # if c_string[0] == b"0" and c_string[1] in (b"X", b"x")
  *         if c_string[0] == 48 and c_string[1] in (88, 120):
  *             range_start = 2             # <<<<<<<<<<<<<<
@@ -19699,7 +19700,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
 */
           __pyx_v_range_start = 2;
 
-          /* "cchecksum/_checksum.pyx":358
+          /* "cchecksum/_checksum.pyx":357
  *     with nogil:
  *         # if c_string[0] == b"0" and c_string[1] in (b"X", b"x")
  *         if c_string[0] == 48 and c_string[1] in (88, 120):             # <<<<<<<<<<<<<<
@@ -19709,7 +19710,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
           goto __pyx_L6;
         }
 
-        /* "cchecksum/_checksum.pyx":361
+        /* "cchecksum/_checksum.pyx":360
  *             range_start = 2
  *         else:
  *             range_start = 0             # <<<<<<<<<<<<<<
@@ -19721,7 +19722,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
         }
         __pyx_L6:;
 
-        /* "cchecksum/_checksum.pyx":363
+        /* "cchecksum/_checksum.pyx":362
  *             range_start = 0
  * 
  *         for i in range(range_start, src_len):             # <<<<<<<<<<<<<<
@@ -19733,7 +19734,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
         for (__pyx_t_8 = __pyx_v_range_start; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
           __pyx_v_i = __pyx_t_8;
 
-          /* "cchecksum/_checksum.pyx":364
+          /* "cchecksum/_checksum.pyx":363
  * 
  *         for i in range(range_start, src_len):
  *             c = c_string[i]             # <<<<<<<<<<<<<<
@@ -19742,7 +19743,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
 */
           __pyx_v_c = (__pyx_v_c_string[__pyx_v_i]);
 
-          /* "cchecksum/_checksum.pyx":366
+          /* "cchecksum/_checksum.pyx":365
  *             c = c_string[i]
  * 
  *             if 65 <= c <= 90:             # <<<<<<<<<<<<<<
@@ -19755,7 +19756,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
           }
           if (__pyx_t_2) {
 
-            /* "cchecksum/_checksum.pyx":367
+            /* "cchecksum/_checksum.pyx":366
  * 
  *             if 65 <= c <= 90:
  *                 c += 32             # <<<<<<<<<<<<<<
@@ -19764,7 +19765,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
 */
             __pyx_v_c = (__pyx_v_c + 32);
 
-            /* "cchecksum/_checksum.pyx":368
+            /* "cchecksum/_checksum.pyx":367
  *             if 65 <= c <= 90:
  *                 c += 32
  *                 c_string[i] = c             # <<<<<<<<<<<<<<
@@ -19773,7 +19774,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
 */
             (__pyx_v_c_string[__pyx_v_i]) = __pyx_v_c;
 
-            /* "cchecksum/_checksum.pyx":366
+            /* "cchecksum/_checksum.pyx":365
  *             c = c_string[i]
  * 
  *             if 65 <= c <= 90:             # <<<<<<<<<<<<<<
@@ -19782,7 +19783,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
 */
           }
 
-          /* "cchecksum/_checksum.pyx":370
+          /* "cchecksum/_checksum.pyx":369
  *                 c_string[i] = c
  * 
  *             if c == 48:  # 0             # <<<<<<<<<<<<<<
@@ -19794,7 +19795,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 49:
 
-            /* "cchecksum/_checksum.pyx":372
+            /* "cchecksum/_checksum.pyx":371
  *             if c == 48:  # 0
  *                 pass
  *             elif c == 49:  # 1             # <<<<<<<<<<<<<<
@@ -19804,7 +19805,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 50:
 
-            /* "cchecksum/_checksum.pyx":374
+            /* "cchecksum/_checksum.pyx":373
  *             elif c == 49:  # 1
  *                 pass
  *             elif c == 50:  # 2             # <<<<<<<<<<<<<<
@@ -19814,7 +19815,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 51:
 
-            /* "cchecksum/_checksum.pyx":376
+            /* "cchecksum/_checksum.pyx":375
  *             elif c == 50:  # 2
  *                 pass
  *             elif c == 51:  # 3             # <<<<<<<<<<<<<<
@@ -19824,7 +19825,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 52:
 
-            /* "cchecksum/_checksum.pyx":378
+            /* "cchecksum/_checksum.pyx":377
  *             elif c == 51:  # 3
  *                 pass
  *             elif c == 52:  # 4             # <<<<<<<<<<<<<<
@@ -19834,7 +19835,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 53:
 
-            /* "cchecksum/_checksum.pyx":380
+            /* "cchecksum/_checksum.pyx":379
  *             elif c == 52:  # 4
  *                 pass
  *             elif c == 53:  # 5             # <<<<<<<<<<<<<<
@@ -19844,7 +19845,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 54:
 
-            /* "cchecksum/_checksum.pyx":382
+            /* "cchecksum/_checksum.pyx":381
  *             elif c == 53:  # 5
  *                 pass
  *             elif c == 54:  # 6             # <<<<<<<<<<<<<<
@@ -19854,7 +19855,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 55:
 
-            /* "cchecksum/_checksum.pyx":384
+            /* "cchecksum/_checksum.pyx":383
  *             elif c == 54:  # 6
  *                 pass
  *             elif c == 55:  # 7             # <<<<<<<<<<<<<<
@@ -19864,7 +19865,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 56:
 
-            /* "cchecksum/_checksum.pyx":386
+            /* "cchecksum/_checksum.pyx":385
  *             elif c == 55:  # 7
  *                 pass
  *             elif c == 56:  # 8             # <<<<<<<<<<<<<<
@@ -19874,7 +19875,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 57:
 
-            /* "cchecksum/_checksum.pyx":388
+            /* "cchecksum/_checksum.pyx":387
  *             elif c == 56:  # 8
  *                 pass
  *             elif c == 57:  # 9             # <<<<<<<<<<<<<<
@@ -19884,7 +19885,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 97:
 
-            /* "cchecksum/_checksum.pyx":390
+            /* "cchecksum/_checksum.pyx":389
  *             elif c == 57:  # 9
  *                 pass
  *             elif c == 97:  # a             # <<<<<<<<<<<<<<
@@ -19894,7 +19895,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 98:
 
-            /* "cchecksum/_checksum.pyx":392
+            /* "cchecksum/_checksum.pyx":391
  *             elif c == 97:  # a
  *                 pass
  *             elif c == 98:  # b             # <<<<<<<<<<<<<<
@@ -19904,7 +19905,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 99:
 
-            /* "cchecksum/_checksum.pyx":394
+            /* "cchecksum/_checksum.pyx":393
  *             elif c == 98:  # b
  *                 pass
  *             elif c == 99:  # c             # <<<<<<<<<<<<<<
@@ -19914,7 +19915,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 0x64:
 
-            /* "cchecksum/_checksum.pyx":396
+            /* "cchecksum/_checksum.pyx":395
  *             elif c == 99:  # c
  *                 pass
  *             elif c == 100:  # d             # <<<<<<<<<<<<<<
@@ -19924,7 +19925,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 0x65:
 
-            /* "cchecksum/_checksum.pyx":398
+            /* "cchecksum/_checksum.pyx":397
  *             elif c == 100:  # d
  *                 pass
  *             elif c == 101:  # e             # <<<<<<<<<<<<<<
@@ -19934,7 +19935,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             case 0x66:
 
-            /* "cchecksum/_checksum.pyx":400
+            /* "cchecksum/_checksum.pyx":399
  *             elif c == 101:  # e
  *                 pass
  *             elif c == 102:  # f             # <<<<<<<<<<<<<<
@@ -19944,7 +19945,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
             break;
             default:
 
-            /* "cchecksum/_checksum.pyx":403
+            /* "cchecksum/_checksum.pyx":402
  *                 pass
  *             else:
  *                 with gil:             # <<<<<<<<<<<<<<
@@ -19955,7 +19956,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
                 PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
                 /*try:*/ {
 
-                  /* "cchecksum/_checksum.pyx":404
+                  /* "cchecksum/_checksum.pyx":403
  *             else:
  *                 with gil:
  *                     raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(src.decode('ascii'))}")             # <<<<<<<<<<<<<<
@@ -19965,17 +19966,17 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
                   __pyx_t_10 = NULL;
                   if (unlikely(__pyx_v_src == Py_None)) {
                     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "decode");
-                    __PYX_ERR(0, 404, __pyx_L17_error)
+                    __PYX_ERR(0, 403, __pyx_L17_error)
                   }
-                  __pyx_t_11 = __Pyx_decode_bytes(__pyx_v_src, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 404, __pyx_L17_error)
+                  __pyx_t_11 = __Pyx_decode_bytes(__pyx_v_src, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeASCII); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 403, __pyx_L17_error)
                   __Pyx_GOTREF(__pyx_t_11);
-                  __pyx_t_12 = PyObject_Repr(__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 404, __pyx_L17_error)
+                  __pyx_t_12 = PyObject_Repr(__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 403, __pyx_L17_error)
                   __Pyx_GOTREF(__pyx_t_12);
                   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-                  __pyx_t_11 = __Pyx_PyUnicode_Unicode(__pyx_t_12); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 404, __pyx_L17_error)
+                  __pyx_t_11 = __Pyx_PyUnicode_Unicode(__pyx_t_12); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 403, __pyx_L17_error)
                   __Pyx_GOTREF(__pyx_t_11);
                   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                  __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_mstate_global->__pyx_kp_u_when_sending_a_str_it_must_be_a, __pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 404, __pyx_L17_error)
+                  __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_mstate_global->__pyx_kp_u_when_sending_a_str_it_must_be_a, __pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 403, __pyx_L17_error)
                   __Pyx_GOTREF(__pyx_t_12);
                   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
                   __pyx_t_13 = 1;
@@ -19984,15 +19985,15 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
                     __pyx_t_9 = __Pyx_PyObject_FastCall((PyObject*)(((PyTypeObject*)PyExc_ValueError)), __pyx_callargs+__pyx_t_13, (2-__pyx_t_13) | (__pyx_t_13*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
                     __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
                     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 404, __pyx_L17_error)
+                    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 403, __pyx_L17_error)
                     __Pyx_GOTREF(__pyx_t_9);
                   }
                   __Pyx_Raise(__pyx_t_9, 0, 0, 0);
                   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-                  __PYX_ERR(0, 404, __pyx_L17_error)
+                  __PYX_ERR(0, 403, __pyx_L17_error)
                 }
 
-                /* "cchecksum/_checksum.pyx":403
+                /* "cchecksum/_checksum.pyx":402
  *                 pass
  *             else:
  *                 with gil:             # <<<<<<<<<<<<<<
@@ -20011,7 +20012,7 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
         }
       }
 
-      /* "cchecksum/_checksum.pyx":356
+      /* "cchecksum/_checksum.pyx":355
  *     c_string = src
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -20033,21 +20034,21 @@ static unsigned char *__pyx_f_9cchecksum_9_checksum_lowercase_ascii_and_validate
       }
   }
 
-  /* "cchecksum/_checksum.pyx":406
+  /* "cchecksum/_checksum.pyx":405
  *                     raise ValueError("when sending a str, it must be a hex string. " f"Got: {repr(src.decode('ascii'))}")
  * 
  *     return c_string[range_start:]             # <<<<<<<<<<<<<<
  * 
  * 
 */
-  __pyx_t_9 = __Pyx_PyBytes_FromString(((char const *)__pyx_v_c_string) + __pyx_v_range_start); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 406, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyBytes_FromString(((char const *)__pyx_v_c_string) + __pyx_v_range_start); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 405, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_1 = __Pyx_PyBytes_AsWritableUString(__pyx_t_9); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) __PYX_ERR(0, 406, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBytes_AsWritableUString(__pyx_t_9); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) __PYX_ERR(0, 405, __pyx_L1_error)
   __pyx_r = __pyx_t_1;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   goto __pyx_L0;
 
-  /* "cchecksum/_checksum.pyx":348
+  /* "cchecksum/_checksum.pyx":347
  * 
  * 
  * cdef unsigned char* lowercase_ascii_and_validate(bytes src):             # <<<<<<<<<<<<<<
@@ -21921,7 +21922,7 @@ __Pyx_RefNannySetupContext("PyInit__checksum", 0);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_pyx_unpickle_Enum, __pyx_t_4) < (0)) __PYX_ERR(1, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cchecksum/_checksum.pyx":9
+  /* "cchecksum/_checksum.pyx":8
  * from libc.stddef cimport size_t
  * 
  * from eth_typing import AnyAddress, ChecksumAddress             # <<<<<<<<<<<<<<
@@ -21930,22 +21931,22 @@ __Pyx_RefNannySetupContext("PyInit__checksum", 0);
 */
   {
     PyObject* const __pyx_imported_names[] = {__pyx_mstate_global->__pyx_n_u_AnyAddress,__pyx_mstate_global->__pyx_n_u_ChecksumAddress};
-    __pyx_t_1 = __Pyx_Import(__pyx_mstate_global->__pyx_n_u_eth_typing, __pyx_imported_names, 2, NULL, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_Import(__pyx_mstate_global->__pyx_n_u_eth_typing, __pyx_imported_names, 2, NULL, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   }
   __pyx_t_4 = __pyx_t_1;
   __Pyx_GOTREF(__pyx_t_4);
   {
     PyObject* const __pyx_imported_names[] = {__pyx_mstate_global->__pyx_n_u_AnyAddress,__pyx_mstate_global->__pyx_n_u_ChecksumAddress};
     for (__pyx_t_9=0; __pyx_t_9 < 2; __pyx_t_9++) {
-      __pyx_t_5 = __Pyx_ImportFrom(__pyx_t_4, __pyx_imported_names[__pyx_t_9]); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 9, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_ImportFrom(__pyx_t_4, __pyx_imported_names[__pyx_t_9]); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 8, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_imported_names[__pyx_t_9], __pyx_t_5) < (0)) __PYX_ERR(0, 9, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_imported_names[__pyx_t_9], __pyx_t_5) < (0)) __PYX_ERR(0, 8, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cchecksum/_checksum.pyx":12
+  /* "cchecksum/_checksum.pyx":11
  * 
  * 
  * cdef const unsigned char* hexdigits = b"0123456789abcdef"             # <<<<<<<<<<<<<<
@@ -21954,57 +21955,57 @@ __Pyx_RefNannySetupContext("PyInit__checksum", 0);
 */
   __pyx_v_9cchecksum_9_checksum_hexdigits = ((unsigned char const *)((char const *)"0123456789abcdef"));
 
-  /* "cchecksum/_checksum.pyx":21
+  /* "cchecksum/_checksum.pyx":20
  * 
  * 
  * cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):             # <<<<<<<<<<<<<<
  *     """
  *     Convert an address to its EIP-55 checksum format.
 */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_value, __pyx_mstate_global->__pyx_kp_u_Union_AnyAddress_str_bytes) < (0)) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_9cchecksum_9_checksum_1to_checksum_address, 0, __pyx_mstate_global->__pyx_n_u_to_checksum_address, NULL, __pyx_mstate_global->__pyx_n_u_cchecksum__checksum, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_value, __pyx_mstate_global->__pyx_kp_u_Union_AnyAddress_str_bytes) < (0)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_9cchecksum_9_checksum_1to_checksum_address, 0, __pyx_mstate_global->__pyx_n_u_to_checksum_address, NULL, __pyx_mstate_global->__pyx_n_u_cchecksum__checksum, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_5);
   #endif
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_to_checksum_address, __pyx_t_5) < (0)) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_to_checksum_address, __pyx_t_5) < (0)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "cchecksum/_checksum.pyx":98
+  /* "cchecksum/_checksum.pyx":97
  * 
  * 
  * cpdef bytes hexlify(const unsigned char[:] src_buffer):             # <<<<<<<<<<<<<<
  *     return bytes(hexlify_unsafe(src_buffer, len(src_buffer)))
  * 
 */
-  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_9cchecksum_9_checksum_3hexlify, 0, __pyx_mstate_global->__pyx_n_u_hexlify, NULL, __pyx_mstate_global->__pyx_n_u_cchecksum__checksum, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_9cchecksum_9_checksum_3hexlify, 0, __pyx_mstate_global->__pyx_n_u_hexlify, NULL, __pyx_mstate_global->__pyx_n_u_cchecksum__checksum, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_5);
   #endif
-  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_hexlify, __pyx_t_5) < (0)) __PYX_ERR(0, 98, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_hexlify, __pyx_t_5) < (0)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "cchecksum/_checksum.pyx":409
+  /* "cchecksum/_checksum.pyx":408
  * 
  * 
  * del AnyAddress, ChecksumAddress             # <<<<<<<<<<<<<<
 */
-  if (__Pyx_PyObject_DelAttrStr(__pyx_m, __pyx_mstate_global->__pyx_n_u_AnyAddress) < (0)) __PYX_ERR(0, 409, __pyx_L1_error)
-  if (__Pyx_PyObject_DelAttrStr(__pyx_m, __pyx_mstate_global->__pyx_n_u_ChecksumAddress) < (0)) __PYX_ERR(0, 409, __pyx_L1_error)
+  if (__Pyx_PyObject_DelAttrStr(__pyx_m, __pyx_mstate_global->__pyx_n_u_AnyAddress) < (0)) __PYX_ERR(0, 408, __pyx_L1_error)
+  if (__Pyx_PyObject_DelAttrStr(__pyx_m, __pyx_mstate_global->__pyx_n_u_ChecksumAddress) < (0)) __PYX_ERR(0, 408, __pyx_L1_error)
 
   /* "cchecksum/_checksum.pyx":1
  * # cython: boundscheck=False             # <<<<<<<<<<<<<<
- * # cython: initializedcheck=False
  * # cython: wraparound=False
+ * 
 */
   __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_mstate_global->__pyx_kp_u_to_checksum_address_line_21, __pyx_mstate_global->__pyx_kp_u_Convert_an_address_to_its_EIP_5) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_mstate_global->__pyx_kp_u_to_checksum_address_line_20, __pyx_mstate_global->__pyx_kp_u_Convert_an_address_to_its_EIP_5) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_test, __pyx_t_5) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
@@ -22140,23 +22141,23 @@ static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   {
     const struct { const unsigned int length: 11; } index[] = {{2},{68},{35},{54},{37},{60},{24},{52},{1052},{26},{34},{29},{33},{45},{22},{15},{54},{4},{179},{37},{30},{32},{29},{15},{19},{1},{1},{1},{1},{1},{8},{5},{6},{31},{23},{15},{23},{25},{7},{6},{2},{6},{35},{9},{30},{50},{8},{21},{20},{32},{22},{29},{30},{37},{50},{5},{10},{15},{8},{20},{8},{15},{3},{15},{18},{4},{1},{19},{9},{17},{18},{5},{8},{15},{6},{9},{5},{10},{5},{6},{7},{8},{12},{7},{2},{10},{5},{13},{5},{8},{8},{7},{4},{10},{4},{8},{4},{7},{3},{4},{3},{14},{11},{10},{19},{14},{12},{10},{17},{13},{8},{12},{10},{12},{19},{5},{4},{10},{5},{4},{4},{6},{8},{19},{6},{6},{5},{6},{1},{21},{289},{1}};
     #if (CYTHON_COMPRESS_STRINGS) == 3 && __PYX_LIMITED_VERSION_HEX >= 0x030e0000 /* compression: zstd (1821 bytes) */
-const char* const cstring = "(\265/\375`\250\014\2358\000\212S\274\020E\360\322\246\003\314\300\312\024\215\0366\207\224\252r\270Ae\323\354:\311\204\263\334,2\354\227I2n\231\266M\351F\222\224\313VE\227u\345\\1\024\363cX\321>\316b\211\306&V\271\027\374\232\2100\001;b\014\326\000\376\000\346\000M\352\273A \222E\325RG\257\335q\303\230\334\374\216F\370\275u\334L\275w\303\034}{#\333\313ob\314\323X\266\317SK\266\\O\266^\357w\225\375\225v\335\265\354\371\264\355\003\377\243\337\023\333\231JQ\202=\344*=1w\255O\354T\344\230\030\226\034\023\016\333\237\326v\225\022\262C\376\332@No\230\231K~Z\207\365G\334\235\367\234\372\031\304\034\255\247\3364\370\263\006\261H\246\317\216\232\326B\314\253\224k\216}\262\275\364\242\346;\215l'?L\275\306\220\373a\327\310\336\346\224\035\336\330\226\263\276\345\266\264S\265m*9\250'\020\327>\235\256\315\334,?u\226\016Y\266\252\245On\215\337^\216\245\005F\371\224\035\273vl\235N\353\315M\311\333VbR\r4G\331\350\333\262[\330\311n\347K=\314\372\374m^\333\326\302-j\366\005\314\014\014K\016N\016\373Go\353\207\265\265\271\365S\023&\260\367\271\262QR;-\301\330\250\247\004\r\373\344\247(^\031\215Fq\264\322\222r,\201\334dR\261S\005S\330J\277T\343\023\345\277\324\344\301Z!v\237\273\203)\313\336w\034\016\210f\206\230\254P:|\353\202\205\332\255\304\335;#\036>:8p\034D=\344\243\304\006\321\310\214\032D9\210\206\210n\020\311\260\210hd\354\3601\322JF666\245\020!@\214T&h\232\366\302\301\2457\264\214\3310\243\301\026\031\031\323r\222\211\2110=s\222R\346eF\306\227\226\201\321T-\023R\270\246\246\006\252p*\345\025\333\277\202r\330y)\034E\371o\347\363dbR\245\265\342\364\264\235P\307E&7\317\350cv\233\177\263\324\267\013\022\311al-\247\271eo\263\314\242\340vJ}7w\275[\322\314\316,N\351\227F\237\010\265\216\260~\3463\353\237\337\250,\306\266P\263\355\363/\2554btF\367,\314\260\216\336\367\247wN\255\363\2526\221\201Py9Yf\247\355\346\266\341\334\230L7;%&=\025\301\230\252S\014\177B\017\302,\006\037J\356\207\221n\033\274*.\032\270}n),i\232\203\216\235\266\2665Y\366\323g\334\340\004\232\365Y\274\257\344,""\353xe\327,\343\337.\244\336\302\036h\254\264\223\355{\277\252Q)\034Qm\247\364YC\0235\210\331\3366\032U^\207e\210\264[Q\265p?\365LJ\370AeTCr\036\017\242\356\343<-J\236\227X8\235\316\243q\375\2237\r:\017\255\r\203:{\220\343\256\177\307v\214\320\351\t\254\355\006C\004'P\264J-\025,\n,\000,\017B&.=n\260o\006\013e\250\205\213\324BiMp\211\270R\024|(\253\004$/\002%Q\3734\026\037\013\022\037\t\n\037JK\262P\260\"\230\274BX/\204\014\220\274\240\353\305\205\241\301\367\263b \340#\031\001\t\360\243\344rq}\013\266*\264NZ(&S\350\300\000\020\222\037\324?G}\250\236\257'\303\007]\025\\\r.\260\036,\210\261\202Y)@P\024\342\372i\215\020\274\\X(,\236\325\310\n\201\311\313@\201\"\024\255R\253\302\202o\001\311\253\324ri\211`\215X\271\254\024\014(\202,\t$\257\226\237\\\361\255\330\371vt>\035\016_\310\320\014\204\017\002\311\353\2045\202AC\200H\321\211\310\353geau\262J0\002\022B\342\307\211K\005\344\013\321\361\343\272q\231\264~X\022V!\253\030!\002\"\257\020\032*+\273\353\327\366\337J\337v]c\265\3376\313j\277\235(Uo\360\376\0009\216O\234\235\337,\353h\327eA\275]I%\345\270\366\t9nf\231\234^\201R\250a\255b\206dDDF\nR\220\244\0031\010BA\220r\210=\242\301`\nd\n\032\222 I\013Rgc\337\230\226\262\334O\230\264\360T=\301\221\307\353\216\252\343]W\362<\251K\252V\226uF\211\0208\237\316\331\311\002\317\003\256\235\336\243\372\367\310\324'\005\307\317?b\241\244\346\254Q\005\313\265\241\266\313\003R>,\r\004h\022\224\373\362\253k4=T\260\263\252\2774\360\302\257\357c\261\355\340\017\014\rP\264fB\177f\312\321\324\354\205zE\034v\217\271j\002\225+\357+\177\204VD\2759M\275e9\256\r\234*\267p\372\376\264/\007-\273wmt\215\2455q\376m\253z\r)M\236(\357\321\205\227'\346\345\330\357bG\246\035\013\036\036yAe1\245\017B\022\244+\002P\377^6\237Co\231r0!\t\021;\226\331\371\222z\256\231d\022}\353L\326\276J\340$i\022\214i\005\331\361\210\337\t0;\020\265\344pGf\354\370\336;/c\007E0\251\313\006\356\230\263L\017\330\276\334\306\330\203\201\303B\352d\017\037l\352[\370^\321O\200\016'\274\210\262\220\331o\340\337c\347\262N\225""\234<\337\246\271\373$*\263\2352\243\242\035.\001\237\261\014\271\333\332J\237\230N/\350#e<4s\247\324\002i\306\244\201\223\224\261\207\254I\242\210&\353\203\230\036\\c6\0263SW\315\255\236\320 \220Jc\353\246@R\000\264<\240\026\032\r\032\220~\321T\007\273\025\334\031>\021\214\355\235\247\222\323\371l\206\272\035R\320\022r\320 r\372\330x\272\024\016\276\323\233[\353\267\256\3145\265_\t=\014k\000\010\220\231\032,\021/L\205\016\005\236\002h\252]!\2711\363\205\232\\\t\004\333f\213\260\345\363NP\\\210\233^\340B5\021!\005A\266\240\342|>/\036\340\037{\263\354\\\026R\326\2600%T\224\271=\307i\242\210F\262\361P\213\354\314v\223\037R\034B\200\022>\255\177P\232\240\004\337\350 \307\023G\023\255\232\003\227c\315\177RW\370,\231\001M\247\023\300UA(\211\001\302\265S\026,f\"\303\326\"\355{\010\006\266\274\025\022\231\276\334\312z\021\212\344,\200\245N\\\002A\217\321E)Gq\203\023i\345\257\t\221\032z,\357d\207\223\235\334\301\023|u\026\363k;\3205\200\021\334\272Q\032\365\313xY\265t\3405w8O\314\264\344<\341\240*\220\362\227ZA\211\254\230` \276{\323\250I:\304DS\252\256\245\177\006\273\344*\205\252\260\275\224\035\267l-%\310\347cz\003Ip\000(k\203\224\254\013\014\002\2463#\312\004\025\\\3779@\227k\224\350u\323";
+const char* const cstring = "(\265/\375`\250\014\2358\000\212S\274\020E\360\322\246\003\314\300\312\024\215\0366\207\224\252r\270Ae\323\354:\311\204\263\334,2\354\227I2n\231\266M\351F\222\224\313VE\227u\345\\1\024\363cX\321>\316b\211\306&V\271\027\374\232\2100\001;b\014\326\000\376\000\346\000M\352\273A \222E\325RG\257\335q\303\230\334\374\216F\370\275u\334L\275w\303\034}{#\333\313ob\314\323X\266\317SK\266\\O\266^\357w\225\375\225v\335\265\354\371\264\355\003\377\243\337\023\333\231JQ\202=\344*=1w\255O\354T\344\230\030\226\034\023\016\333\237\326v\225\022\262C\376\332@No\230\231K~Z\207\365G\334\235\367\234\372\031\304\034\255\247\3364\370\263\006\261H\246\317\216\232\326B\314\253\224k\216}\262\275\364\242\346;\215l'?L\275\306\220\373a\327\310\336\346\224\035\336\330\226\263\276\345\266\264S\265m*9\250'\020\327>\235\256\315\334,?u\226\016Y\266\252\245On\215\337^\216\245\005F\371\224\035\273vl\235N\353\315M\311\333VbR\r4G\331\350\333\262[\330\311n\347K=\314\372\374m^\333\326\302-j\366\005\314\014\014K\016N\016\373Go\353\207\265\265\271\365S\023&\260\367\271\262QR;-\301\330\250\247\004\r\373\344\247(^\031\215Fq\264\322\222r,\201\334dR\261S\005S\330J\277T\343\023\345\277\324\344\301Z!v\237\273\203)\313\336w\034\016\210f\206\230\254P:|\353\202\205\332\255\304\335;#\036>:8p\034D=\344\243\304\006\321\310\214\032D9\210\206\210n\020\311\260\210hd\354\3601\322JF666\245\020!@\214T&h\232\366\302\301\2457\264\214\3310\243\301\026\031\031\323r\222\211\2110=s\222R\346eF\306\227\226\201\321T-\023R\270\246\246\006\252p*\345\025\333\277\202r\330y)\034E\371o\347\363dbR\245\265\342\364\264\235P\307E&7\317\350cv\233\177\263\324\267\013\022\311al-\247\271eo\263\314\242\340vJ}7w\275[\322\314\316,N\351\227F\237\010\265\216\260~\3463\353\237\337\250,\306\266P\263\355\363/\2554btF\367,\314\260\216\336\367\247wN\255\363\2526\221\201Py9Yf\247\355\346\266\341\334\230L7;%&=\025\301\230\252S\014\177B\017\302,\006\037J\356\207\221n\033\274*-\032\270}n),i\232\203\216\235\266\2665Y\366\323g\334\340\004\232\365Y\274\257\344,""\353xe\327,\343\337.\244\336\302\036h\254\264\223\355{\277\252Q)\034Qm\247\364YC\0235\210\331\3366\032U^\207e\210\264[Q\265p?\365LJ\370AeTCr\036\017\242\356\343<-J\236\227X8\235\316\243q\375\2237\r:\017\255\r\203:{\220\343\256\177\307v\214\320\351\t\254\355\006C\004'P\264J-\025,\n,\000,\017B&.=n\260o\006\013e\250\205\213\324BiMp\211\270R\024|(\253\004$/\002%Q\3734\026\037\013\022\037\t\n\037JK\262P\260\"\230\274BX/\204\014\220\274\240\353\305\205\241\301\367\263b \340#\031\001\t\360\243\344rq}\013\266*\264NZ(&S\350\300\000\020\222\037\324?G}\250\236\257'\303\007]\025\\\r.\260\036,\210\261\202Y)@P\024\342\372i\215\020\274\\X(,\236\325\310\n\201\311\313@\201\"\024\255R\253\302\202o\001\311\253\324ri\211`\215X\271\254\024\014(\202,\t$\257\226\237\\\361\255\330\371vt>\035\016_\310\320\014\204\017\002\311\353\2045\202AC\200H\321\211\310\353geau\262J0\002\022B\342\307\211K\005\344\013\321\361\343\272q\231\264~X\022V!\253\030!\002\"\257\020\032*+\273\353\327\366\337J\337v]c\265\3376\313j\277\235(Uo\360\376\0009\216O\234\235\337,\353h\327eA\275]I%\345\270\366\t9nf\231\234^\201R\250a\255b\206dDDF\nR\220\244\0031\010BA\220r\210=\242\301`\nd\n\032\222 I\013Rgc\337\230\226\262\334O\230\264\360T=\301\221\307\353\216\252\343]W\362<\251K\252V\226uF\211\0208\237\316\331\311\002\317\003\256\235\336\243\372\367\310\324'\005\307\317?b\241\244\346\254Q\005\313\265\241\266\313\003R>,\r\004h\022\224\373\362\253k4=T\260\263\252\2774\360\302\257\357c\261\355\340\017\014\rP\264fB\177f\312\321\324\354\205zE\034v\217\271j\002\225+\357+\177\204VD\2759M\275e9\256\r\234*\267p\372\376\264/\007-\273wmt\215\2455q\376m\253z\r)M\236(\357\321\205\227'\346\345\330\357bG\246\035\013\036\036yAe1\245\017B\022\244+\002P\377^6\237Co\231r0!\t\021;\226\331\371\222z\256\231d\022}\353L\326\276J\340$i\022\214i\005\331\361\210\337\t0;\020\265\344pGf\354\370\336;/c\007E0\251\313\006\356\230\263L\017\330\276\334\306\330\203\201\303B\352d\017\037l\352[\370^\321O\200\016'\274\210\262\220\331o\340\337c\347\262N\225""\234<\337\246\271\373$*\263\2352\243\242\035.\001\237\261\014\271\333\332J\237\230N/\350#e<4s\247\324\002i\306\244\201\223\224\261\207\254I\242\210&\353\203\230\036\\c6\0263SW\315\255\236\320 \220Jc\353\246@R\000\264<\240\026\032\r\032\220~\321T\007\273\025\334\031>\021\214\355\235\247\222\323\371l\206\272\035R\320\022r\320 r\372\330x\272\024\016\276\323\233[\353\267\256\3145\265_\t=\014k\000\010\220\231\032,\021/L\205\016\005\236\002h\252]!\2711\363\205\232\\\t\004\333f\213\260\345\363NP\\\210\233^\340B5\021!\005A\266\240\342|>/\036\340\037{\263\354\\\026R\326\2600%T\224\271=\307i\242\210F\262\361P\213\354\314v\223\037R\034B\200\022>\255\177P\232\240\004\337\350 \307\023G\023\255\232\003\227c\315\177RW\370,\231\001M\247\023\300UA(\211\001\302\265S\026,f\"\303\326\"\355{\010\006\266\274\025\022\231\276\334\312z\021\212\344,\200\245N\\\002A\217\321E)Gq\203\023i\345\257\t\221\032z,\357d\207\223\235\334\301\023|u\026\363k;\3205\200\021\334\272Q\032\365\313xY\265t\3405w8O\314\264\344<\341\240*\220\362\227ZA\211\254\230` \276{\323\250I:\304DS\252\256\245\177\006\273\344*\205\252\260\275\224\035\267l-%\310\347cz\003Ip\000(k\203\224\254\013\014\002\2463#\312\004\025\\\3779@\227k\224\350u\323";
     PyObject *data = __Pyx_DecompressString(cstring, 1821, 3);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #elif (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1998 bytes) */
-const char* const cstring = "BZh91AY&SY00\337\271\000\001a\177\377\367\377\374\367~\377\377\377\277\363\377\232\377\377\377\365\302@@\303D@DHX\000@@@\000@\000`\007#i\334\004\357\266\367'nA\220\364\335\275\007\2144A\r\024\362\t\221\201\014\247\224\3657\251\241\031=M\032\006\206\231\r\r\032\031\006\2314z\2065=F\rLFF\230j\014\223EO\320\023hE\036\246A\351\001\241\241\240\304z@\003@\030\201\202\r\000\320\003F\200\000\003Bd\32152\n\032\r\006@\032\0004\323C@\000\320\000\000\000\032\031\031\000\000\000\323D\311\032SS\364\243#@\017I\243M\000\001\240\000\000\031\000\000\000\000\000\r\000\010\0310\230\0012`\000\023\0200\000\000\002`L\0020\000\0010\000\000\002D\223A0Bi\220j\236LSOH\320\031\031\032\000\000\320\006\200\000\000\000\000\000\002\302\033G$\340\007\240\314\027~\327\017\366\326\377\360\371\271\203\244\002\242\0237\355\224\027(p\200rC\216\326,34\313\331R\000\257g\2462VkB\006\357\014U\304(8\242O\245E-Rd\242r\\\303y\351oTy!I\244\245I\300CB\003'\346\220\004Q\310\200\325pL\032\322\266g\006\267\032Q\330<\333M\367\201\252a3\031p'\202\340\330\310\354\212\3030\346\246\361\312k-\254\"\224q&h\300\314\307%V(\203\024W\216\325\215\2141\317Xo\241\223\010\200|\235$\216\251Vz\037*\205s\303\241;\0055\222a|6\227\026YV\371IJ\205\227R\226R\227e\030R&a\002z\3570\200E\214\021b\247%\275\355x\235bQ?{\213U\010\2311\336k$\026fu6j\270\325\361g\222]\256\261A\025\252\266\240\211<\232\224\023\203U\331\225e\301\006\034e\310RM/\252S\324\025\276\004\342\026\307\243>\307\316\255,\032G\215\271\346\350_\271\013}\032`:4\304\314\016I\262\233\030\240\3108\364Y\252#1\225G4\357\006\177\213\261%\023\335\276\220s\335B\252\234q`\237\022\034\025i<\244!\306\260\256\005;\332n=Q\217\010j)B\374\330\231\2770\326\211&\0018\375\257\225\n\202\241\336r\263H\264\311\302m4\313\252\242v`H\204\253\026\231q0\234+\322p|\013\034\221\031D\227\312P\225\241T\247^\336\023\364,\302\022\311%3\024\347\350 +\0206\177\332\363\0222 $\0140\202\314v\364`\210R7l\365#\225C\007\216\005!Gjt|A\204\227_\016\264\340\210\265\212\315\334\367&\006\261\005\200\340\204a\311\261""\366\013(&\305Ig_\327\243%q\315\021\366Qq\000[B|czD\232\326T\250Y\264i\247%\233\313\226\266J\220vb\252\217i\0327\324n\210\007bw\230\000\314\354\210uRJ\315\3350\230\224\2572\261\002X\234\225`gf\272UTD%d\231S-\241\257`\202\324\266aA*B\231*\240\241\016)\014\002A\026)\343\251\005\247\246h&<)\252X\312#\322\362\233\265\210\017M\027\200\2408\366\257\346\370\375C@x\267\225\304w\301\231\221\253j\262\276\303Am\002/\240;)\320\252\r\330\321\266W-Z\266BV;.M\252R\3404E3\022vI\342\214p\246\034\246\036\247\010(\266/\323P8\266\350#\032C:1-C\255\331\000\340\002\221~\020\233\274\375g$\3343\246\241\217\220\302[\352\3511\212@t\036\370\302@\314\213g\004\223\271\271\021\032\306\320H\2656\342d\033\007\351\001\022!AZ\004\232\022\223\231(\240\006\232\313\007\321S\205\016\205#\002<\025\225Gn:\231\303]\334\233*h5\246\032mO\"uq2E\201\256\334\323\241\241\336\310M3\272\224L\002\202t\000\263\300\371\352n\234\276\322\262\371\222&\227\313\25365\032\245\323\324\325M\331!\204\345\177SJ\366\201g\216W\345\216Q&\235\206\211*\031\333KB\3113\005tH\231\272\334\nakK\204D`\014\222\014\032\331ge\211\204\326\033\347[\362.\026\013J\001\263\251\251=j\246\004\247\006\353\315&\\~#R\007\230\247\014\363\224\300\212\031\177]\014n\213\366%\232\255RagO\273\004\202(A\254mN\226\315`\000\352b+\2240U\021Z\355y2 \226\322\\@\313\203\344\231m\250\0169\256\343[l\333\006\200'E\252S\202\213S\001\257uen\233,\226\320\0026\310\252\333\034\252\216e\374\272W:\361b\014?6\032\321\317h:\022\26752\027\016\341\301\341n\345\240\356a\024\230\266\306\347<lF\355\0264J\362\366\224g\224\233Ef\271\224\227F\021\3248\317Zs\2756\366\334'\222\301\035PTq0\246\362r\303~\014\227\305\272\352\263Q9\323F\\!\330\310\350\362\225\2563`\352h\010\253{E\001\242\260\345=UB\241Z]\220\323\275\222\272\003\233\177\201 \241r\010\235\344\244\031U\325\314q\010s\204\266\364\002\323Z6U\004\240$\304\335\224>\014B#\211\225\270R\001\247\350\210\202\n\025Z\225\025\2343\034\332\311\202\025Rh2`cen#\201S\336,\310\203\026\211\016\254Q\301\2423\006R\320Z\356\211\253\021\222\245P""\314\355\264\330\310\334\344\332ZY\241\254\005m\323\246\202i\354<I\"\245\262e\336\265\213\026\225\273\220\226c1\260\265\033O~h\226\016\253r)\362\010W8\033\034\271c\351\022\n\303\215\256\016\013j\\)\214\270n\340\200*)D\030\245\006\304\320\330\332?Fa\275qf\352\272\342\243sc\233)\322\311\204d))\tZ\002\342\225\361\306\002k\026\003.\237}\3037\204\322\024!k\033##,\007Vbc\036\265\004@5\2443l\317)\250\321\031\304e\3059r\000*\213xo\0243\215\314\026\2327\362\252\014C\222M\022\006\333%T%\253\022\374\344M\324ZI\252!^K9$\025Y\254<\212\002\tl0\251x\310\031\251$\241Z\007\223\031\324\315\020U\250\327*\225t\306\010l\337\032\037a\312\r\204\000 B\205'(\350\240Z\314)\266\220\356\023\010f\362K\010.v\334\263\217\010\311\205\004\253O\215\233c\005\206\316\352\201\231\216f\360\024\203\021i\014IRtJU7\330V\300\246(\356\206\r\213\202\313L\255PZgjxs\356\223\261h\254\250\271`\"b\301g0\315\0066\\\307c\260Ki\2347\363\243\024J\302r\003\251yq\311j\252\352\345\214,\232\342\016-?\275\345!\221\354\0243\214\362Z\242\362\2401hl\350\354q\"\342\214#\201o\364\323\007B\317\300v\272\264\223\351ZA\211\321\3337$\207i\276\256\256\224\031\346E\221\013\303\252\033a\307 \211i\006\214\373E\373\223\210 \321\022\3263\312\234\215\272\345}k\240\321\2209\206\320\030N\312\005t\000a\330\302\345\343\304\300\372[\333\257j\327\222\306\356\357\217\362\224\226\250\371log\335\237\2567\177\357\235\231\275\277\300\336\277\373\203W\204\265\217\r\261\222\315\214\231~\236C_'\024\341\376\317\t\273\202\0104s\004\035n?\003\365u\037\325\354\\[\372\376\021\024\327\037\367\313o\007K[3^\335m\352\034\002\346\252yh7\371\330\257\261\265\267\347\302\324\317v%\306Y\363\341\215\203(\362\230\307P\222\303en\207b\237\361w$S\205\t\003\003\r\373\220";
-    PyObject *data = __Pyx_DecompressString(cstring, 1998, 2);
+    #elif (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1989 bytes) */
+const char* const cstring = "BZh91AY&SY\255\t \r\000\001a\177\377\367\377\374\367~\377\377\377\277\363\377\232\377\377\377\365\302@@\303D@DHX\000@@@\000@\000`\007#i\334\004\357\266\367+\256A\220\364\335\275h\361\303D\021\221O \231\030\020\312yOG\250\324\321\223M\000hh\r\r\001\240i\210z\2065=F\r\004dh\311\352\014\223EO\323M\023hD\236\243A\350\200\032\000\007\250\0004\000h\000\000\000\000\000\000\003Ba\023T\362\223\312\032\000d\001\240\000\000\000\000\000\000\000\000\320\320\000\000\r4L\221\2455?J24\000\364\2324\320\000\032\000\000\001\220\000\000\000\000\000\320\000\201\223\t\200\023&\000\0011\003\000\000\000&\004\300#\000\000\023\000\000\000$HA0\202h\320)\344\3114\364\215\001\220\321\243@\000\365\000h\000\000\000\000\000\000,!\324qP\000y\214\301v\255\360~\355\357~\217\375\376\017\020\n\214M\336\270P\335\241\204\003%1\354\202\3053L\335u \013\026\271\243-f\264 npG\\b\207\2065\032\224\322\345F\314&M\234o\2775\372\317\244)5\024\251xhpBe\004\362\000\212I\020\032l\023\206\244\315z\001\315\247\024vO6\333\275\220j\240Lv\\:b@62;\235e\216tS\207\306k\260VN\225\2016g\221\231\2162\254\323\006(\267)\253\0060\302\233C|\314\240L\003\347\343\244,\212\323S\342\241\\\360\351R\301]\244\230\277\rfAg\215\203\307J\330.\274\225\272\265\2757\225\\\314 OU\366\022\010\257$WS\232\337\366\303\235\242n~\370\030\026\0072c\276\327L-\014\354l\215\257g\305\242iz\333EC\255U\265\004I\344\324\240\234\032\256\314\253.\0100\343.B\222i}R\236\240\255\360'\020\266\277\"\006\300x\225+\324<\235\257\036\016\023\"w\227T\007\206\210\235\207\305>c\243\034\031\006?\036z\210\314v\351\346\235\360\301\357t\245\242\213\330\022\216\213\310V\031\311\026J\001)\203\022\243\352B\030\345{\241V\376\253\037\254\327\304U\224\241\204mL\377W\310;\236J\214(\234\005J\260\254w\334l\320-\022a:\232\245\222\242zpH\210\271%\242\\-&\025\3710i\027@\221!D\230\n\364^\347i\025\013\373\342\202\225\250\202[,\247c\235\037J\002\261\203\247\373\2619#*\022@\305\010,\307\257\305q\022F\345\256t\222\254`\372 T\024\366(I\306\025\322\364\001\347\030#-c!\333\276\274\340\3470Y\014""\021\014Yv~\241e\014\370\351/.\025\212r\327$\321']\027P\205\270(\3107\345K\310\264\245D\335\203MYm\335\\\325\266d\243\265\035T\372\250\317\300\247x@=\033\262\300\006gdC\252\222Vn\351\204\304\245y\225\210\022\304\344\253\003;5\322\252\242!+$\312\231m\r{\004\026\245\263\n\tR\024\311U\005\010qH`\022\010\261O\035H-<\203Q0\325\321b\300\242=1+\303h\220\363\325\210\n\003\225{\036\217\217\3244\007\213\371{\227|\031\235\032\266l,\3544\227LF\023\016\312\223U\206\344i\332,\226\255Z\341+]\267\246\325)p\032\"\231\211;$\361F8S\016S\017S\204\024[\027\351\250\034[t\021\215!\235\030\226\241\316\350@p\001H\307\010N\036&s|p\032S\025\217\234\3128\326\326`+\001\322{\340\022FdZ\271$\342\016\010\210\325\360\002;W`(A\261>\222\016D*-@\224BR\203$\346\003Mf\203\350\255\302\2075#\022<\025\231GDu\263\206\313\371V\326\320n\246\033\027'\221:\371,\221hn\335\236\223hx2\023L\356\245\024\000\231I\200\264\303\371\350o\034\376\323\273\t\221\3150\227Flj4K\237\261\254\2442K\026\0131cN\376]i\305[\213\215T\251n.\"\313\233\313\027\230\331J\023\256\"\246\353\236bl\236\021\231$\300d\220`\326\313;,L&\260\337:\337\221p\260ZP\r\235MI\353U0%87^iB\363\361\032\220<\345X\350\244\250\004M\230u\320\306\347\206\264\263\327\252L-\351\367 \234M)5\215\261\321\273h\000:\271\212\345\214\225DV\273 \231\320F\362`@\314\003\344\235\006\330\006\360\333\201\255\276o\203P\024\242\331\023\222\213c\001\267Uup\233\254\215\340\004\033:\253nr\3539\270s*]\236\002\312\014?6\033\250\347\264\035\t]\236\251\013\207l\340\360\2673L\356a\025\031[ct\246[Q\271;Z%\201\203J4JM\242\303v\205E\361\214u\0164X\2350M\275\247\t\344\264GT\025\234\226\025`RX\357\301\223\010\273v\273u\024\245S\315\214;Y\034|\265s\214\370\272\332\002+\336\3230\323`r\336\252\341M\\_\220\330\336\311d\303\235\207\201 \232\344\021L\tH3+\354\240\342\020\351\tmi\005\261b5\325\004\240$\304\335\224>\014B#\211\225\270R\001\247\350\210\202\n\025Z\225\025\2343\034\332\311\202\025Rh2`cen#\201S\336,\310\203\026\211\016\254Q\301\2423\026T\320\\\357\212+Q\222\265X\315\r\264\330\310\333""\345\\\\[\245\254Eu\364\252e\023\326yI\"\265\256f\336\271\213+J\355\270K9\234\326Z\215\227\277DK\027]\331\0259\004+\334\r\216\\\301\364\211\005\201\304\327\007\005\325\256\024\306^7x@\025\225\"\014\251A\255D66\217\321\230\357^[\270\257\274\254\333\326\347J\2256q\031\n\212BV\200\270\345\200r\000\236\325\200\333\310 a\233\342y\nQ9\223\225\225\334\001\345\230\230\307\272\240\210\006\266\003>\2753\032\2151\240Fl\251\313\220\001\\]\303\200\241\234N\200\266'\277\231L\312\034\242\210\2206\331*\341-YL4\021GYq&\250\205y,\344\220Uf\260\362(\010%\260\302\245\343 f\244\222\205h\036}\253\253\242`\253a\266*U\324\031!\273\214j}\307(7\020\000\201\n\024\244\243\246\221s1\252\352\203\270L!\233\311,`\275\335z\320<c&3%b|L\332\030.6\210T\014\314t8\220\254\230\2138bj\224\252V\312F\242\326\005AX\2040l\\\026\334fje\306\206\251\217>\371;V\233\n\313\326\"(,V\203\034\360e\266\364\t\004\200&\372\014\212v,\250\205\200r\2004\251*\247\211}\023-L3\346\330\301\237\305\373\322T\031\036\2616q\036KS\300\254\014\255\r\234z\334\224^O\030\340[\3755\001\315h\340;m[\005:W\020e8\366\215\271!\334o\253\354\251\006\212\021lB\360\353\206\330qH\"[\000\321\243d\303n\221\004\032b[\243<\252H\332\262XX\272\r\031\003\232l\201\244\364\300W\200\006\235\236W\037\367\033\017\347sf\305\273~\033;\233\236\r\264\244\264\307\307[w:\364\375R;_o.f\356\366\373\272\277\315\375>\002\324<WF[~\371s|\374F\276.\032\003\371\234\023{\0140\347\346\010z\037\336\354\030\236\3704\372wW>\237tG5\311\374\361\334\257\241\251\231\253s#v\226\370\273\304O\035'v\365\254kll\3719^\374\347\243]w\017\223\024\212\363\017\266\326\302\204\236\275\225\271\275Z\377\305\334\221N\024$+BH\003@";
+    PyObject *data = __Pyx_DecompressString(cstring, 1989, 2);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
     #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (1833 bytes) */
-const char* const cstring = "x\332\245V\317o\334\306\025\266\n\273Q\0245\265b\003M\2024\03096Vj%F\252\245H\331**\326\262\234\310@\034\307\212\\ F@\017\311\331\325D\334\031\2123\224v\215\242\311\245\200\217{\353^Z\354\241\207=\366\320\203\201^\n\353\037\340QG\377\t\376\023\362\275!\367\207-\241=t\201%\207\344\2747\337{\357{\337L\225\325\342\230E\262)\224\221Z\031\226\244\"\024\221T\215\321Kv#b\315\314X\026\010&U$Z\"b\\ELi\313L,1\375VV\257\213\224\035Iq\314\"-\214\373$Z\2116\202\031\233\312H\230-\256\230Vq\233\205\251\340V0\316\202\302\310\356s\313\244a\241VV62\235\031,\302\232\242\251\323\266\007+r\305\215\221\r\305\254f0\216\026\235\237b\006-YN*\035\037\247\322\362 \026\345\204\002T=\325\315\377f\353\302b\307\322\3563\333N\004\253\224\357m\312\225qa\214L\212i\260\220H\225\035\313\335\024\303oK\253#\221\002\262b<\212Ra\014\301\226\326\260\355\235\373\213\253\253,\334\027\341\201\311\232\254\256\323&\267\336\2243\373f\037)\250g*\264\224p\313\017\220\3041\027\310\010Wmf\262$\321\251E\376\013cW\206T\330,E\345$\205\201t\n\347p\260Lsl\262a\221\250K\2057A\273\204\343\261\035\3132C\253\261\0205F\232\266\332v\037\030d3\211\005B\263\234 9\237\360C\376G!\204.X\307\021\004\251\023+\233\362\211`\211H\335\222*\024ex\265\264a\252nD\277#\036g\242\212\230\305x\216\300\256\302\037\342s\260B$\300Q\316\305^\0061JA\320\036:\244_\225\262W},\354\276\237Y\031\033\317j_\221M\014H\221_.\364\270\004\364\200K\004=\202\364\220 m\247\251N\253l\247\356\242\224*\311\354\250\002\005\251\t\0142\036\352\206\"\267\303\"\016\374|\003\366\234\347\2464\347\256\035Tc\001\350\2550\013\014\031\245\340\206i\200y\211p\273\305\251\002c\030777\221'\177\220\375AHs\327\226Z\301\312\232\270\031F\3537\327\242\250\276.V\302\325\265\372\322j\264\266\304\203\365OV#\361\211X\376\364f\020\004\327\346\207\336*\257X\335\276SX\335qV\2651\253[\267nU\246\376'\206\240\362\374_\177\3368\351\256\235\374\355\344\331\311?N\376\362\303\245\223\277N=\177&N\376\256\336\373\375\363\177W\376\237\205w\205\200L\031=J\305\342\271\345~\035\325\343!c\215E\247\3604z""\215\325\336Y\207\347\263\3069*\331I\332\010\272r6\2327\254_ 0q\324 M\314-\326\270=.\246%\031\n\001\331n&\026\235\275\317!;6\003\272b-\327\204\036OS\336\336q\342\244\301\"]g\201\316Td\330\034o\301\313\215h~\347\254\016\025\302<\350\223\035\205v\223Pp\035\211\005\022eL\006\342JX!\362U\260\030\211\\e\2015`5\230\\\300!\262\3232\033_:\361{H\342\007\010\025\217}Yn\007Z\341_\257\002\225\216\027\210\333Cb\323\315\241\247U\244\262\336=\314\275\247!\320N\360\007\"C\222\024\313@\244\220n\0103u\007\340\271]A\261\373\333\367\027W\326WJ\225\373\036\300\r\342\n\302\030\373\001\024\213\262\221\311\330\222\352\241o\214G-\327\326\031S\002\001\242D\t\346\215\033\200\t\212\031a\035%*N\341\035\r|\230\243R\225\262\"\362H\220\365\035\036\033\341}\365J\332\001\271\334\266x\030R\301\213:\354Z\221\260&b\245\314#-OD\252G%\332Sn?\202\313\222A\220j\321t\212\031PP{\n\030\036\325T\273V\260h<\221\337\355\251\003\245\217\325@\376\366\324H\000)\350*\252\261Y\231\377\003\010\010\336\322\276\212\\1L\\j-\340\206u\022[$c\310Vz@\017\206\003\222~<\354\033/i\267B\035\307\302\355B\306\343A\2701\266-\223\353\"C\233\257\277\036\354\206\233\2214\024\254p!7B6G\254j8\262S\332\250wD\313\242\377\334\2366:b@\215\235ID\2511\204r\3433\266t\246\025\224\246-\214g\261e\276\237\212(\013\205\357\263(\023E\204j\021\3749\222<\306\327P*i\361\261\310\361\246\021q\335S\274)\006\335G|\334(\016'\321+\241\235}WP\370\274\357\303\267\347\250\017\233\213\261\327\262\337-\317gC\002\3608\326\241;\376\270\326\210\270\345\3369_\213\366\243\005\312\323\223w\\PW\271\223\031/\010\202\r\177p,\343l\037\022Q\354-\036\373\\\333*\253\355n\355\354\214H\265U\242+\037\267\343X&F\032\337\277\337n\341\177\033m\347\337Ci\036\210\372\2568\314\004\366n\352wo\324\372`\303\000\240_4\0017m\025J\355\205:\205:!X\023p#\302!\263\274QN|\327\203\276?\0304\204\245J\323#\354|\211\036Ly(\002\036\036\204h5\024.\"D~D$\367\201\263(#`A\306\204\312\232N1\004\355\264\264\005\024\r\\\217y\303\024\215R\312\232\357\223\252\323\262X\020\233\000\240\373\310T,\353m\031\371>v""\003\314\303\235\024\226V\031FR\320\260\344\242\35779\020\3728\003\322\001\220\224\024\017:\312b\334\211S\303+\010\215\2538\366\to\202`\022\235\370>\332j,\023\364TB\241\241\013\320\2152\225\310\360\000>\267\325`\336\221;\312\022\376\303\214\307\305\"#\342\017GE\213\214\275@4\0306\244\201\226\372>$\257\004\210Q\331?n\\\302\030\033\017<9\006R\354&\r\313jcB\212Y\"\301)\021\3774\243\372@\242\350z\226\375\010\006\341g\t(.\334y\317]L\353\307\211\323\213o=]\355Lt>\354\036\366\246\373[\375\303\177N\344\027\346\3733/\357N\\\270\364Ng\246s\243sxzq\246\030\274\270\370\306\217O0\254tgN'?\310?X\1776\221\177\372 \177\260\233\357~\233\177\033\345\2218\235\374\260\313_\274y\245\263\334\371\242\373yo\031\323\350\326\253\271\017\247\223W\363\253\327{\265\336\327/~\361\366\351\364\345\316\245\316^w\266\273|z\031\357+\275\303\376\304\213\313W:+\235?9\213\253\357w\177\203\333\273@\323\277\336\347\371\307\017\363\207\215\274\241r\245_N^x\363\227O%\240M\317\366fz\327{\274g\373\313\375\332\313\237_\2704\231\277\361\253\316a\376\356o\3737\373X\361\355\247\337w'N\247\177\335\375\272\033\365f\363\217\356\346w\037\345\217\202<\0101y\352\255\323\311w:\263\371\225\271\376\305>0^\353\315\366\252\375\357\236\315:\270\335\037ro\353?\313\344t\372\351g\335\237u?\352\376\221\300\177\365\023\306\"\367t";
+const char* const cstring = "x\332\245V\317o\334\306\025\266\n\273Q\0245\265b\003M\2024\03096Vj%F\252\245H\331**\326\262\234\310@\034\307\212\\ F@\017\311\331\325D\334\031\2123\224v\215\242\311\245\200\217{\353^Z\354\241\207=\366\320\203\201^\n\353\037\340QG\377\t\376\023\362\275!\367\207-\241=t\201%\207\344\2747\337{\357{\337L\225\325\342\230E\262)\224\221Z\031\226\244\"\024\221T\215\321Kv#b\315\314X\026\010&U$Z\"b\\ELi\313L,1\375VV\257\213\224\035Iq\314\"-\214\373$Z\2116\202\031\233\312H\230-\256\230Vq\233\205\251\340V0\316\202\302\310\356s\313\244a\241VV62\235\031,\302\232\242\251\323\266\007+r\305\215\221\r\305\254f0\216\026\235\237b\006-YN*\035\037\247\322\362 \026\345\204\002T=\325\315\377f\353\302b\307\322\3563\333N\004\253\224\357m\312\225qa\214L\212i\260\220H\225\035\313\335\024\303oK\253#\221\002\262b<\212Ra\014\301\226\326\260\355\235\373\213\253\253,\334\027\341\201\311\232\254\256\323&\267\336\2243\373f\037)\250g*\264\224p\313\017\220\3041\027\310\010Wmf\262$\321\251E\376\013cW\206T\330,E\345$\205\201t\n\347p\260Lsl\262a\221\250K\2057A\273\204\343\261\035\3132C\253\261\0205F\232\266\332v\037\030d3\211\005B\263\234 9\237\360C\376G!\204.X\307\021\004\251\023+\233\362\211`\211H\335\222*\024ex\265\264a\252nD\277#\036g\242\212\230\305x\216\300\256\302\037\342s\260B$\300Q\316\305^\0061JA\320\036:\244_\225\262W},\354\276\237Y\031\033\317j_\221M\014H\221_.\364\270\004\364\200K\004=\202\364\220 m\247\251N\253l\247\356\242\224*\311\354\250\002\005\251\t\0142\036\352\206\"\267\303\"\016\374|\003\366\234\347\2464\347\256\035Tc\001\350\2550\013\014\031\245\340\206i\200y\211p\273\305\251\002c\030777\221'\177\220\375AHs\327\226Z\301\312\232\270\031F\3537\327\242\250\276.V\302\325\265\372\322j\264\266\304\203\365OV#\361\211X\376\364f\020\004\327\346\207\336*\257X\335\276SX\335qV\2651\253[\267nU\246\376'\206\240\362\374_\177\3368\351\256\235\374\355\344\331\311?N\376\362\303\245\223\277N=\177&N\376\256\336\373\375\363\177W\376\237\205w\205\200L\031=J\305\342\271\345~\035\325\343!c\215E\247\3604z""\215\325\336Y\207\347\263\3069*\331I\332\010\272r6\2327\254_ 0q\324 M\314-\326\270=.\246%\031\n\001\331n&\026\235\275\317!;6\003\272b-\327\204\036OS\336\336q\342\244\301\"]g\201\316Td\330\034o\301\313\215h~\347\254\016\025\302<\350\223\035\205v\223Pp\035\211\005\022eL\006\342JX!\362U\260\030\211\\e\2015`5\230\\\300!\262\3232\033_:\361{H\342\007\010\025\217}Yn\007Z\341_\257\002\225\216\027\210\333Cb\323\315\241\247U\244\262\336=\314\275\247!\320N\360\007\"C\222\024\313@\244\220n\0103u\007\340\271]A\261\373\333\367\027W\326WJ\225\373\036\300\r\342\n\302\030\373\001\024\213\262\221\311\330\222\352\241o\214G-\327\326\031S\002\001\242D\t\346\215\033\200\t\212\031a\035%*N\341\035\r|\230\243R\225\262\"\362H\220\365\035\036\033\341}\365J\332\001\271\334\266x\030R\301\213:\354Z\221\260&b\245\314#-OD\252G%\332Sn?\202\313\222A\220j\321t\212\031PP{\n\030\036\325T\273V\260h<\221\337\355\251\003\245\217\325@\376\366\324H\000)\350*\252\261Y\231\377\003\010\010\336\322\276\212\\1L\\j-\340\206u\022[$c\310Vz@\017\206\003\222~<\354\033/i\267B\035\307\302\355B\306\343A\2701\266-\223\353\"C\233\257\277\036\354\206\233\2214\024\254p!7B6G\254j8\262S\332\250wD\313\242\377\334\2366:b@\215\235ID\2511\204r\3433\266t\246\025\224\246-\214g\261e\276\237\212(\013\205\357\263(\023E\204j\021\3749\222<\306\327P*i\361\261\310\361\246\021q\335S\274)\006\335G|\334(\016'\321+\241\235}WP\370\274\357\303\267\347\250\017\233\213\261\327\262\337-\315gC\002\3608\326\241;\376\270\326\210\270\345\3369_\213\366\243\005\312\323\223w\\PW\271\223\031/\010\202\r\177p,\343l\037\022Q\354-\036\373\\\333*\253\355n\355\354\214H\265U\242+\037\267\343X&F\032\337\277\337n\341\177\033m\347\337Ci\036\210\372\2568\314\004\366n\352wo\324\372`\303\000\240_4\0017m\025J\355\205:\205:!X\023p#\302!\263\274QN|\327\203\276?\0304\204\245J\323#\354|\211\036Ly(\002\036\036\204h5\024.\"D~D$\367\201\263(#`A\306\204\312\232N1\004\355\264\264\005\024\r\\\217y\303\024\215R\312\232\357\223\252\323\262X\020\233\000\240\373\310T,\353m\031\371>v""\003\314\303\235\024\226V\031FR\320\260\344\242\35779\020\3728\003\322\001\220\224\024\017:\312b\334\211S\303+\010\215\2538\366\to\202`\022\235\370>\332j,\023\364TB\241\241\013\320\2152\225\310\360\000>\267\325`\336\221;\312\022\376\303\214\307\305\"#\342\017GE\213\214\275@4\0306\244\201\226\372>$\257\004\210Q\331?n\\\302\030\033\017<9\006R\354&\r\313jcB\212Y\"\301)\021\3774\243\372@\242\350z\226\375\010\006\341g\t(.\334y\317]L\353\307\211\323\213o=]\355Lt>\354\036\366\246\373[\375\303\177N\344\027\346\3733/\357N\\\270\364Ng\246s\243sxzq\246\030\274\270\370\306\217O0\254tgN'?\310?X\1776\221\177\372 \177\260\233\357~\233\177\033\345\2218\235\374\260\313_\274y\245\263\334\371\242\373yo\031\323\350\326\253\271\017\247\223W\363\253\327{\265\336\327/~\361\366\351\364\345\316\245\316^w\266\273|z\031\357+\275\303\376\304\213\313W:+\235?9\213\253\357w\177\203\333\273@\323\277\336\347\371\307\017\363\207\215\274\241r\245_N^x\363\227O%\240M\317\366fz\327{\274g\373\313\375\332\313\237_\2704\231\277\361\253\316a\376\356o\3737\373X\361\355\247\337w'N\247\177\335\375\272\033\365f\363\217\356\346w\037\345\217\202<\0101y\352\255\323\311w:\263\371\225\271\376\305>0^\353\315\366\252\375\357\236\315:\270\335\037ro\353?\313\344t\372\351g\335\237u?\352\376\221\300\177\365\023\301\335\367s";
     PyObject *data = __Pyx_DecompressString(cstring, 1833, 1);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
@@ -22164,7 +22165,7 @@ const char* const cstring = "x\332\245V\317o\334\306\025\266\n\273Q\0245\265b\00
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
     #else /* compression: none (3496 bytes) */
-const char* const bytes = ": All dimensions preceding dimension %d must be indexed and not slicedBuffer view does not expose stridesCan only create a buffer that is contiguous in memory.Cannot assign to read-only memoryviewCannot create writable memory view from read-only memoryviewCannot index with type 'Cannot transpose memoryview with indirect dimensions\n    Convert an address to its EIP-55 checksum format.\n\n    This function takes an address in any supported format and returns it in the\n    checksummed format as defined by EIP-55. It uses a custom Cython implementation\n    for the checksum conversion to optimize performance.\n\n    Args:\n        value: The address to be converted. It can be in any format supported by\n            :func:`eth_utils.to_normalized_address`.\n\n    Raises:\n        ValueError: If the input address is not in a recognized format.\n        TypeError: If the input is not a string, bytes, or any address type.\n\n    Examples:\n        >>> to_checksum_address(\"0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb\")\n        '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'\n\n        >>> to_checksum_address(b'\302\264~<\303\2307\303\235\303\270\303\244\303\205\177\005\303\227\n\302\270e\303\236n\031;\302\273')\n        '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'\n\n    See Also:\n        - :func:`eth_utils.to_checksum_address` for the standard implementation.\n        - :func:`to_normalized_address` for converting to a normalized address before checksumming.\n    Dimension %d is not directEmpty shape tuple for cython.arrayIndex out of bounds (axis %d)Indirect dimensions not supportedInvalid mode, expected 'c' or 'fortran', got Invalid shape in axis <MemoryView of '. Must be one of: bool, str, bytes, bytearray or int.NoneNote that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False.Out of bounds on buffer access (axis Step may not be zero (axis %d)Unable to c""onvert item to objectUnion[AnyAddress, str, bytes]Unknown format Unsupported type: '.>')?add_note and  at 0x, attempted to normalize to '0xcchecksum/_checksum.pyxcollections.abc<contiguous and direct><contiguous and indirect>disableenablegc (got got differing extents in dimension isenableditemsize <= 0 for cython.arrayno default __reduce__ due to non-trivial __cinit__ object>self.name is not None<strided and direct><strided and direct or indirect><strided and indirect>to_checksum_address (line 21)unable to allocate array data.unable to allocate shape and strides.when sending a str, it must be a hex string. Got: ASCIIAnyAddressChecksumAddressEllipsis__Pyx_PyDict_NextRefSequenceView.MemoryViewabcallocate_bufferasyncio.coroutinesbaseccchecksum._checksum__class____class_getitem__cline_in_tracebackcount__dict__dtype_is_objectencodeenumerateerroreth_typingflagsformatfortran__func____getstate__hexlifyid__import__index_is_coroutineitemsitemsize__main__memviewmode__module__name__name__ndim__new__objpackpop__pyx_checksum__pyx_state__pyx_type__pyx_unpickle_Enum__pyx_vtable____qualname____reduce____reduce_cython____reduce_ex__register__set_name__setdefault__setstate____setstate_cython__shapesizesrc_bufferstartstepstopstruct__test__to_checksum_addressunpackupdatevaluevaluesx\200\001\330\004\013\2105\220\001\220\036\230q\240\014\250C\250q\260\001\320\000)\250\021\360J\001\000\005\022\220\021\220%\220q\330\004\021\220\021\220%\220q\340\004\007\200z\220\021\220'\230\021\330\010\034\320\0348\270\001\3209R\320RS\320SZ\320Zd\320de\330\010\036\230a\340\t\023\2201\220H\230G\2401\330\010\034\230G\2401\240A\330\010\036\230a\330\010\024\320\024$\240A\240Q\340\r\016\330\014\020\220\005\220U\230!\2301\330\020\024\320\024'\240q\250\001\340\020\023\2204\220|\2401\240A\330\024\032\230*\240A\330\030)\250\021\250$\250a\320/V\320Vg\320gn\320no\360\010\000\t\017\210i\220q\330\014!\240\021\240$\240a\240t\2501\250A\360\006\000\005\010\320\007\027\220q\320\030+\2503\250a\330\010\016\210j\230\001\330""\014\035\230Q\230d\240!\320#J\320J[\320[b\320bc\360\006\000\n\013\330\010\022\220!\320\023(\250\004\250A\330\010\"\240!\240:\250]\270!\330\010\036\230a\230\177\320.C\3001\360\006\000\005\014\210=\230\002\230#\230W\240A\240QO";
+const char* const bytes = ": All dimensions preceding dimension %d must be indexed and not slicedBuffer view does not expose stridesCan only create a buffer that is contiguous in memory.Cannot assign to read-only memoryviewCannot create writable memory view from read-only memoryviewCannot index with type 'Cannot transpose memoryview with indirect dimensions\n    Convert an address to its EIP-55 checksum format.\n\n    This function takes an address in any supported format and returns it in the\n    checksummed format as defined by EIP-55. It uses a custom Cython implementation\n    for the checksum conversion to optimize performance.\n\n    Args:\n        value: The address to be converted. It can be in any format supported by\n            :func:`eth_utils.to_normalized_address`.\n\n    Raises:\n        ValueError: If the input address is not in a recognized format.\n        TypeError: If the input is not a string, bytes, or any address type.\n\n    Examples:\n        >>> to_checksum_address(\"0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb\")\n        '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'\n\n        >>> to_checksum_address(b'\302\264~<\303\2307\303\235\303\270\303\244\303\205\177\005\303\227\n\302\270e\303\236n\031;\302\273')\n        '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'\n\n    See Also:\n        - :func:`eth_utils.to_checksum_address` for the standard implementation.\n        - :func:`to_normalized_address` for converting to a normalized address before checksumming.\n    Dimension %d is not directEmpty shape tuple for cython.arrayIndex out of bounds (axis %d)Indirect dimensions not supportedInvalid mode, expected 'c' or 'fortran', got Invalid shape in axis <MemoryView of '. Must be one of: bool, str, bytes, bytearray or int.NoneNote that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False.Out of bounds on buffer access (axis Step may not be zero (axis %d)Unable to c""onvert item to objectUnion[AnyAddress, str, bytes]Unknown format Unsupported type: '.>')?add_note and  at 0x, attempted to normalize to '0xcchecksum/_checksum.pyxcollections.abc<contiguous and direct><contiguous and indirect>disableenablegc (got got differing extents in dimension isenableditemsize <= 0 for cython.arrayno default __reduce__ due to non-trivial __cinit__ object>self.name is not None<strided and direct><strided and direct or indirect><strided and indirect>to_checksum_address (line 20)unable to allocate array data.unable to allocate shape and strides.when sending a str, it must be a hex string. Got: ASCIIAnyAddressChecksumAddressEllipsis__Pyx_PyDict_NextRefSequenceView.MemoryViewabcallocate_bufferasyncio.coroutinesbaseccchecksum._checksum__class____class_getitem__cline_in_tracebackcount__dict__dtype_is_objectencodeenumerateerroreth_typingflagsformatfortran__func____getstate__hexlifyid__import__index_is_coroutineitemsitemsize__main__memviewmode__module__name__name__ndim__new__objpackpop__pyx_checksum__pyx_state__pyx_type__pyx_unpickle_Enum__pyx_vtable____qualname____reduce____reduce_cython____reduce_ex__register__set_name__setdefault__setstate____setstate_cython__shapesizesrc_bufferstartstepstopstruct__test__to_checksum_addressunpackupdatevaluevaluesx\200\001\330\004\013\2105\220\001\220\036\230q\240\014\250C\250q\260\001\320\000)\250\021\360J\001\000\005\022\220\021\220%\220q\330\004\021\220\021\220%\220q\340\004\007\200z\220\021\220'\230\021\330\010\034\320\0348\270\001\3209R\320RS\320SZ\320Zd\320de\330\010\036\230a\340\t\023\2201\220H\230G\2401\330\010\034\230G\2401\240A\330\010\036\230a\330\010\024\320\024$\240A\240Q\340\r\016\330\014\020\220\005\220U\230!\2301\330\020\024\320\024'\240q\250\001\340\020\023\2204\220|\2401\240A\330\024\032\230*\240A\330\030)\250\021\250$\250a\320/V\320Vg\320gn\320no\360\010\000\t\017\210i\220q\330\014!\240\021\240$\240a\240t\2501\250A\360\006\000\005\010\320\007\027\220q\320\030+\2503\250a\330\010\016\210j\230\001\330""\014\035\230Q\230d\240!\320#J\320J[\320[b\320bc\360\006\000\n\013\330\010\022\220!\320\023(\250\004\250A\330\010\"\240!\240:\250]\270!\330\010\036\230a\230\177\320.C\3001\360\006\000\005\014\210=\230\002\230#\230W\240A\240QO";
     PyObject *data = NULL;
     CYTHON_UNUSED_VAR(__Pyx_DecompressString);
     #endif
@@ -22259,12 +22260,12 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
   PyObject* tuple_dedup_map = PyDict_New();
   if (unlikely(!tuple_dedup_map)) return -1;
   {
-    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 21};
+    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 20};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_value};
     __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_cchecksum__checksum_pyx, __pyx_mstate->__pyx_n_u_to_checksum_address, __pyx_mstate->__pyx_kp_b_iso88591_J_q_q_z_8_9RRSSZZdde_a_1HG1_G1A, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 98};
+    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 1, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 97};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_src_buffer};
     __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_cchecksum__checksum_pyx, __pyx_mstate->__pyx_n_u_hexlify, __pyx_mstate->__pyx_kp_b_iso88591_5_q_Cq, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
   }
