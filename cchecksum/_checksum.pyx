@@ -1,8 +1,11 @@
 # cython: boundscheck=False
 # cython: wraparound=False
 
-from cpython.bytes cimport PyBytes_GET_SIZE
+from cpython.bytes cimport PyBytes_GET_SIZE, PyBytes_FromStringAndSize
+from cpython.sequence cimport PySequence_Fast, PySequence_Fast_GET_ITEM, PySequence_Fast_GET_SIZE
 from cpython.unicode cimport PyUnicode_AsEncodedString
+from cython.parallel cimport prange
+from libc.string cimport memcpy
 
 from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
@@ -120,10 +123,161 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     
     with nogil:
         hexlify_c_string_to_buffer(hashed_bytestr, hash_buffer, 40)
-        populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
+        populate_result_buffer(result_buffer, hex_address_bytestr, &hash_buffer[0])
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
     return result_buffer[:42].decode('ascii')
+
+
+cpdef list to_checksum_address_many(values, bint parallel=False):
+    cdef Py_ssize_t i, j, n, num_bytes
+    cdef object item_obj, seq_obj
+    cdef bytes hex_address_bytes, hashed_bytes
+    cdef const unsigned char* hex_address_bytestr
+    cdef const unsigned char* hashed_bytestr
+    cdef unsigned char[:] norm_hex
+    cdef unsigned char[:] hashes
+    cdef char[:] results
+    cdef unsigned char* norm_ptr
+    cdef unsigned char* hash_ptr
+    cdef char* result_ptr
+    cdef unsigned char c
+    cdef bint do_parallel = parallel
+    cdef list out
+    cdef memoryview packed_view
+    cdef const unsigned char[:] packed_bytes
+
+    if isinstance(values, memoryview):
+        packed_view = values
+        if packed_view.ndim != 1:
+            raise ValueError("packed address memoryview must be 1-dimensional")
+        if packed_view.itemsize != 1:
+            raise ValueError("packed address memoryview must have itemsize 1")
+        if not packed_view.c_contiguous:
+            raise ValueError("packed address memoryview must be C-contiguous")
+        if len(packed_view) % 20 != 0:
+            raise ValueError("packed address memoryview length must be a multiple of 20")
+
+        n = len(packed_view) // 20
+        if n == 0:
+            return []
+        norm_hex = bytearray(n * 40)
+        hashes = bytearray(n * 32)
+        results = bytearray(n * 42)
+        norm_ptr = &norm_hex[0]
+        hash_ptr = &hashes[0]
+        result_ptr = &results[0]
+        packed_bytes = packed_view
+
+        with nogil:
+            for i in range(n):
+                hexlify_c_string_to_ptr(&packed_bytes[i * 20], norm_ptr + i * 40, 20)
+
+        for i in range(n):
+            hex_address_bytes = PyBytes_FromStringAndSize(<const char*>(norm_ptr + i * 40), 40)
+            hashed_bytes = hash_address(hex_address_bytes)
+            hashed_bytestr = hashed_bytes
+            memcpy(hash_ptr + i * 32, hashed_bytestr, 32)
+    else:
+        if isinstance(values, (str, bytes, bytearray)):
+            raise TypeError("values must be a sequence of addresses, not a single address")
+        seq_obj = PySequence_Fast(values, "values must be a sequence of addresses")
+        n = PySequence_Fast_GET_SIZE(seq_obj)
+        if n == 0:
+            return []
+        norm_hex = bytearray(n * 40)
+        hashes = bytearray(n * 32)
+        results = bytearray(n * 42)
+        norm_ptr = &norm_hex[0]
+        hash_ptr = &hashes[0]
+        result_ptr = &results[0]
+
+        for i in range(n):
+            item_obj = <object>PySequence_Fast_GET_ITEM(seq_obj, i)
+            if isinstance(item_obj, str):
+                hex_address_bytes = lowercase_ascii_and_validate(
+                    PyUnicode_AsEncodedString(item_obj, b"ascii", NULL)
+                )
+                hex_address_bytestr = hex_address_bytes
+            elif isinstance(item_obj, (bytes, bytearray)):
+                hex_address_bytes = hexlify(item_obj).lower()
+                hex_address_bytestr = hex_address_bytes
+                num_bytes = PyBytes_GET_SIZE(hex_address_bytes)
+                with nogil:
+                    for j in range(num_bytes):
+                        c = hex_address_bytestr[j]
+                        if c == 48:  # 0
+                            pass
+                        elif c == 49:  # 1
+                            pass
+                        elif c == 50:  # 2
+                            pass
+                        elif c == 51:  # 3
+                            pass
+                        elif c == 52:  # 4
+                            pass
+                        elif c == 53:  # 5
+                            pass
+                        elif c == 54:  # 6
+                            pass
+                        elif c == 55:  # 7
+                            pass
+                        elif c == 56:  # 8
+                            pass
+                        elif c == 57:  # 9
+                            pass
+                        elif c == 97:  # a
+                            pass
+                        elif c == 98:  # b
+                            pass
+                        elif c == 99:  # c
+                            pass
+                        elif c == 100:  # d
+                            pass
+                        elif c == 101:  # e
+                            pass
+                        elif c == 102:  # f
+                            pass
+                        else:
+                            raise ValueError(
+                                f"Unknown format {repr(item_obj)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
+                            )
+            else:
+                raise TypeError(
+                    f"Unsupported type: '{repr(type(item_obj))}'. Must be one of: bool, str, bytes, bytearray or int."
+                )
+
+            if PyBytes_GET_SIZE(hex_address_bytes) != 40:
+                raise ValueError(
+                    f"Unknown format {repr(item_obj)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
+                )
+
+            memcpy(norm_ptr + i * 40, hex_address_bytestr, 40)
+            hashed_bytes = hash_address(hex_address_bytes)
+            hashed_bytestr = hashed_bytes
+            memcpy(hash_ptr + i * 32, hashed_bytestr, 32)
+
+    with nogil:
+        if do_parallel:
+            for i in prange(n):
+                checksum_address_to_buffer(
+                    norm_ptr + i * 40,
+                    hash_ptr + i * 32,
+                    result_ptr + i * 42,
+                )
+        else:
+            for i in range(n):
+                checksum_address_to_buffer(
+                    norm_ptr + i * 40,
+                    hash_ptr + i * 32,
+                    result_ptr + i * 42,
+                )
+
+    out = [None] * n
+    for i in range(n):
+        hex_address_bytes = PyBytes_FromStringAndSize(result_ptr + i * 42, 42)
+        out[i] = hex_address_bytes.decode("ascii")
+    return out
 
 
 cpdef bytes hexlify(const unsigned char[:] src_buffer):
@@ -164,10 +318,37 @@ cdef inline void hexlify_c_string_to_buffer(
         result_buffer[2*i+1] = hexdigits[c & 0x0F]
 
 
+cdef inline void hexlify_c_string_to_ptr(
+    const unsigned char* src_buffer, 
+    unsigned char* result_buffer, 
+    Py_ssize_t num_bytes,
+) noexcept nogil:
+    cdef Py_ssize_t i
+    cdef unsigned char c
+    for i in range(num_bytes):
+        c = src_buffer[i]
+        result_buffer[2*i] = hexdigits[c >> 4]
+        result_buffer[2*i+1] = hexdigits[c & 0x0F]
+
+
+cdef inline void checksum_address_to_buffer(
+    const unsigned char* norm_address_no_0x,
+    const unsigned char* address_hash,
+    char* result_buffer,
+) noexcept nogil:
+    cdef unsigned char hash_hex[40]
+    cdef char output_buffer[42]
+    output_buffer[0] = 48
+    output_buffer[1] = 120
+    hexlify_c_string_to_ptr(address_hash, hash_hex, 20)
+    populate_result_buffer(output_buffer, norm_address_no_0x, hash_hex)
+    memcpy(result_buffer, output_buffer, 42)
+
+
 cdef void populate_result_buffer(
     char[42] buffer,
     const unsigned char* norm_address_no_0x, 
-    const unsigned char[:] address_hash_hex_no_0x,
+    const unsigned char* address_hash_hex_no_0x,
 ) noexcept nogil:
     """
     Computes the checksummed version of an Ethereum address.
