@@ -5,20 +5,19 @@ from cpython.bytes cimport PyBytes_GET_SIZE, PyBytes_FromStringAndSize
 from cpython.sequence cimport PySequence_Fast, PySequence_Fast_GET_ITEM, PySequence_Fast_GET_SIZE
 from cpython.unicode cimport PyUnicode_AsEncodedString
 from cython.parallel cimport prange
+from libc.stddef cimport size_t
 from libc.string cimport memcpy
 
-from eth_hash.auto import keccak
 from eth_typing import AnyAddress, ChecksumAddress
 
 
-# force _hasher_first_run and _preimage_first_run to execute so we can cache the new hasher
-keccak(b"")
-
-cdef object hash_address = keccak.hasher
 cdef const unsigned char* hexdigits = b"0123456789abcdef"
 
 
 # this was ripped out of eth_utils and optimized a little bit
+
+cdef extern from "keccak.h":
+    void keccak_256(const unsigned char* data, size_t len, unsigned char* out) nogil
 
 
 cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
@@ -48,22 +47,25 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
     """
-    cdef bytes hex_address_bytes, hashed_bytes
+    cdef bytes hex_address_bytes
     cdef const unsigned char* hex_address_bytestr
     cdef unsigned char c
+    cdef unsigned char hash_out[32]
 
-    cdef unsigned char[:] hash_buffer = bytearray(80)  # contiguous and writeable
+    cdef unsigned char hash_buffer[80]
     
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
-    cdef char[42] result_buffer = b'0x' + bytearray(40)
+    cdef char result_buffer[42]
+    result_buffer[0] = 48  # '0'
+    result_buffer[1] = 120  # 'x'
     
     if isinstance(value, str):
         hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
         hex_address_bytestr = hex_address_bytes
 
     elif isinstance(value, (bytes, bytearray)):
-        hex_address_bytes = hexlify(value).lower()        
+        hex_address_bytes = hexlify(value)
         hex_address_bytestr = hex_address_bytes
         num_bytes = PyBytes_GET_SIZE(hex_address_bytes)
 
@@ -71,39 +73,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             for i in range(num_bytes):
                 c = hex_address_bytestr[i]
                 
-                if c == 48:  # 0
-                    pass
-                elif c == 49:  # 1
-                    pass
-                elif c == 50:  # 2
-                    pass
-                elif c == 51:  # 3
-                    pass
-                elif c == 52:  # 4
-                    pass
-                elif c == 53:  # 5
-                    pass
-                elif c == 54:  # 6
-                    pass
-                elif c == 55:  # 7
-                    pass
-                elif c == 56:  # 8
-                    pass
-                elif c == 57:  # 9
-                    pass
-                elif c == 97:  # a
-                    pass
-                elif c == 98:  # b
-                    pass
-                elif c == 99:  # c
-                    pass
-                elif c == 100:  # d
-                    pass
-                elif c == 101:  # e
-                    pass
-                elif c == 102:  # f
-                    pass
-                else:
+                if not is_hex_lower(c):
                     raise ValueError(
                         f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
                     )
@@ -118,12 +88,10 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
             f"Unknown format {repr(value)}, attempted to normalize to '0x{hex_address_bytes.decode()}'"
         )
     
-    hashed_bytes = hash_address(hex_address_bytes)
-    cdef const unsigned char* hashed_bytestr = hashed_bytes
-    
     with nogil:
-        hexlify_c_string_to_buffer(hashed_bytestr, hash_buffer, 40)
-        populate_result_buffer(result_buffer, hex_address_bytestr, &hash_buffer[0])
+        keccak_256(hex_address_bytestr, 40, hash_out)
+        hexlify_c_string_to_buffer(hash_out, hash_buffer, 32)
+        populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
     return result_buffer[:42].decode('ascii')
@@ -307,7 +275,7 @@ cdef inline void hexlify_memview_to_buffer(
 
 cdef inline void hexlify_c_string_to_buffer(
     const unsigned char* src_buffer, 
-    unsigned char[:] result_buffer, 
+    unsigned char* result_buffer, 
     Py_ssize_t num_bytes,
 ) noexcept nogil:
     cdef Py_ssize_t i
@@ -553,6 +521,10 @@ cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
         return c
 
 
+cdef inline bint is_hex_lower(unsigned char c) noexcept nogil:
+    return (48 <= c <= 57) or (97 <= c <= 102)
+
+
 cdef unsigned char* lowercase_ascii_and_validate(bytes src):
     cdef Py_ssize_t src_len, range_start, i
     cdef unsigned char* c_string
@@ -615,4 +587,3 @@ cdef unsigned char* lowercase_ascii_and_validate(bytes src):
 
 
 del AnyAddress, ChecksumAddress
-del keccak
