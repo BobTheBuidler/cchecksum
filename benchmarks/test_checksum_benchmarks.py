@@ -16,9 +16,7 @@ def test_to_checksum_address(benchmark: BenchmarkFixture, value: str) -> None:
 
 @pytest.mark.benchmark(group="to_checksum_address_bytes_container")
 @pytest.mark.parametrize("values", CONTAINER_CASES, ids=CONTAINER_CASE_IDS)
-def test_to_checksum_address_multi(
-    benchmark: BenchmarkFixture, values: list[bytes]
-) -> None:
+def test_to_checksum_address_multi(benchmark: BenchmarkFixture, values: list[bytes]) -> None:
     @benchmark
     def run_container():
         for value in values:
