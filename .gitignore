@@ -6,5 +6,7 @@ build/
 cchecksum.egg-info/
 dist/
 env/
-*.c
 *.so
+
+.worktrees/
+.worktrees

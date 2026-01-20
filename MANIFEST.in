@@ -1,0 +1,2 @@
+recursive-include cchecksum *.pyx *.c *.h
+include requirements*.txt
