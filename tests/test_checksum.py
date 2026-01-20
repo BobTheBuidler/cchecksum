@@ -178,7 +178,5 @@ def test_threadsafety_many() -> None:
     batches = [test_addresses[i : i + 50] for i in range(0, len(test_addresses), 50)]
     executor = ThreadPoolExecutor(50)
     fast_way = executor.map(to_checksum_address_many, batches)
-    slow_way = executor.map(
-        lambda batch: list(map(eth_utils.to_checksum_address, batch)), batches
-    )
+    slow_way = executor.map(lambda batch: list(map(eth_utils.to_checksum_address, batch)), batches)
     assert list(fast_way) == list(slow_way)
