@@ -49,11 +49,13 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef unsigned char c
     cdef unsigned char hash_out[32]
 
-    cdef unsigned char[:] hash_buffer = bytearray(80)  # contiguous and writeable
+    cdef unsigned char hash_buffer[80]
     
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
-    cdef char[42] result_buffer = b'0x' + bytearray(40)
+    cdef char result_buffer[42]
+    result_buffer[0] = 48  # '0'
+    result_buffer[1] = 120  # 'x'
     
     if isinstance(value, str):
         hex_address_bytes = lowercase_ascii_and_validate(PyUnicode_AsEncodedString(value, b"ascii", NULL))            
@@ -151,7 +153,7 @@ cdef inline void hexlify_memview_to_buffer(
 
 cdef inline void hexlify_c_string_to_buffer(
     const unsigned char* src_buffer, 
-    unsigned char[:] result_buffer, 
+    unsigned char* result_buffer, 
     Py_ssize_t num_bytes,
 ) noexcept nogil:
     cdef Py_ssize_t i
@@ -165,7 +167,7 @@ cdef inline void hexlify_c_string_to_buffer(
 cdef void populate_result_buffer(
     char[42] buffer,
     const unsigned char* norm_address_no_0x, 
-    const unsigned char[:] address_hash_hex_no_0x,
+    const unsigned char* address_hash_hex_no_0x,
 ) noexcept nogil:
     """
     Computes the checksummed version of an Ethereum address.
