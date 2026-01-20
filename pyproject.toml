@@ -5,7 +5,7 @@ requires = ["setuptools","wheel","Cython==3.2.4"]
 line-length = 100
 
 [tool.mypy]
-exclude = [".eggs/", ".github/", ".hypothesis/", ".mypy_cache/", ".pytest_cache/", "build/", "cache/", "cchecksum.egg-info/", "dist/", "env/"]
+exclude = [".eggs/",".github/",".hypothesis/",".mypy_cache/",".pytest_cache/","build/","cache/","cchecksum.egg-info/","dist/","env/"]
 
 [tool.pytest.ini_options]
 addopts = "-s -v"
