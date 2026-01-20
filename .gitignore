@@ -9,3 +9,4 @@ env/
 *.so
 
 .worktrees/
+.worktrees
