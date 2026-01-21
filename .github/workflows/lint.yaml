@@ -24,4 +24,4 @@ jobs:
         uses: BobTheBuidler/lint-all-the-things@v0.1.5
         with:
           python-version: 3.14
-          pyupgrade-target-version: py38
+          pyupgrade-target-version: py39
