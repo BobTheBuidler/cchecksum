@@ -6,7 +6,7 @@ from functools import lru_cache
 import eth_utils
 import pytest
 
-from cchecksum import to_checksum_address
+from cchecksum import to_checksum_address, to_checksum_address_many
 
 benchmark_addresses = []
 range_start = 100000000000000000000000000000000000000000
@@ -56,6 +56,43 @@ def test_checksum_str_no_0x_prefix_mixed() -> None:
 def test_checksum_bytes() -> None:
     bytes = unhexlify("C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
     assert to_checksum_address(bytes) == "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+
+
+def test_checksum_many_str() -> None:
+    addresses = benchmark_addresses[:10]
+    expected = [to_checksum_address(addr) for addr in addresses]
+    assert to_checksum_address_many(addresses) == expected
+
+
+def test_checksum_many_bytes() -> None:
+    addresses = benchmark_addresses[:10]
+    addresses_bytes = [unhexlify(addr[2:]) for addr in addresses]
+    expected = [to_checksum_address(addr) for addr in addresses_bytes]
+    assert to_checksum_address_many(addresses_bytes) == expected
+
+
+def test_checksum_many_packed_bytes() -> None:
+    addresses = benchmark_addresses[:5]
+    packed = b"".join(unhexlify(addr[2:]) for addr in addresses)
+    expected = [to_checksum_address(addr) for addr in addresses]
+    assert to_checksum_address_many(packed) == expected
+
+
+def test_checksum_many_packed_memoryview() -> None:
+    addresses = benchmark_addresses[:5]
+    packed = b"".join(unhexlify(addr[2:]) for addr in addresses)
+    expected = [to_checksum_address(addr) for addr in addresses]
+    assert to_checksum_address_many(memoryview(packed)) == expected
+
+
+def test_checksum_many_packed_length_error() -> None:
+    with pytest.raises(ValueError, match="multiple of 20"):
+        to_checksum_address_many(b"\x00" * 21)
+
+
+def test_checksum_many_invalid_item_type() -> None:
+    with pytest.raises(TypeError, match="Unsupported type"):
+        to_checksum_address_many([1])
 
 
 def test_type_error() -> None:

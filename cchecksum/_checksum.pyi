@@ -1,5 +1,5 @@
 from eth_typing import AnyAddress, ChecksumAddress, HexAddress
-from typing import Union
+from typing import Iterable, List, Union
 
 def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress:
     """
@@ -27,6 +27,21 @@ def to_checksum_address(value: Union[AnyAddress, str, bytes]) -> ChecksumAddress
     See Also:
         - :func:`eth_utils.to_checksum_address` for the standard implementation.
         - :func:`to_normalized_address` for converting to a normalized address before checksumming.
+    """
+
+def to_checksum_address_many(
+    values: Union[
+        bytes,
+        bytearray,
+        memoryview,
+        Iterable[Union[AnyAddress, str, bytes, bytearray]],
+    ],
+) -> List[ChecksumAddress]:
+    """
+    Convert multiple addresses to EIP-55 checksum format.
+
+    Accepts a sequence of address-like inputs (str/bytes/bytearray) or a packed
+    bytes-like object containing concatenated 20-byte addresses.
     """
 
 def to_normalized_address_no_0x(value: Union[AnyAddress, str, bytes]) -> bytes:
