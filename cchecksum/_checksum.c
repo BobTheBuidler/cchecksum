@@ -18710,7 +18710,6 @@ static PyObject *__pyx_pf_9cchecksum_9_checksum_4hexlify(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("hexlify", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_src_buffer.memview)) { __Pyx_RaiseUnboundLocalError("src_buffer"); __PYX_ERR(0, 212, __pyx_L1_error) }
   __pyx_t_1 = __pyx_f_9cchecksum_9_checksum_hexlify(__pyx_v_src_buffer, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
