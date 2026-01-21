@@ -2451,9 +2451,6 @@ static CYTHON_INLINE PyObject* __Pyx_decode_c_string(
 /* PyLongCompare.proto */
 static CYTHON_INLINE int __Pyx_PyLong_BoolNeObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
 
-/* ModInt[Py_ssize_t].proto */
-static CYTHON_INLINE Py_ssize_t __Pyx_mod_Py_ssize_t(Py_ssize_t, Py_ssize_t, int b_is_constant);
-
 /* AllocateExtensionType.proto */
 static PyObject *__Pyx_AllocateExtensionType(PyTypeObject *t, int is_final);
 
@@ -17450,7 +17447,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address_many(PyObject
  *             raise ValueError("Packed address bytes length must be a multiple of 20.")
  * 
 */
-    __pyx_t_1 = (__Pyx_mod_Py_ssize_t(__pyx_v_packed_len, 20, 1) != 0);
+    __pyx_t_1 = ((__pyx_v_packed_len % 20) != 0);
     if (unlikely(__pyx_t_1)) {
 
       /* "cchecksum/_checksum.pyx":130
@@ -17489,7 +17486,7 @@ static PyObject *__pyx_f_9cchecksum_9_checksum_to_checksum_address_many(PyObject
  *         if n == 0:
  *             return []
 */
-    __pyx_v_n = __Pyx_div_Py_ssize_t(__pyx_v_packed_len, 20, 1);
+    __pyx_v_n = (__pyx_v_packed_len / 20);
 
     /* "cchecksum/_checksum.pyx":133
  * 
@@ -26618,16 +26615,6 @@ static CYTHON_INLINE int __Pyx_PyLong_BoolNeObjC(PyObject *op1, PyObject *op2, l
     }
     return __Pyx_PyObject_IsTrueAndDecref(
         PyObject_RichCompare(op1, op2, Py_NE));
-}
-
-/* ModInt[Py_ssize_t] */
-static CYTHON_INLINE Py_ssize_t __Pyx_mod_Py_ssize_t(Py_ssize_t a, Py_ssize_t b, int b_is_constant) {
-    Py_ssize_t r = a % b;
-    Py_ssize_t adapt_python = (b_is_constant ?
-        ((r != 0) & ((r < 0) ^ (b < 0))) :
-        ((r != 0) & ((r ^ b) < 0))
-    );
-    return r + adapt_python * b;
 }
 
 /* AllocateExtensionType */
