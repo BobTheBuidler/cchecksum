@@ -55,6 +55,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cchecksum.monkey_patch_eth_utils"><code class="docutils literal notranslate"><span class="pre">monkey_patch_eth_utils()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cchecksum.monkey_patch_web3py"><code class="docutils literal notranslate"><span class="pre">monkey_patch_web3py()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cchecksum.to_checksum_address"><code class="docutils literal notranslate"><span class="pre">to_checksum_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cchecksum.to_checksum_address_many"><code class="docutils literal notranslate"><span class="pre">to_checksum_address_many()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -190,6 +191,14 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 <dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>AnyAddress</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a><em>]</em>)</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cchecksum.to_checksum_address_many">
+<span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address_many</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></span><a class="headerlink" href="#cchecksum.to_checksum_address_many" title="Link to this definition"></a></dt>
+<dd><p>Convert multiple addresses to EIP-55 checksum format.</p>
+<p>Accepts a sequence of address-like inputs (str/bytes/bytearray) or a packed
+bytes-like object containing concatenated 20-byte addresses.</p>
 </dd></dl>
 
 </section>
