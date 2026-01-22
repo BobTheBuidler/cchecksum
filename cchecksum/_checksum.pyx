@@ -1,4 +1,3 @@
-# cython: boundscheck=False
 from cpython.bytes cimport PyBytes_GET_SIZE
 from cpython.sequence cimport PySequence_Fast, PySequence_Fast_GET_ITEM, PySequence_Fast_GET_SIZE
 from cpython.unicode cimport PyUnicode_AsEncodedString, PyUnicode_DecodeASCII
