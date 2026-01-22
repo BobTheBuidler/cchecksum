@@ -41,6 +41,6 @@ setup(
     package_data={"cchecksum": ["py.typed", "*.pxd", "**/*.pxd"]},
     include_package_data=True,
     classifiers=classifiers,
-    ext_modules=cythonize([extension], compiler_directives={"language_level": 3, "embedsignature": True, "linetrace": False, "cdivision": True, "initializedcheck": False, "nonecheck": False}),
+    ext_modules=cythonize([extension], compiler_directives={"language_level": 3, "embedsignature": True, "linetrace": False, "cdivision": True, "initializedcheck": False, "nonecheck": False, "wraparound": False}),
     zip_safe=False,
 )
