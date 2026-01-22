@@ -3,15 +3,6 @@ name: Compile
 on:
   pull_request:
     branches: [master]
-    paths:
-      - ".github/workflows/compile.yaml"
-      - "cchecksum/**"
-      - "MANIFEST.in"
-      - "Makefile"
-      - "pyproject.toml"
-      - "setup.py"
-      - "requirements.txt"
-      - "requirements-dev.txt"
 
 permissions:
   contents: write

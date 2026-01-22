@@ -4,17 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - ".github/workflows/deploy-docs.yaml"
-      - "docs/**"
-      - "cchecksum/**"
-      - "README.md"
-      - "MANIFEST.in"
-      - "Makefile"
-      - "pyproject.toml"
-      - "setup.py"
-      - "requirements.txt"
-      - "requirements-dev.txt"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
