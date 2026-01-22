@@ -3,6 +3,15 @@ name: Compile
 on:
   pull_request:
     branches: [master]
+    paths:
+      - ".github/workflows/compile.yaml"
+      - "cchecksum/**"
+      - "MANIFEST.in"
+      - "Makefile"
+      - "pyproject.toml"
+      - "setup.py"
+      - "requirements.txt"
+      - "requirements-dev.txt"
 
 permissions:
   contents: write
@@ -20,6 +29,12 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.14"
+          cache: "pip"
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            pyproject.toml
+            setup.py
 
       - name: Install dependencies
         run: pip install -r requirements.txt cython==3.2.0 setuptools
