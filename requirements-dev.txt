@@ -1,3 +1,5 @@
 pytest>=8,<10
+setuptools
+wheel
 eth-utils==5.3.1
 web3==7.14.0
