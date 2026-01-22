@@ -1,6 +1,3 @@
-# cython: boundscheck=False
-# cython: wraparound=False
-
 from cpython.bytes cimport PyBytes_GET_SIZE
 from cpython.sequence cimport PySequence_Fast, PySequence_Fast_GET_ITEM, PySequence_Fast_GET_SIZE
 from cpython.unicode cimport PyUnicode_AsEncodedString, PyUnicode_DecodeASCII
@@ -52,8 +49,6 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     cdef unsigned char c
     cdef unsigned char hash_out[32]
 
-    cdef unsigned char hash_buffer[80]
-    
     # Create a buffer for our result
     # 2 for "0x" prefix and 40 for the address itself
     cdef char result_buffer[42]
@@ -90,8 +85,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
     
     with nogil:
         keccak_256(hex_address_bytestr, 40, hash_out)
-        hexlify_c_string_to_buffer(hash_out, hash_buffer, 32)
-        populate_result_buffer(result_buffer, hex_address_bytestr, hash_buffer)
+        populate_result_buffer(result_buffer, hex_address_bytestr, hash_out)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
     return result_buffer[:42].decode('ascii')
@@ -276,18 +270,18 @@ cdef inline void checksum_address_to_buffer(
 cdef void populate_result_buffer(
     char[42] buffer,
     const unsigned char* norm_address_no_0x, 
-    const unsigned char* address_hash_hex_no_0x,
+    const unsigned char* address_hash,
 ) noexcept nogil:
     """
     Computes the checksummed version of an Ethereum address.
 
     This function takes a normalized Ethereum address (without the '0x' prefix) and its corresponding
-    hash (also without the '0x' prefix) and returns the checksummed address as per the Ethereum
-    Improvement Proposal 55 (EIP-55).
+    raw keccak hash bytes and returns the checksummed address as per the Ethereum Improvement
+    Proposal 55 (EIP-55).
 
     Args:
         norm_address_no_0x: The normalized Ethereum address without the '0x' prefix.
-        address_hash_hex_no_0x: The hash of the address, also without the '0x' prefix.
+        address_hash: The raw keccak hash bytes for the normalized address.
 
     Returns:
         The checksummed Ethereum address with the '0x' prefix.
@@ -295,169 +289,29 @@ cdef void populate_result_buffer(
     See Also:
         - :func:`eth_utils.to_checksum_address`: A utility function for converting addresses to their checksummed form.
     """
-    # Handle character casing based on the hash value
-    # `if address_hash_hex_no_0x[x] < 56`
-    # '0' to '7' have ASCII values 48 to 55
-    if address_hash_hex_no_0x[0] < 56:
-        buffer[2] = norm_address_no_0x[0]
-    else:
-        buffer[2] = get_char(norm_address_no_0x[0])
-    if address_hash_hex_no_0x[1] < 56:
-        buffer[3] = norm_address_no_0x[1]
-    else:
-        buffer[3] = get_char(norm_address_no_0x[1])
-    if address_hash_hex_no_0x[2] < 56:
-        buffer[4] = norm_address_no_0x[2]
-    else:
-        buffer[4] = get_char(norm_address_no_0x[2])
-    if address_hash_hex_no_0x[3] < 56:
-        buffer[5] = norm_address_no_0x[3]
-    else:
-        buffer[5] = get_char(norm_address_no_0x[3])
-    if address_hash_hex_no_0x[4] < 56:
-        buffer[6] = norm_address_no_0x[4]
-    else:
-        buffer[6] = get_char(norm_address_no_0x[4])
-    if address_hash_hex_no_0x[5] < 56:
-        buffer[7] = norm_address_no_0x[5]
-    else:
-        buffer[7] = get_char(norm_address_no_0x[5])
-    if address_hash_hex_no_0x[6] < 56:
-        buffer[8] = norm_address_no_0x[6]
-    else:
-        buffer[8] = get_char(norm_address_no_0x[6])
-    if address_hash_hex_no_0x[7] < 56:
-        buffer[9] = norm_address_no_0x[7]
-    else:
-        buffer[9] = get_char(norm_address_no_0x[7])
-    if address_hash_hex_no_0x[8] < 56:
-        buffer[10] = norm_address_no_0x[8]
-    else:
-        buffer[10] = get_char(norm_address_no_0x[8])
-    if address_hash_hex_no_0x[9] < 56:
-        buffer[11] = norm_address_no_0x[9]
-    else:
-        buffer[11] = get_char(norm_address_no_0x[9])
-    if address_hash_hex_no_0x[10] < 56:
-        buffer[12] = norm_address_no_0x[10]
-    else:
-        buffer[12] = get_char(norm_address_no_0x[10])
-    if address_hash_hex_no_0x[11] < 56:
-        buffer[13] = norm_address_no_0x[11]
-    else:
-        buffer[13] = get_char(norm_address_no_0x[11])
-    if address_hash_hex_no_0x[12] < 56:
-        buffer[14] = norm_address_no_0x[12]
-    else:
-        buffer[14] = get_char(norm_address_no_0x[12])
-    if address_hash_hex_no_0x[13] < 56:
-        buffer[15] = norm_address_no_0x[13]
-    else:
-        buffer[15] = get_char(norm_address_no_0x[13])
-    if address_hash_hex_no_0x[14] < 56:
-        buffer[16] = norm_address_no_0x[14]
-    else:
-        buffer[16] = get_char(norm_address_no_0x[14])
-    if address_hash_hex_no_0x[15] < 56:
-        buffer[17] = norm_address_no_0x[15]
-    else:
-        buffer[17] = get_char(norm_address_no_0x[15])
-    if address_hash_hex_no_0x[16] < 56:
-        buffer[18] = norm_address_no_0x[16]
-    else:
-        buffer[18] = get_char(norm_address_no_0x[16])
-    if address_hash_hex_no_0x[17] < 56:
-        buffer[19] = norm_address_no_0x[17]
-    else:
-        buffer[19] = get_char(norm_address_no_0x[17])
-    if address_hash_hex_no_0x[18] < 56:
-        buffer[20] = norm_address_no_0x[18]
-    else:
-        buffer[20] = get_char(norm_address_no_0x[18])
-    if address_hash_hex_no_0x[19] < 56:
-        buffer[21] = norm_address_no_0x[19]
-    else:
-        buffer[21] = get_char(norm_address_no_0x[19])
-    if address_hash_hex_no_0x[20] < 56:
-        buffer[22] = norm_address_no_0x[20]
-    else:
-        buffer[22] = get_char(norm_address_no_0x[20])
-    if address_hash_hex_no_0x[21] < 56:
-        buffer[23] = norm_address_no_0x[21]
-    else:
-        buffer[23] = get_char(norm_address_no_0x[21])
-    if address_hash_hex_no_0x[22] < 56:
-        buffer[24] = norm_address_no_0x[22]
-    else:
-        buffer[24] = get_char(norm_address_no_0x[22])
-    if address_hash_hex_no_0x[23] < 56:
-        buffer[25] = norm_address_no_0x[23]
-    else:
-        buffer[25] = get_char(norm_address_no_0x[23])
-    if address_hash_hex_no_0x[24] < 56:
-        buffer[26] = norm_address_no_0x[24]
-    else:
-        buffer[26] = get_char(norm_address_no_0x[24])
-    if address_hash_hex_no_0x[25] < 56:
-        buffer[27] = norm_address_no_0x[25]
-    else:
-        buffer[27] = get_char(norm_address_no_0x[25])
-    if address_hash_hex_no_0x[26] < 56:
-        buffer[28] = norm_address_no_0x[26]
-    else:
-        buffer[28] = get_char(norm_address_no_0x[26])
-    if address_hash_hex_no_0x[27] < 56:
-        buffer[29] = norm_address_no_0x[27]
-    else:
-        buffer[29] = get_char(norm_address_no_0x[27])
-    if address_hash_hex_no_0x[28] < 56:
-        buffer[30] = norm_address_no_0x[28]
-    else:
-        buffer[30] = get_char(norm_address_no_0x[28])
-    if address_hash_hex_no_0x[29] < 56:
-        buffer[31] = norm_address_no_0x[29]
-    else:
-        buffer[31] = get_char(norm_address_no_0x[29])
-    if address_hash_hex_no_0x[30] < 56:
-        buffer[32] = norm_address_no_0x[30]
-    else:
-        buffer[32] = get_char(norm_address_no_0x[30])
-    if address_hash_hex_no_0x[31] < 56:
-        buffer[33] = norm_address_no_0x[31]
-    else:
-        buffer[33] = get_char(norm_address_no_0x[31])
-    if address_hash_hex_no_0x[32] < 56:
-        buffer[34] = norm_address_no_0x[32]
-    else:
-        buffer[34] = get_char(norm_address_no_0x[32])
-    if address_hash_hex_no_0x[33] < 56:
-        buffer[35] = norm_address_no_0x[33]
-    else:
-        buffer[35] = get_char(norm_address_no_0x[33])
-    if address_hash_hex_no_0x[34] < 56:
-        buffer[36] = norm_address_no_0x[34]
-    else:
-        buffer[36] = get_char(norm_address_no_0x[34])
-    if address_hash_hex_no_0x[35] < 56:
-        buffer[37] = norm_address_no_0x[35]
-    else:
-        buffer[37] = get_char(norm_address_no_0x[35])
-    if address_hash_hex_no_0x[36] < 56:
-        buffer[38] = norm_address_no_0x[36]
-    else:
-        buffer[38] = get_char(norm_address_no_0x[36])
-    if address_hash_hex_no_0x[37] < 56:
-        buffer[39] = norm_address_no_0x[37]
-    else:
-        buffer[39] = get_char(norm_address_no_0x[37])
-    if address_hash_hex_no_0x[38] < 56:
-        buffer[40] = norm_address_no_0x[38]
-    else:
-        buffer[40] = get_char(norm_address_no_0x[38])
-    if address_hash_hex_no_0x[39] < 56:
-        buffer[41] = norm_address_no_0x[39]
-    else:
-        buffer[41] = get_char(norm_address_no_0x[39])
+    cdef Py_ssize_t i
+    cdef Py_ssize_t address_index
+    cdef Py_ssize_t buffer_index
+    cdef unsigned char hash_byte
+    cdef unsigned char high_nibble
+    cdef unsigned char low_nibble
+
+    for i in range(20):
+        hash_byte = address_hash[i]
+        high_nibble = hash_byte >> 4
+        low_nibble = hash_byte & 0x0F
+        address_index = i * 2
+        buffer_index = address_index + 2
+
+        if high_nibble < 8:
+            buffer[buffer_index] = norm_address_no_0x[address_index]
+        else:
+            buffer[buffer_index] = get_char(norm_address_no_0x[address_index])
+
+        if low_nibble < 8:
+            buffer[buffer_index + 1] = norm_address_no_0x[address_index + 1]
+        else:
+            buffer[buffer_index + 1] = get_char(norm_address_no_0x[address_index + 1])
 
 
 cdef inline unsigned char get_char(unsigned char c) noexcept nogil:
