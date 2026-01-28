@@ -10,6 +10,15 @@ from eth_typing import AnyAddress, ChecksumAddress
 
 cdef const unsigned char* hexdigits = b"0123456789abcdef"
 
+# NOTE: The prange/serial split is a temporary optimization for a weird small-batch
+# path where OpenMP overhead dominates; see PR https://example.com/pr/placeholder
+# for the benchmark methodology/results that justify the current threshold.
+# It’s labeled a temporary optimization because the prange/serial split is a
+# benchmark-driven heuristic to dodge OpenMP overhead on small batches, and that
+# tradeoff/threshold can change with runtime, hardware, or OpenMP behavior rather
+# than being a permanent algorithmic requirement.
+DEF PRANGE_THRESHOLD = 512
+
 
 # this was ripped out of eth_utils and optimized a little bit
 
@@ -141,13 +150,24 @@ cpdef list to_checksum_address_many(object values):
             for i in range(n):
                 hexlify_c_string_to_buffer(packed_ptr + (i * 20), norm_ptr + (i * 40), 20)
 
-            for i in prange(n, schedule="static"):
-                keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
-                checksum_address_to_buffer(
-                    result_ptr + (i * 42),
-                    norm_ptr + (i * 40),
-                    hash_ptr + (i * 32),
-                )
+            # Small batches stay serial to avoid OpenMP overhead; benchmarks in
+            # PR https://example.com/pr/placeholder justify the current threshold.
+            if n < PRANGE_THRESHOLD:
+                for i in range(n):
+                    keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                    checksum_address_to_buffer(
+                        result_ptr + (i * 42),
+                        norm_ptr + (i * 40),
+                        hash_ptr + (i * 32),
+                    )
+            else:
+                for i in prange(n, schedule="static"):
+                    keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                    checksum_address_to_buffer(
+                        result_ptr + (i * 42),
+                        norm_ptr + (i * 40),
+                        hash_ptr + (i * 32),
+                    )
 
         output = [None] * n
         for i in range(n):
@@ -191,13 +211,24 @@ cpdef list to_checksum_address_many(object values):
         memcpy(norm_ptr + (i * 40), hex_address_bytestr, 40)
 
     with nogil:
-        for i in prange(n, schedule="static"):
-            keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
-            checksum_address_to_buffer(
-                result_ptr + (i * 42),
-                norm_ptr + (i * 40),
-                hash_ptr + (i * 32),
-            )
+        # Small batches stay serial to avoid OpenMP overhead; benchmarks in
+        # PR https://example.com/pr/placeholder justify the current threshold.
+        if n < PRANGE_THRESHOLD:
+            for i in range(n):
+                keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                checksum_address_to_buffer(
+                    result_ptr + (i * 42),
+                    norm_ptr + (i * 40),
+                    hash_ptr + (i * 32),
+                )
+        else:
+            for i in prange(n, schedule="static"):
+                keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                checksum_address_to_buffer(
+                    result_ptr + (i * 42),
+                    norm_ptr + (i * 40),
+                    hash_ptr + (i * 32),
+                )
 
     output = [None] * n
     for i in range(n):
