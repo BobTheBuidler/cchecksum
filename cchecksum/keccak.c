@@ -1,4 +1,4 @@
-#include "keccak.h"
+#include "_keccak.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -130,7 +130,7 @@ static void keccakf(uint64_t st[25]) {
     }
 }
 
-void keccak_256(const unsigned char* data, size_t len, unsigned char* out) {
+void keccak_256_40(const unsigned char* data, unsigned char* out) {
     uint64_t st[25];
     unsigned char temp[136];
     size_t i;
@@ -138,20 +138,9 @@ void keccak_256(const unsigned char* data, size_t len, unsigned char* out) {
 
     memset(st, 0, sizeof(st));
 
-    while (len >= rate) {
-        for (i = 0; i < rate / 8; i++) {
-            st[i] ^= load64(data + (i * 8));
-        }
-        keccakf(st);
-        data += rate;
-        len -= rate;
-    }
-
     memset(temp, 0, rate);
-    if (len) {
-        memcpy(temp, data, len);
-    }
-    temp[len] = 0x01;  /* Keccak padding */
+    memcpy(temp, data, 40);
+    temp[40] = 0x01;  /* Keccak padding */
     temp[rate - 1] |= 0x80;
 
     for (i = 0; i < rate / 8; i++) {
