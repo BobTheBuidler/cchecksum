@@ -22,8 +22,8 @@ DEF PRANGE_THRESHOLD = 512
 
 # this was ripped out of eth_utils and optimized a little bit
 
-cdef extern from "keccak.h":
-    void keccak_256(const unsigned char* data, size_t len, unsigned char* out) nogil
+cdef extern from "_keccak.h":
+    void keccak_256_40(const unsigned char* data, unsigned char* out) nogil
     const unsigned char CKSUM_HEX_LOWER_MAP[256]
     const unsigned char CKSUM_HEX_UPPER_MAP[256]
 
@@ -95,7 +95,7 @@ cpdef unicode to_checksum_address(value: Union[AnyAddress, str, bytes]):
         )
     
     with nogil:
-        keccak_256(hex_address_bytestr, 40, hash_out)
+        keccak_256_40(hex_address_bytestr, hash_out)
         populate_result_buffer(result_buffer, hex_address_bytestr, hash_out)
         
     # It is faster to decode a buffer with a known size ie buffer[:42]
@@ -154,7 +154,7 @@ cpdef list to_checksum_address_many(object values):
             # PR https://example.com/pr/placeholder justify the current threshold.
             if n < PRANGE_THRESHOLD:
                 for i in range(n):
-                    keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                    keccak_256_40(norm_ptr + (i * 40), hash_ptr + (i * 32))
                     checksum_address_to_buffer(
                         result_ptr + (i * 42),
                         norm_ptr + (i * 40),
@@ -162,7 +162,7 @@ cpdef list to_checksum_address_many(object values):
                     )
             else:
                 for i in prange(n, schedule="static"):
-                    keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                    keccak_256_40(norm_ptr + (i * 40), hash_ptr + (i * 32))
                     checksum_address_to_buffer(
                         result_ptr + (i * 42),
                         norm_ptr + (i * 40),
@@ -215,7 +215,7 @@ cpdef list to_checksum_address_many(object values):
         # PR https://example.com/pr/placeholder justify the current threshold.
         if n < PRANGE_THRESHOLD:
             for i in range(n):
-                keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                keccak_256_40(norm_ptr + (i * 40), hash_ptr + (i * 32))
                 checksum_address_to_buffer(
                     result_ptr + (i * 42),
                     norm_ptr + (i * 40),
@@ -223,7 +223,7 @@ cpdef list to_checksum_address_many(object values):
                 )
         else:
             for i in prange(n, schedule="static"):
-                keccak_256(norm_ptr + (i * 40), 40, hash_ptr + (i * 32))
+                keccak_256_40(norm_ptr + (i * 40), hash_ptr + (i * 32))
                 checksum_address_to_buffer(
                     result_ptr + (i * 42),
                     norm_ptr + (i * 40),
