@@ -95,7 +95,7 @@ else:
 setup(
     name="cchecksum",
     packages=find_packages(),
-    version="0.4.1",
+    version="0.4.2",
     description="An ~18x faster drop-in replacement for eth_utils.to_checksum_address. Raises the exact same Exceptions. Implemented in C.",
     long_description=long_description,
     long_description_content_type="text/markdown",
