@@ -1,5 +1,5 @@
+import sys
 from pathlib import Path
-from Cython.Build import cythonize
 from setuptools import Extension, find_packages, setup
 from setuptools.command.build_ext import build_ext
 
@@ -23,8 +23,38 @@ with open("requirements.txt", "r") as f:
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
-sources = ["cchecksum/_checksum.pyx", "cchecksum/keccak.c"]
-extension = Extension("cchecksum._checksum", sources=sources, include_dirs=["cchecksum"])
+_METADATA_ONLY_ARGS = {
+    "--author",
+    "--author-email",
+    "--classifiers",
+    "--contact",
+    "--contact-email",
+    "--description",
+    "--fullname",
+    "--help",
+    "--help-commands",
+    "--keywords",
+    "--license",
+    "--licence",
+    "--long-description",
+    "--maintainer",
+    "--maintainer-email",
+    "--name",
+    "--obsoletes",
+    "--platforms",
+    "--provides",
+    "--requires",
+    "--url",
+    "--version",
+    "dist_info",
+    "egg_info",
+}
+_IGNORED_ARGS = {"-q", "--quiet", "-v", "--verbose"}
+
+
+def is_metadata_only_command(argv):
+    args = [arg for arg in argv[1:] if arg not in _IGNORED_ARGS]
+    return bool(args) and all(arg in _METADATA_ONLY_ARGS for arg in args)
 
 
 class BuildExt(build_ext):
@@ -37,6 +67,29 @@ class BuildExt(build_ext):
                 extra.append(opt_flag)
             ext.extra_compile_args = extra
         super().build_extensions()
+
+if is_metadata_only_command(sys.argv):
+    ext_modules = []
+    cmdclass = {}
+else:
+    from Cython.Build import cythonize
+
+    sources = ["cchecksum/_checksum.pyx", "cchecksum/keccak.c"]
+    extension = Extension("cchecksum._checksum", sources=sources, include_dirs=["cchecksum"])
+    ext_modules = cythonize(
+        [extension],
+        compiler_directives={
+            "language_level": 3,
+            "embedsignature": True,
+            "linetrace": False,
+            "cdivision": True,
+            "initializedcheck": False,
+            "nonecheck": False,
+            "boundscheck": False,
+            "wraparound": False,
+        },
+    )
+    cmdclass = {"build_ext": BuildExt}
 
 
 setup(
@@ -55,7 +108,7 @@ setup(
     package_data={"cchecksum": ["py.typed", "*.pxd", "**/*.pxd"]},
     include_package_data=True,
     classifiers=classifiers,
-    ext_modules=cythonize([extension], compiler_directives={"language_level": 3, "embedsignature": True, "linetrace": False, "cdivision": True, "initializedcheck": False, "nonecheck": False, "boundscheck": False, "wraparound": False}),
+    ext_modules=ext_modules,
     zip_safe=False,
-    cmdclass={"build_ext": BuildExt},
+    cmdclass=cmdclass,
 )
