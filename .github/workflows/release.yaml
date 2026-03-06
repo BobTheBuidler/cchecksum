@@ -24,6 +24,15 @@ jobs:
             artifact_name: "wheels-ubuntu-latest-manylinux-x64"
 
           # ----------------------------------------------------
+          # manylinux arm64
+          # ----------------------------------------------------
+          - os: ubuntu-latest
+            build_type: manylinux-arm64
+            cibw_build: "*manylinux*"
+            cibw_archs_linux: aarch64
+            artifact_name: "wheels-ubuntu-latest-manylinux-arm64"
+
+          # ----------------------------------------------------
           # manylinux 32-bit
           # ----------------------------------------------------
           - os: ubuntu-latest
@@ -151,6 +160,12 @@ jobs:
           name: "wheels-ubuntu-latest-manylinux-x64"
           path: wheelhouse/linux-many-x64
 
+      - name: Download manylinux arm64 wheels
+        uses: actions/download-artifact@v8
+        with:
+          name: "wheels-ubuntu-latest-manylinux-arm64"
+          path: wheelhouse/linux-many-arm64
+
       - name: Download manylinux 32-bit wheels
         uses: actions/download-artifact@v8
         with:
@@ -198,6 +213,7 @@ jobs:
           twine upload \
             dist/* \
             wheelhouse/linux-many-x64/*.whl \
+            wheelhouse/linux-many-arm64/*.whl \
             wheelhouse/linux-many-x86/*.whl \
             wheelhouse/linux-musl-x64/*.whl \
             wheelhouse/linux-musl-x86/*.whl \
