@@ -5,6 +5,9 @@ on:
     branches:
       - master
     types: [published]
+  pull_request:
+    paths:
+      - ".github/workflows/release.yaml"
 
 jobs:
   build_wheels:
@@ -125,6 +128,7 @@ jobs:
   publish_sdist_and_wheels:
     name: Publish wheels to PyPI
     needs: build_wheels
+    if: github.event_name == 'release' && github.event.action == 'published'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
