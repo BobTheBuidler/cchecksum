@@ -72,13 +72,24 @@ jobs:
             artifact_name: "wheels-ubuntu-latest-musllinux-x86"
 
           # ----------------------------------------------------
-          # macOS (64-bit only)
+          # macOS 64-bit (x86_64)
           # ----------------------------------------------------
           - os: macos-latest
-            build_type: macos
+            build_type: macos-x64
             cibw_build: ""
             cibw_archs_linux: ""
-            artifact_name: "wheels-macos-latest"
+            cibw_archs_macos: x86_64
+            artifact_name: "wheels-macos-latest-x64"
+
+          # ----------------------------------------------------
+          # macOS arm64
+          # ----------------------------------------------------
+          - os: macos-latest
+            build_type: macos-arm64
+            cibw_build: ""
+            cibw_archs_linux: ""
+            cibw_archs_macos: arm64
+            artifact_name: "wheels-macos-latest-arm64"
 
           # ----------------------------------------------------
           # Windows 64-bit
@@ -139,6 +150,8 @@ jobs:
           CIBW_ARCHS_LINUX: ${{ matrix.cibw_archs_linux || '' }}
           # On Windows: AMD64 / ARM64 / x86
           CIBW_ARCHS_WINDOWS: ${{ matrix.cibw_archs_windows || '' }}
+          # On macOS: x86_64 / arm64
+          CIBW_ARCHS_MACOS: ${{ matrix.cibw_archs_macos || '' }}
           # Which wheels to build for Linux (manylinux vs. musllinux)
           CIBW_BUILD: ${{ matrix.cibw_build || '' }}
         run: python -m cibuildwheel --output-dir wheelhouse
@@ -218,11 +231,17 @@ jobs:
           name: "wheels-ubuntu-latest-musllinux-x86"
           path: wheelhouse/linux-musl-x86
 
-      - name: Download macOS wheels
+      - name: Download macOS x86_64 wheels
         uses: actions/download-artifact@v8
         with:
-          name: "wheels-macos-latest"
-          path: wheelhouse/macos
+          name: "wheels-macos-latest-x64"
+          path: wheelhouse/macos-x64
+
+      - name: Download macOS arm64 wheels
+        uses: actions/download-artifact@v8
+        with:
+          name: "wheels-macos-latest-arm64"
+          path: wheelhouse/macos-arm64
 
       - name: Download Windows 64-bit wheels
         uses: actions/download-artifact@v8
@@ -258,7 +277,8 @@ jobs:
             wheelhouse/linux-musl-x64/*.whl \
             wheelhouse/linux-musl-arm64/*.whl \
             wheelhouse/linux-musl-x86/*.whl \
-            wheelhouse/macos/*.whl \
+            wheelhouse/macos-x64/*.whl \
+            wheelhouse/macos-arm64/*.whl \
             wheelhouse/windows-x64/*.whl \
             wheelhouse/windows-arm64/*.whl \
             wheelhouse/windows-x86/*.whl
