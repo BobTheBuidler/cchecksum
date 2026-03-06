@@ -51,6 +51,15 @@ jobs:
             artifact_name: "wheels-ubuntu-latest-musllinux-x64"
 
           # ----------------------------------------------------
+          # musllinux arm64
+          # ----------------------------------------------------
+          - os: ubuntu-latest
+            build_type: musllinux-arm64
+            cibw_build: "*musllinux*"
+            cibw_archs_linux: aarch64
+            artifact_name: "wheels-ubuntu-latest-musllinux-arm64"
+
+          # ----------------------------------------------------
           # musllinux 32-bit
           # ----------------------------------------------------
           - os: ubuntu-latest
@@ -178,6 +187,12 @@ jobs:
           name: "wheels-ubuntu-latest-musllinux-x64"
           path: wheelhouse/linux-musl-x64
 
+      - name: Download musllinux arm64 wheels
+        uses: actions/download-artifact@v8
+        with:
+          name: "wheels-ubuntu-latest-musllinux-arm64"
+          path: wheelhouse/linux-musl-arm64
+
       - name: Download musllinux 32-bit wheels
         uses: actions/download-artifact@v8
         with:
@@ -216,6 +231,7 @@ jobs:
             wheelhouse/linux-many-arm64/*.whl \
             wheelhouse/linux-many-x86/*.whl \
             wheelhouse/linux-musl-x64/*.whl \
+            wheelhouse/linux-musl-arm64/*.whl \
             wheelhouse/linux-musl-x86/*.whl \
             wheelhouse/macos/*.whl \
             wheelhouse/windows-x64/*.whl \
