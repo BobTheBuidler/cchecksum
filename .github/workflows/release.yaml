@@ -90,6 +90,15 @@ jobs:
             artifact_name: "wheels-windows-latest-x64"
 
           # ----------------------------------------------------
+          # Windows arm64
+          # ----------------------------------------------------
+          - os: windows-latest
+            build_type: winarm64
+            cibw_build: ""
+            cibw_archs_windows: ARM64
+            artifact_name: "wheels-windows-latest-arm64"
+
+          # ----------------------------------------------------
           # Windows 32-bit
           # ----------------------------------------------------
           - os: windows-latest
@@ -128,7 +137,7 @@ jobs:
         env:
           # On Linux: manylinux / musllinux arches
           CIBW_ARCHS_LINUX: ${{ matrix.cibw_archs_linux || '' }}
-          # On Windows: AMD64 / x86
+          # On Windows: AMD64 / ARM64 / x86
           CIBW_ARCHS_WINDOWS: ${{ matrix.cibw_archs_windows || '' }}
           # Which wheels to build for Linux (manylinux vs. musllinux)
           CIBW_BUILD: ${{ matrix.cibw_build || '' }}
@@ -221,6 +230,12 @@ jobs:
           name: "wheels-windows-latest-x64"
           path: wheelhouse/windows-x64
 
+      - name: Download Windows arm64 wheels
+        uses: actions/download-artifact@v8
+        with:
+          name: "wheels-windows-latest-arm64"
+          path: wheelhouse/windows-arm64
+
       - name: Download Windows 32-bit wheels
         uses: actions/download-artifact@v8
         with:
@@ -245,4 +260,5 @@ jobs:
             wheelhouse/linux-musl-x86/*.whl \
             wheelhouse/macos/*.whl \
             wheelhouse/windows-x64/*.whl \
+            wheelhouse/windows-arm64/*.whl \
             wheelhouse/windows-x86/*.whl
