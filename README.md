@@ -9,5 +9,7 @@ It keeps the exact same API as the existing implementation, exceptions and all.
 
 Just `pip install cchecksum`, drop it in, and run your script with a substantial speed improvement.
 
+Supported Python versions: CPython `3.9` through `3.14`. For full distribution-by-version coverage, see [DISTRIBUTIONS.md](./DISTRIBUTIONS.md).
+
 ![image](https://github.com/user-attachments/assets/b989108f-350d-45a1-93c0-c1eaa3d8b801)
 (note to self: update that screenshot, its way old)
