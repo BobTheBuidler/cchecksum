@@ -17,4 +17,6 @@ All agents must follow these rules:
 11) If the branch you're assigned to work on is from a remote (ie origin/master or upstream/awesome-feature) you must ensure you fetch and pull from the remote before you begin your work.
 12) Local pip install . generates build/; clean up before closing a worktree to avoid dirty state.
 
+For agent tasks, treat CPython `3.9`-`3.14` as supported and use [DISTRIBUTIONS.md](./DISTRIBUTIONS.md) for distribution-level details.
+
 Reference: https://www.conventionalcommits.org/en/v1.0.0/
