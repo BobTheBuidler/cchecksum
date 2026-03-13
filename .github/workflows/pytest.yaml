@@ -8,6 +8,7 @@ on:
     paths:
       - '**.py'
       - '**.pyx'
+      - '**.c'
       - '**/pytest.yaml'
       - '!**/docs/conf.py'
       - 'requirements.txt'
@@ -65,3 +66,99 @@ jobs:
       - name: Run test suite
         shell: bash
         run: pytest
+
+  linux-wheel-arch-test:
+    name: Wheel architecture tests (${{ matrix.label }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: manylinux-x64
+            cibw_build: "cp311-*manylinux*"
+            cibw_archs_linux: x86_64
+            needs_qemu: false
+          - label: manylinux-arm64
+            cibw_build: "cp311-*manylinux*"
+            cibw_archs_linux: aarch64
+            needs_qemu: true
+          - label: manylinux-x86
+            cibw_build: "cp311-*manylinux*"
+            cibw_archs_linux: i686
+            needs_qemu: false
+          - label: manylinux-ppc64le
+            cibw_build: "cp311-*manylinux*"
+            cibw_archs_linux: ppc64le
+            needs_qemu: true
+          - label: manylinux-s390x
+            cibw_build: "cp311-*manylinux*"
+            cibw_archs_linux: s390x
+            needs_qemu: true
+          - label: manylinux-armv7l
+            cibw_build: "cp311-*manylinux*"
+            cibw_archs_linux: armv7l
+            needs_qemu: true
+          - label: manylinux-riscv64
+            cibw_build: "cp311-*manylinux*"
+            cibw_archs_linux: riscv64
+            needs_qemu: true
+          - label: musllinux-x64
+            cibw_build: "cp311-*musllinux*"
+            cibw_archs_linux: x86_64
+            needs_qemu: false
+          - label: musllinux-arm64
+            cibw_build: "cp311-*musllinux*"
+            cibw_archs_linux: aarch64
+            needs_qemu: true
+          - label: musllinux-x86
+            cibw_build: "cp311-*musllinux*"
+            cibw_archs_linux: i686
+            needs_qemu: false
+          - label: musllinux-ppc64le
+            cibw_build: "cp311-*musllinux*"
+            cibw_archs_linux: ppc64le
+            needs_qemu: true
+          - label: musllinux-s390x
+            cibw_build: "cp311-*musllinux*"
+            cibw_archs_linux: s390x
+            needs_qemu: true
+          - label: musllinux-armv7l
+            cibw_build: "cp311-*musllinux*"
+            cibw_archs_linux: armv7l
+            needs_qemu: true
+          - label: musllinux-riscv64
+            cibw_build: "cp311-*musllinux*"
+            cibw_archs_linux: riscv64
+            needs_qemu: true
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            pyproject.toml
+            setup.py
+
+      - name: Enable QEMU for emulated wheel tests
+        if: matrix.needs_qemu
+        uses: docker/setup-qemu-action@v4
+        with:
+          platforms: arm64,ppc64le,s390x,arm,riscv64
+
+      - name: Install cibuildwheel
+        run: python -m pip install --upgrade pip setuptools wheel cibuildwheel
+
+      - name: Build and test wheels
+        env:
+          CIBW_BUILD: ${{ matrix.cibw_build }}
+          CIBW_ARCHS_LINUX: ${{ matrix.cibw_archs_linux }}
+          CIBW_TEST_COMMAND: "python -m pytest {project}/tests -q"
+          CIBW_TEST_REQUIRES: "-r {project}/requirements-dev.txt"
+        run: python -m cibuildwheel --output-dir wheelhouse
