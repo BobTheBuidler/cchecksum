@@ -1,4 +1,4 @@
-name: Build and Publish Wheels
+name: Build, Test, and Publish Wheels
 
 on:
   release:
@@ -6,7 +6,15 @@ on:
       - master
     types: [published]
   pull_request:
+    branches: [ master, dev ]
     paths:
+      - "cchecksum/**"
+      - "tests/**"
+      - "requirements.txt"
+      - "requirements-dev.txt"
+      - "pyproject.toml"
+      - "setup.py"
+      - "MANIFEST.in"
       - ".github/workflows/release.yaml"
 
 concurrency:
@@ -238,9 +246,54 @@ jobs:
           name: ${{ matrix.artifact_name }}
           path: wheelhouse/*.whl
 
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        pyversion: [ "3.9", "3.10", "3.11", "3.12", "3.13", "3.13t", "3.14", "3.14t" ]
+        install_target: [ source, sdist ]
+        exclude:
+          # gh runner throws "Error: Version ${{ matrix.pyversion }} with arch arm64 not found"
+          - os: macos-latest
+            pyversion: "3.8"
+          - os: macos-latest
+            pyversion: "3.9"
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+
+      - name: Setup Python (faster than using Python container)
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.pyversion }}
+          cache: "pip"
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            pyproject.toml
+            setup.py
+
+      - name: Install cchecksum and test deps
+        shell: bash
+        run: |
+          if [ "${{ matrix.install_target }}" = "sdist" ]; then
+            pip install build
+            python -m build --sdist
+            pip install dist/*.tar.gz -r requirements-dev.txt
+          else
+            pip install . -r requirements-dev.txt
+          fi
+
+      - name: Run test suite
+        shell: bash
+        run: pytest
+
   publish_sdist_and_wheels:
     name: Publish wheels to PyPI
-    needs: build_wheels
+    needs: [build_wheels, test]
     if: github.event_name == 'release' && github.event.action == 'published'
     runs-on: ubuntu-latest
     steps:
