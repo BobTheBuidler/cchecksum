@@ -226,6 +226,9 @@ jobs:
           CIBW_ARCHS_MACOS: ${{ matrix.cibw_archs_macos || '' }}
           # Which wheels to build for Linux (manylinux vs. musllinux)
           CIBW_BUILD: ${{ matrix.cibw_build || '' }}
+          # Run the test suite against each built wheel before upload.
+          CIBW_TEST_COMMAND: "python -m pytest {project}/tests -q"
+          CIBW_TEST_REQUIRES: "-r {project}/requirements-dev.txt"
         run: python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload wheels
