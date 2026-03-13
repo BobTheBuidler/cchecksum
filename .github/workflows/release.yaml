@@ -238,9 +238,8 @@ jobs:
           CIBW_ARCHS_MACOS: ${{ matrix.cibw_archs_macos || '' }}
           # Which wheels to build for Linux (manylinux vs. musllinux)
           CIBW_BUILD: ${{ matrix.cibw_build || '' }}
-          # Run project tests against each built wheel
-          CIBW_TEST_REQUIRES: -r requirements-dev.txt
-          CIBW_TEST_COMMAND: pytest {project}/tests
+          # Smoke-test each built wheel without pulling heavy optional deps.
+          CIBW_TEST_COMMAND: python -c "import cchecksum as c; assert c.to_checksum_address('0x52908400098527886e0f7030069857d2e4169ee7') == '0x52908400098527886E0F7030069857D2E4169EE7'"
         run: python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload wheels
