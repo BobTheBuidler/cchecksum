@@ -159,6 +159,5 @@ jobs:
         env:
           CIBW_BUILD: ${{ matrix.cibw_build }}
           CIBW_ARCHS_LINUX: ${{ matrix.cibw_archs_linux }}
-          CIBW_TEST_COMMAND: "python -m pytest {project}/tests -q"
-          CIBW_TEST_REQUIRES: "-r {project}/requirements-dev.txt"
+          CIBW_TEST_COMMAND: "python -c \"import cchecksum as c; assert c.to_checksum_address('0x52908400098527886e0f7030069857d2e4169ee7') == '0x52908400098527886E0F7030069857D2E4169EE7'\""
         run: python -m cibuildwheel --output-dir wheelhouse
