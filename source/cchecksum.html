@@ -148,7 +148,7 @@ with the most cpu-intensive part implemented in c.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cchecksum.to_checksum_address">
-<span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyAddress</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#cchecksum.to_checksum_address" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnyAddress</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#cchecksum.to_checksum_address" title="Link to this definition"></a></dt>
 <dd><blockquote>
 <div><p>Convert an address to its EIP-55 checksum format.</p>
 <p>This function takes an address in any supported format and returns it in the
@@ -163,11 +163,11 @@ for the checksum conversion to optimize performance.</p>
 <dt>Raises:</dt><dd><p>ValueError: If the input address is not in a recognized format.
 TypeError: If the input is not a string, bytes, or any address type.</p>
 </dd>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">to_checksum_address</span><span class="p">(</span><span class="s2">&quot;0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb&quot;</span><span class="p">)</span>
-<span class="go">&#39;0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB&#39;</span>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">to_checksum_address</span><span class="p">(</span><span class="s2">"0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb"</span><span class="p">)</span>
+<span class="go">'0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">to_checksum_address</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;´~&lt;Ø7ÝøäÅ×</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">to_checksum_address</span><span class="p">(</span><span class="sa">b</span><span class="s1">'´~&lt;Ø7ÝøäÅ×</span>
 </pre></div>
 </div>
 </dd>
@@ -188,14 +188,14 @@ TypeError: If the input is not a string, bytes, or any address type.</p>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>AnyAddress</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a><em>]</em>)</p>
+<dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>AnyAddress</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><em>bytes</em></a><em>]</em>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cchecksum.to_checksum_address_many">
-<span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address_many</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></span><a class="headerlink" href="#cchecksum.to_checksum_address_many" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cchecksum.</span></span><span class="sig-name descname"><span class="pre">to_checksum_address_many</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a></span></span><a class="headerlink" href="#cchecksum.to_checksum_address_many" title="Link to this definition"></a></dt>
 <dd><p>Convert multiple addresses to EIP-55 checksum format.</p>
 <p>Accepts a sequence of address-like inputs (str/bytes/bytearray) or a packed
 bytes-like object containing concatenated 20-byte addresses.</p>
