@@ -2,8 +2,6 @@ name: Build and Publish Wheels
 
 on:
   release:
-    branches:
-      - master
     types: [published]
   pull_request:
     paths:
@@ -42,7 +40,8 @@ jobs:
           # ----------------------------------------------------
           # manylinux 32-bit
           # ----------------------------------------------------
-          - os: ubuntu-latest
+          # Match the runner used by the manylinux i686 wheel test.
+          - os: ubuntu-24.04
             build_type: manylinux-x86
             cibw_build: "*manylinux*"
             cibw_archs_linux: i686
