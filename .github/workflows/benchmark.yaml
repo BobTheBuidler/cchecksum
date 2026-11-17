@@ -32,6 +32,8 @@ concurrency:
 jobs:
   codspeed:
     name: Run CodSpeed Benchmarks
+    # Tokenless uploads require a repository registered with CodSpeed.
+    if: github.repository == 'BobTheBuidler/cchecksum'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
